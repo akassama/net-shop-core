@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Parent"] = "";
+
+    ViewData["Title"] = "Shop";
+}
+
+<header class="site-navbar" role="banner">
+    <!-- //Top menu item -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
+
+
+    <!-- //Navigation menu -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
+</header>
+
+
+<!-- //Breadcrump -->
+@await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+<div class="site-section">
+    <div class="container">
+
+        <div class="row mb-5">
+            <div class="col-md-9 order-2">
+                <div class="row">
+                    <!-- //Shopping Sort By -->
+                    @await Html.PartialAsync("~/Views/Shared/Shop/_SortBy.cshtml")
+                </div>
+
+                <div class="row mb-5">
+                    <!-- //Shopping Products List -->
+                    @await Html.PartialAsync("~/Views/Shared/Shop/_Products.cshtml")
+                </div>
+
+
+                <div class="row" data-aos="fade-up">
+                    <div class="col-md-12 text-center">
+                        <div class="site-block-27">
+                            <ul>
+                                <li><a href="#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&gt;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 order-1 mb-5 mb-md-0">
+                <div class="border p-4 rounded mb-4">
+                    <!-- //Shop Categories -->
+                    @await Html.PartialAsync("~/Views/Shared/Shop/_CategoriesLeft.cshtml")
+                </div>
+
+                <div class="border p-4 rounded mb-4">
+                    <!-- //Shop Filters -->
+                    @await Html.PartialAsync("~/Views/Shared/Shop/_FiltersLeft.cshtml")
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="site-section site-blocks-2">
+                    <div class="row">
+                        <!-- //Shopping categories -->
+                        @await Html.PartialAsync("~/Views/Shared/HomeBody/_HomeCollections.cshtml")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

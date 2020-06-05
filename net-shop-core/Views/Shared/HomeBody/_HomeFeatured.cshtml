@@ -1,0 +1,25 @@
+﻿@using AppHelpers.App_Code
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nonloop-block-3 owl-carousel">
+            @foreach (var item in Model)
+            {
+                <div class="item home-featured-img">
+                    <div class="block-4 text-center">
+                        <figure class="block-4-image">
+                            <a href="~/Shop/Details/@item.UniqueProductName">
+                                <img src="~/files/@ProductsHelper.GetProductImageLink(item.AccountID, item.ID)" alt="@item.ProductName" class="rounded">
+                            </a>
+                        </figure>
+                        <div class="block-4-text p-4">
+                            <h3><a href="~/Shop/Details/@item.UniqueProductName">@ProductsHelper.GetProductCategory(item.CategoryID)</a></h3>
+                            <p class="mb-0">@item.ProductName</p>
+                            <p class="text-primary font-weight-bold">GMD @item.ProductPrice</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

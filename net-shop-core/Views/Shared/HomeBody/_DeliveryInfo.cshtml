@@ -1,0 +1,31 @@
+﻿@using AppHelpers.App_Code
+
+<div class="row">
+    <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
+        <div class="icon mr-4 align-self-start">
+            <span class="icon-truck"></span>
+        </div>
+        <div class="text">
+            <h2 class="text-uppercase">@SiteDataHelper.GetSiteLookup("FreeDelivery")</h2>
+            <p>@SiteDataHelper.GetSiteLookup("FreeDeliveryText")</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="icon mr-4 align-self-start">
+            <span class="icon-refresh2"></span>
+        </div>
+        <div class="text">
+            <h2 class="text-uppercase">@SiteDataHelper.GetSiteLookup("FreeReturns")</h2>
+            <p>@SiteDataHelper.GetSiteLookup("FreeReturnsText")</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="icon mr-4 align-self-start">
+            <span class="icon-help"></span>
+        </div>
+        <div class="text">
+            <h2 class="text-uppercase">@SiteDataHelper.GetSiteLookup("CustomerSupport")</h2>
+            <p>@SiteDataHelper.GetSiteLookup("CustomerSupportText")</p>
+        </div>
+    </div>
+</div>

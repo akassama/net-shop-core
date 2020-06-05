@@ -1,0 +1,370 @@
+﻿@import "bourbon";
+
+body {
+    background: #eee !important;
+}
+
+.wrapper {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.form-signin {
+    max-width: 380px;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    .form-signin-heading, .checkbox;
+    margin-bottom: 30px;
+}
+
+.checkbox {
+    font-weight: normal;
+}
+
+.form-sign-in {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    @include box-sizing(border-box);
+    &:focus;
+    z-index: 2;
+}
+
+
+/* Dashboard Forms */
+/*////////////////////////////////////////////////////////////*/
+.rounded-border {
+    border-radius: 25px;
+    border: 2px solid #808080;
+    padding: 20px;
+}
+
+
+
+
+/* Colored Checkbox */
+/*////////////////////////////////////////////////////////////*/
+body {
+    font-size: 15px;
+    background-color: #f5f5f5;
+}
+
+.colored-check form {
+    width: 33%;
+    padding: 10px;
+}
+
+form fieldset legend {
+    font-size: 1.5rem;
+}
+/* ---- checkbox area ---- */
+.black-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #000;
+    border-color: #000;
+    background-size: 80%;
+}
+
+.lime-green-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #32cd32;
+    border-color: #32cd32;
+    background-size: 80%;
+}
+
+.silver-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #c0c0c0;
+    border-color: #c0c0c0;
+    background-size: 80%;
+}
+
+.blue-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #0000ff;
+    border-color: #0000ff;
+    background-size: 80%;
+}
+
+.maroon-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #800000;
+    border-color: #800000;
+    background-size: 80%;
+}
+
+.brown-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #654321;
+    border-color: #654321;
+    background-size: 80%;
+}
+
+.khaki-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #c3b091;
+    border-color: #c3b091;
+    background-size: 80%;
+}
+
+.orange-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #ffa500;
+    border-color: #ffa500;
+    background-size: 80%;
+}
+
+.fill-control-input {
+    display: none;
+}
+
+
+
+.fill-control-indicator {
+    border-radius: 3px;
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #aaa;
+    transition: .3s;
+    background: transperent;
+    background-size: 0%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}
+
+
+
+/* Multiple Image Uploader */
+/*////////////////////////////////////////////////////////////*/
+.imagePreview {
+    width: 100%;
+    height: 180px;
+    background-position: center center;
+    background: url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
+    background-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-shadow: 0px -3px 6px 2px rgba(0,0,0,0.2);
+}
+
+.upload-btn-primary {
+    display: block;
+    border-radius: 0px;
+    box-shadow: 0px 4px 6px 2px rgba(0,0,0,0.2);
+    margin-top: -5px;
+}
+
+.imgUp {
+    margin-bottom: 15px;
+}
+
+.del {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgba(255,255,255,0.6);
+    cursor: pointer;
+}
+
+.imgAdd {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #4bd7ef;
+    color: #fff;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
+    text-align: center;
+    line-height: 30px;
+    margin-top: 0px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+
+
+
+
+
+/* Radio Color Picker */
+/*////////////////////////////////////////////////////////////*/
+.radio-input [type="radio"] {
+    display: none;
+}
+
+.radio-input [type="radio"]:checked + label span {
+    transform: scale(1.25);
+}
+
+.radio-input [type="radio"]:checked + label .red {
+    border: 2px solid #711313;
+}
+
+.radio-input [type="radio"]:checked + label .orange {
+    border: 2px solid #873a08;
+}
+
+.radio-input [type="radio"]:checked + label .black {
+    border: 2px solid #000000;
+}
+
+.radio-input [type="radio"]:checked + label .yellow {
+    border: 2px solid #816102;
+}
+
+.radio-input [type="radio"]:checked + label .olive {
+    border: 2px solid #505a0b;
+}
+
+.radio-input [type="radio"]:checked + label .green {
+    border: 2px solid #0e4e1d;
+}
+
+.radio-input [type="radio"]:checked + label .teal {
+    border: 2px solid #003633;
+}
+
+.radio-input [type="radio"]:checked + label .blue {
+    border: 2px solid #103f62;
+}
+
+.radio-input [type="radio"]:checked + label .violet {
+    border: 2px solid #321a64;
+}
+
+.radio-input [type="radio"]:checked + label .purple {
+    border: 2px solid #501962;
+}
+
+.radio-input [type="radio"]:checked + label .pink {
+    border: 2px solid #851554;
+}
+
+.radio-input [type="radio"]:checked + label .brown {
+    border: 2px solid #A52A2A;
+}
+
+.radio-input label {
+display: inline-block;
+width: 25px;
+height: 25px;
+margin-right: 10px;
+cursor: pointer;
+}
+
+.radio-input label:hover span {
+    transform: scale(1.25);
+}
+
+.radio-input label span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform .2s ease-in-out;
+}
+
+.radio-input label span.red {
+    background: #DB2828;
+}
+
+.radio-input label span.orange {
+    background: #F2711C;
+}
+
+.radio-input label span.black {
+    background: #070606;
+}
+
+.radio-input label span.yellow {
+    background: #FBBD08;
+}
+
+.radio-input label span.olive {
+    background: #B5CC18;
+}
+
+.radio-input label span.green {
+    background: #21BA45;
+}
+
+.radio-input label span.teal {
+    background: #00B5AD;
+}
+
+.radio-input label span.blue {
+    background: #2185D0;
+}
+
+.radio-input label span.violet {
+    background: #6435C9;
+}
+
+.radio-input label span.purple {
+    background: #A333C8;
+}
+
+.radio-input label span.pink {
+    background: #E03997;
+}
+
+.radio-input label span.pink {
+    background: #8B4513;
+}
+
+
+/* Site images */
+/*////////////////////////////////////////////////////////////*/
+.home-collections-img img {
+    height: 460px !important;
+    width: 352px !important;
+}
+
+.home-featured-img img {
+    height: 380px !important;
+    width: 350px !important;
+}
+
+.shop-img img {
+    height: 278px !important;
+    width: 254px !important;
+}
+
+.new-arrivals-img img {
+    height: 380px !important;
+    width: 350px !important;
+}
+
+
+
+
+/* Mobile Responsive Design */
+/*////////////////////////////////////////////////////////////*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}

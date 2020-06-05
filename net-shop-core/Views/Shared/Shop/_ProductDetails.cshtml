@@ -1,0 +1,65 @@
+﻿@model ModestLiving.Models.ProductsModel
+@using AppHelpers.App_Code
+
+<div class="col-md-6">
+    <img src="~/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID)" alt="Image" class="img-fluid" width="480" height="600">
+    <div class="row mt-2">
+        @foreach (var images in ViewBag.ProductImages)
+        {
+            <div class="col-3">
+                <img src="~/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID, images.ImageLink)" class="rounded" alt="image-title" width="125" height="150">
+            </div>
+        }
+    </div>
+      @*<div class="row">
+        <div class="col-4 offset-4">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://cdn.accentuate.io/10490069959/5396278247520/Rose-Quartz-jersey-v1588104616930.mp4"></iframe>
+          </div>
+        </div>
+      </div>*@
+</div>
+<div class="col-md-6">
+    <h2 class="text-black">
+        @ViewData["Title"].ToString().ToUpper()
+    </h2>
+    <p>@Html.DisplayFor(model => model.ProductDescription)</p>
+    <p><strong class="text-primary h4">GMD @Html.DisplayFor(model => model.ProductPrice)</strong></p>
+    <div class="mb-1 d-flex">
+        @foreach (var sizes in ViewBag.ProductSizes)
+        {
+            <label for="option-sm" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                    <input type="radio" id="option-sm" name="shop-sizes" value="@sizes.Size">
+                </span> 
+                <span class="d-inline-block text-black">@ProductsHelper.GetSizeName(sizes.Size)</span>
+            </label>
+
+        }
+    </div>
+    <div class="mb-1 d-flex">
+        <div class="radio-input">
+            <h4>Select Color</h4>
+            @foreach (var colors in ViewBag.ProductColors)
+            {
+                <input type="radio" name="color" id="@colors.ColorName" value="@colors.ColorName" />
+                <label for="@colors.ColorName"><span class="@TextHelper.ConvertCase(@colors.ColorName, "Lower")"></span></label>
+
+            }
+        </div>
+    </div>
+    <div class="mb-5">
+        <div class="input-group mb-3" style="max-width: 120px;">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+            </div>
+            <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+            </div>
+        </div>
+
+    </div>
+    <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+
+</div>

@@ -1,0 +1,54 @@
+﻿@using AppHelpers.App_Code
+
+@{
+    //Set active tab
+    var home = "";
+    var shop = "";
+    var collections = "";
+    var new_arrivals = "";
+    var contact = "";
+
+    var tab = ViewData["Title"].ToString().ToLower();
+
+    switch (tab)
+    {
+        case "home":
+            home = "active";
+            break;
+        case "shop":
+            shop = "active";
+            break;
+        case "collections":
+            collections = "active";
+            break;
+        case "new arrivals":
+            new_arrivals = "active";
+            break;
+        case "contact":
+            contact = "active";
+            break;
+        default:
+            home = "active";
+            break;
+    }
+}
+
+
+<nav class="site-navigation text-right text-md-center" role="navigation">
+    <div class="container">
+        <ul class="site-menu js-clone-nav d-none d-md-block">
+            <li class="@home">
+                <a href="~/">Home</a>
+            </li>
+            <li class="@shop"><a href="~/Shop">Shop</a></li>
+            <li class="has-children @collections">
+                <a href="~/Collections">Collections</a>
+                <ul class="dropdown">
+                    @ProductsHelper.GetNavCategoryList()
+                </ul>
+            </li>
+            <li class="@new_arrivals"><a href="~/NewArrivals">New Arrivals</a></li>
+            <li class="@contact"><a href="~/Contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>

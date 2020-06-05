@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    @await Html.PartialAsync("~/Views/Shared/AdminLayout/_LeftSideBar.cshtml")
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- //Top menu item -->
+        @await Html.PartialAsync("~/Views/Shared/AdminLayout/_NavBarTop.cshtml")
+
+
+        <div class="container-fluid">
+            <h1 class="mt-4">
+                Dashboard
+            </h1>
+            <div class="row">
+                <div class="col-12">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Product Description</th>
+                                            <th>Product Image</th>
+                                            <th>Product Price</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Product Description</th>
+                                            <th>Product Image</th>
+                                            <th>Product Price</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>Premium Jersey Hijab - Light Mink</td>
+                                            <td style="width:30em;">Not your ordinary jersey hijab. Our cult-favorite premium jersey is super-soft, effortless and made to last. It comes in our cult-favorite warm beige hue with a touch of pink that flatters any skin tone. Say hello to your new go-to.</td>
+                                            <td><img src="https://cdn.shopify.com/s/files/1/0059/1592/products/Haute-Hijab-Day-12437_1024x1024.jpg" class="rounded" alt="Cinque Terre" width="200" height="300"></td>
+                                            <td>D1200</td>
+                                            <td class="center-container">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                        Action
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fas fa-edit text-info"></i> Edit
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fas fa-eye text-success"></i> View
+                                                        </a>
+                                                        <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
+                                                            <i class="far fa-trash-alt text-danger"></i> Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Premium Jersey Hijab - Camel</td>
+                                            <td style="width:30em;">Not your ordinary jersey hijab. Our cult-favorite premium jersey is super-soft, effortless and made to last. It comes in our cult-favorite warm beige hue with a touch of pink that flatters any skin tone. Say hello to your new go-to.</td>
+                                            <td><img src="https://cdn.shopify.com/s/files/1/0059/1592/products/Haute-Hijab-Day-28366_34979dfd-6123-4284-b864-756fb2cff33f_1024x1024.jpg" class="rounded" alt="Cinque Terre" width="200" height="300"></td>
+                                            <td>D900</td>
+                                            <td class="center-container">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                        Action
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fas fa-edit text-info"></i> Edit
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fas fa-eye text-success"></i> View
+                                                        </a>
+                                                        <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
+                                                            <i class="far fa-trash-alt text-danger"></i> Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Premium Jersey Hijab - Dark Olive</td>
+                                            <td style="width:30em;">Not your ordinary jersey hijab. Our cult-favorite premium jersey is super-soft, effortless and made to last. It comes in our cult-favorite warm beige hue with a touch of pink that flatters any skin tone. Say hello to your new go-to.</td>
+                                            <td><img src="https://cdn.shopify.com/s/files/1/0059/1592/products/Haute-Hijab-Day_-16642_1024x1024.jpg" class="rounded" alt="Cinque Terre" width="200" height="300"></td>
+                                            <td>D1000</td>
+                                            <td class="center-container">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                        Action
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fas fa-edit text-info"></i> Edit
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fas fa-eye text-success"></i> View
+                                                        </a>
+                                                        <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
+                                                            <i class="far fa-trash-alt text-danger"></i> Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>

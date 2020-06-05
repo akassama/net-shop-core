@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ModestLiving.Models.ProductsModel>
+
+@using AppHelpers.App_Code
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<header class="site-navbar" role="banner">
+    <!-- //Top menu item -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
+
+
+    <!-- //Navigation menu -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
+</header>
+
+
+<div class="site-blocks-cover" style="background-image: url(/files/images/@SiteDataHelper.GetSiteLookup("HomeBanner"));" data-aos="fade"> 
+    <div class="container">
+        <div class="row align-items-start align-items-md-center justify-content-end">
+            <div class="col-md-5 text-center text-md-left pt-5 pt-md-0">
+                <h1 class="mb-2">Finding Your Perfect Shoes</h1>
+                <div class="intro-text text-center text-md-left">
+                    <p class="mb-4">
+                        @SiteDataHelper.GetSiteLookup("HomeBannerText")
+                    </p>
+                    <p>
+                        <a href="~/Collections" class="btn btn-sm btn-primary">Shop Now</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section site-section-sm site-blocks-1">
+    <div class="container">
+        <!-- //Site shipping info -->
+        @await Html.PartialAsync("~/Views/Shared/HomeBody/_DeliveryInfo.cshtml")
+    </div>
+</div>
+
+<div class="site-section site-blocks-2">
+    <div class="container">
+        <!-- //Shopping categories -->
+        @await Html.PartialAsync("~/Views/Shared/HomeBody/_HomeCollections.cshtml")
+
+    </div>
+</div>
+
+<div class="site-section block-3 site-blocks-2 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 site-section-heading text-center pt-4">
+                <h2>Featured Products</h2>
+            </div>
+        </div>
+        <!-- //Featured products -->
+        @await Html.PartialAsync("~/Views/Shared/HomeBody/_HomeFeatured.cshtml")
+    </div>
+</div>
+
+<div class="site-section block-8">
+    <div class="container">
+        <!-- //Promotion item -->
+        @await Html.PartialAsync("~/Views/Shared/HomeBody/_HomePromotionSale.cshtml")
+    </div>
+</div>

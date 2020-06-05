@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+//
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ModestLiving.Models
+{
+    [Table("Products")]
+    public class ProductsModel
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "ID")]
+        public int ID { get; set; }
+
+        [Display(Name = "Account ID")]
+        [RegularExpression(@"^[A-Za-z 0-9]{10,250}$", ErrorMessage = "Minimum 10 characters required, and maximum of 250 characters.")]
+        public string AccountID { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[A-Za-z 0-9]{2,150}$", ErrorMessage = "Minimum 2 characters required, and maximum of 150 characters.")]
+        [Display(Name = "Product Name")]
+        public string ProductName { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[A-Za-z 0-9]{20,500}$", ErrorMessage = "Minimum 20 characters required, and maximum of 500 characters.")]
+        [Display(Name = "Product Description")]
+        public string ProductDescription { get; set; }
+
+        [Display(Name = "Unique Product Name")]
+        public string UniqueProductName { get; set; }
+
+        [Required]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Only product id (integer) allowed.")]
+        [Display(Name = "Product Type")]
+        public int ProductType { get; set; }
+
+        [Display(Name = "Wholesale Quantity")]
+        public int? WholeSaleQuantity { get; set; }
+
+        [Required]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Only store id (integer) allowed.")]
+        [Display(Name = "Store ID")]
+        public int StoreID { get; set; }
+
+        [Required]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Only category id (integer) allowed.")]
+        [Display(Name = "Category ID")]
+        public int CategoryID { get; set; }
+
+        [Required]
+        [RegularExpression(@"[+-]?([0-9]*[.])?[0-9]+", ErrorMessage = "Only numbers allowed.")]
+        [Display(Name = "Product Price")]
+        public string ProductPrice { get; set; }
+
+        [RegularExpression(@"[+-]?([0-9]*[.])?[0-9]+", ErrorMessage = "Only numbers allowed.")]
+        [Display(Name = "Product Previous Price")]
+        public string ProductPreviousPrice { get; set; }
+
+        [Required]
+        [RegularExpression(@"^.{2,250}$", ErrorMessage = "Minimum 2 characters required, and maximum of 250 characters.")]
+        [Display(Name = "Product Tags")]
+        public string ProductTags { get; set; }
+
+        [Display(Name = "Approve Status")]
+        [RegularExpression(@"^[0-1]", ErrorMessage = "Only 0 or 1 allowed.")]
+        public int? ApproveStatus { get; set; }
+
+        [Display(Name = "Updated By")]
+        [RegularExpression(@"^[A-Za-z 0-9]{2,150}$", ErrorMessage = "Minimum 2 characters required, and maximum of 150 characters.")]
+        public string UpdatedBy { get; set; }
+
+        [Display(Name = "Update Date")]
+        public DateTime? UpdateDate { get; set; }
+
+        [Display(Name = "Date Added")]
+        public DateTime? DateAdded { get; set; } = DateTime.Now;
+    }
+}

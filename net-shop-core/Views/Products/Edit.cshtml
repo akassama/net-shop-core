@@ -1,0 +1,101 @@
+﻿@model ModestLiving.Models.ProductsModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ProductsModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="AccountID" class="control-label"></label>
+                <input asp-for="AccountID" class="form-control" />
+                <span asp-validation-for="AccountID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDescription" class="control-label"></label>
+                <input asp-for="ProductDescription" class="form-control" />
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UniqueProductName" class="control-label"></label>
+                <input asp-for="UniqueProductName" class="form-control" />
+                <span asp-validation-for="UniqueProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductType" class="control-label"></label>
+                <input asp-for="ProductType" class="form-control" />
+                <span asp-validation-for="ProductType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WholeSaleQuantity" class="control-label"></label>
+                <input asp-for="WholeSaleQuantity" class="form-control" />
+                <span asp-validation-for="WholeSaleQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreID" class="control-label"></label>
+                <input asp-for="StoreID" class="form-control" />
+                <span asp-validation-for="StoreID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryID" class="control-label"></label>
+                <input asp-for="CategoryID" class="form-control" />
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPrice" class="control-label"></label>
+                <input asp-for="ProductPrice" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPreviousPrice" class="control-label"></label>
+                <input asp-for="ProductPreviousPrice" class="form-control" />
+                <span asp-validation-for="ProductPreviousPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductTags" class="control-label"></label>
+                <input asp-for="ProductTags" class="form-control" />
+                <span asp-validation-for="ProductTags" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApproveStatus" class="control-label"></label>
+                <input asp-for="ApproveStatus" class="form-control" />
+                <span asp-validation-for="ApproveStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedBy" class="control-label"></label>
+                <input asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateDate" class="control-label"></label>
+                <input asp-for="UpdateDate" class="form-control" />
+                <span asp-validation-for="UpdateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateAdded" class="control-label"></label>
+                <input asp-for="DateAdded" class="form-control" />
+                <span asp-validation-for="DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

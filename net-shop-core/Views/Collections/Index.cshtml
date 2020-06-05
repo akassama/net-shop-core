@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Parent"] = "";
+    ViewData["Title"] = "Collections";
+}
+
+@model IEnumerable<ModestLiving.Models.CategoriesModel>
+
+
+<header class="site-navbar" role="banner">
+    <!-- //Top menu item -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
+
+
+    <!-- //Navigation menu -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
+</header>
+
+
+<!-- //Breadcrump -->
+@await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="mb-3 text-center text-uppercase text-black d-block">@ViewData["Title"]</h2>
+                <div class="site-section site-blocks-2">
+                    <div class="row">
+                        <!-- //Shopping collections list -->
+                        @await Html.PartialAsync("~/Views/Shared/CollectionsBody/_CollectionsList.cshtml")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

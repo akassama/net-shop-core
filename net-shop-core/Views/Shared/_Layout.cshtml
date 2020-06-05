@@ -1,0 +1,164 @@
+﻿@using AppHelpers.App_Code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ModestLiving</title>
+
+    <link rel="stylesheet" href="~/lib/modest/css/bootstrap.min.css">
+
+    @if (TempData["authenticated"] == null)
+    {
+        <link rel="stylesheet" href="~/lib/modest/css/google-fonts.css">
+        <link rel="stylesheet" href="~/lib/modest/fonts/icomoon/style.css">
+        <link rel="stylesheet" href="~/lib/modest/css/magnific-popup.css">
+        <link rel="stylesheet" href="~/lib/modest/css/jquery-ui.css">
+        <link rel="stylesheet" href="~/lib/modest/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/lib/modest/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="~/lib/modest/css/aos.css">
+        <link rel="stylesheet" href="~/lib/modest/css/style.css">
+    }
+    else
+    {
+        <!-- Admin design css -->
+        <link href="~/css/admin-sidebar.css" rel="stylesheet">
+        <link href="~/css/admin.css" rel="stylesheet">
+    }
+
+
+    <script src="~/lib/modest/js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="~/lib/modest/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="~/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/site.css" rel="stylesheet">
+
+
+
+    <link rel="icon" href="~/files/images/favicon.jpg" type="image/jpg">
+
+</head>
+<body>
+
+
+    <div class="site-wrap">
+        @RenderBody()
+        <footer class="site-footer border-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="footer-heading mb-4">Navigations</h3>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="~/">Home</a></li>
+                                    <li><a href="~/Shop">Shop</a></li>
+                                    <li><a href="~/Collections">Collections</a></li>
+                                    <li><a href="~/NewArrivals">New Arrivals</a></li>
+                                    <li><a href="~/Contact">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    @ProductsHelper.GetFooterCategoryList()
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Account</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        @{ 
+                            var WeeksPopularProduct = ProductsHelper.GetWeeksPopularProduct();
+                        }
+                        <h3 class="footer-heading mb-4">Popular this week</h3>
+                        <a href="~/Shop/Details/@ProductsHelper.GetProductData(WeeksPopularProduct, "UniqueProductName")" class="block-6">
+                            <img src="~/files/@ProductsHelper.GetProductData(WeeksPopularProduct, "ImageLink")" alt="Product Image" class="img-fluid rounded mb-4">
+                            <h3 class="font-weight-light  mb-0">
+                                @ProductsHelper.GetProductData(WeeksPopularProduct, "ProductCategory")
+                            </h3>
+                            <p>
+                                @ProductsHelper.GetProductData(WeeksPopularProduct, "ProductName"),
+                                GMD @ProductsHelper.GetProductData(WeeksPopularProduct, "ProductPrice")
+                            </p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">Contact Info</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">Serrekunda, The Gambia</li>
+                                <li class="phone"><a href="tel://23923929210">+220 7258667</a></li>
+                                <li class="email">akassama@gmail.com</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-7">
+                            <form action="#" method="post">
+                                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                                    <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                            Copyright &copy; All rights reserved | Developed by <a href="https://stackoverflow.com/users/5612132/laiman?tab=profile" target="_blank" class="text-primary">A. Kassama</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <script src="~/lib/modest/js/jquery-ui.js"></script>
+    <script src="~/lib/modest/js/popper.min.js"></script>
+    @if (TempData["authenticated"] == null)
+    {
+        <script src="~/lib/modest/js/owl.carousel.min.js"></script>
+        <script src="~/lib/modest/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/lib/modest/js/aos.js"></script>
+        <script src="~/lib/modest/js/main.js"></script>
+    }
+    else
+    {
+        <script src="~/js/image-preview.js"></script>
+        <script src="~/js/jquery-ui.min.js"></script>
+
+        <!-- Datatables JS -->
+        <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
+    }
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+</body>
+</html>

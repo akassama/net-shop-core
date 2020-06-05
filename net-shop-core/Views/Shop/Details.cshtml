@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Parent"] = "Shop";
+
+    var url_path = Context.Request.Host + Context.Request.Path; //get current url path
+    var title = url_path.Substring(url_path.LastIndexOf("/") + 1); //get last test after slash in url
+
+    ViewData["Title"] = title.ToString().Replace("-", " ");
+}
+
+
+
+<header class="site-navbar" role="banner">
+    <!-- //Top menu item -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
+
+
+    <!-- //Navigation menu -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
+</header>
+
+
+<!-- //Breadcrump -->
+@await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <!-- //Producr Details-->
+            @await Html.PartialAsync("~/Views/Shared/Shop/_ProductDetails.cshtml")
+
+        </div>
+    </div>
+</div>
+

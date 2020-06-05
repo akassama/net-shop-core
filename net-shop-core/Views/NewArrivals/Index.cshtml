@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ModestLiving.Models.ProductsModel>
+
+@{
+    ViewData["Parent"] = "";
+    ViewData["Title"] = "New Arrivals";
+}
+
+<header class="site-navbar" role="banner">
+    <!-- //Top menu item -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
+
+
+    <!-- //Navigation menu -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
+</header>
+
+
+<!-- //Breadcrump -->
+@await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+
+<div class="site-section">
+    <div class="container">
+        <h2 class="mb-3 text-center text-uppercase text-black d-block">New Arrivals</h2>
+        <div class="row">
+            <!-- //New Arrivals-->
+            @await Html.PartialAsync("~/Views/Shared/NewArrivals/_ProductList.cshtml")
+        </div>
+    </div>
+</div>
+

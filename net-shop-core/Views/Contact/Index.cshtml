@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Parent"] = "";
+    ViewData["Title"] = "Contact";
+}
+
+<header class="site-navbar" role="banner">
+    <!-- //Top menu item -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
+
+
+    <!-- //Navigation menu -->
+    @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
+</header>
+
+<!-- //Breadcrump -->
+@await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+<div class="site-section">
+    <div class="container">
+        <!-- //Contact Form -->
+        @await Html.PartialAsync("~/Views/Shared/ContactForm/_ContactForm.cshtml")
+
+    </div>
+</div>
+
