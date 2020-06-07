@@ -28,8 +28,29 @@
         <div class="row">
             <!-- //Producr Details-->
             @await Html.PartialAsync("~/Views/Shared/Shop/_ProductDetails.cshtml")
-
         </div>
     </div>
 </div>
 
+
+
+<!-- On image click modal-->
+<div aria-hidden="true" aria-labelledby="imageModalLabel" class="modal fade" id="imageModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body mb-0 p-0">
+                <img src="" id="modalImage" alt="" style="width:100%">
+            </div>
+            <div class="modal-footer pr-modal-footer">
+                <div class="">
+                    <a href="" class="btn btn-info" id="modalImageLink" target="_blank" role="button">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+                <button class="btn btn-outline-danger btn-rounded btn-md ml-4 text-center" data-dismiss="modal" type="button">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

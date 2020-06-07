@@ -8,19 +8,16 @@
     <title>@ViewData["Title"] - ModestLiving</title>
 
     <link rel="stylesheet" href="~/lib/modest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/modest/css/google-fonts.css">
+    <link rel="stylesheet" href="~/lib/modest/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/lib/modest/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/lib/modest/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/lib/modest/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/lib/modest/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/lib/modest/css/aos.css">
+    <link rel="stylesheet" href="~/lib/modest/css/style.css">
 
-    @if (TempData["authenticated"] == null)
-    {
-        <link rel="stylesheet" href="~/lib/modest/css/google-fonts.css">
-        <link rel="stylesheet" href="~/lib/modest/fonts/icomoon/style.css">
-        <link rel="stylesheet" href="~/lib/modest/css/magnific-popup.css">
-        <link rel="stylesheet" href="~/lib/modest/css/jquery-ui.css">
-        <link rel="stylesheet" href="~/lib/modest/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="~/lib/modest/css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="~/lib/modest/css/aos.css">
-        <link rel="stylesheet" href="~/lib/modest/css/style.css">
-    }
-    else
+    @if (TempData["authenticated"] != null)
     {
         <!-- Admin design css -->
         <link href="~/css/admin-sidebar.css" rel="stylesheet">
@@ -33,13 +30,17 @@
 
     <script src="~/lib/modest/js/bootstrap.min.js"></script>
 
+    <!-- JQuery Session //https://github.com/AlexChittock/JQuery-Session-Plugin -->
+    <script src="~/js/jquery.session.js"></script>
+
     <!-- Custom styles for this template -->
     <link href="~/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
     <link href="~/css/site.css" rel="stylesheet">
 
-
+    <!-- Site js -->
+    <script src="~/js/site.js"></script>
 
     <link rel="icon" href="~/files/images/favicon.jpg" type="image/jpg">
 

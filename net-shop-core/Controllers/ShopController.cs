@@ -67,14 +67,18 @@ namespace ModestLiving.Controllers
                     //Get all product images
                     ViewBag.ProductImages = _context.ProductImages.Where(s=> s.ProductID == product_id).OrderBy(s => s.ID);
 
+                    //Get product video (if any)
+                    ViewBag.ProductVideos = _context.ProductVideos.Where(s => s.ProductID == product_id).OrderBy(s => s.ID);
+
                     //Get all product colors
                     ViewBag.ProductColors = _context.ProductColors.Where(s => s.ProductID == product_id);
 
                     //Get all product sizes
                     ViewBag.ProductSizes = _context.ProductSize.Where(s => s.ProductID == product_id);
 
-                    //log product view to ProductViews table
 
+
+                    //log product view to ProductViews table
                     //Get current ViewedProducts session
                     var ViewedProducts = (HttpContext.Session.GetString("ViewedProducts") != null) ? HttpContext.Session.GetString("ViewedProducts") : "";
 

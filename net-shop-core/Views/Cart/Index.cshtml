@@ -19,8 +19,28 @@
 
 <div class="site-section">
     <div class="container">
-            <!-- //Shopping cart list -->
-            @await Html.PartialAsync("~/Views/Shared/CartContent/_ShoppingCart.cshtml")
+        <!-- //Shopping cart list -->
+        @await Html.PartialAsync("~/Views/Shared/CartContent/_ShoppingCart.cshtml")
 
+    </div>
+</div>
+
+
+<!-- Clear Cart Confirmation Modal -->
+<div class="modal" id="clearCartModal">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h4 class="text-danger">Are you sure you want to clear your cart?</h4>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                <a href="#" id="ClearCart" class="btn btn-danger" role="button">Yes</a>
+            </div>
+
+        </div>
     </div>
 </div>

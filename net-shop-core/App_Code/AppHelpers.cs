@@ -150,7 +150,8 @@ namespace AppHelpers.App_Code
             return "defaults/products/product-placeholder.jpg";
         }
 
-        //get product image link using account id of uploader and image link passed. Takes the first image
+
+        //get product image link using account id of uploader and image link passed.
         public static string GetProductImageLink(string account_id, int product_id, string image_link)
         {
             //if user directory name is (for some reason), return place holder image
@@ -173,6 +174,28 @@ namespace AppHelpers.App_Code
             return "defaults/products/product-placeholder.jpg";
         }
 
+        //get product video link using account id of uploader and video link passed.
+        public static string GetProductVideoLink(string account_id, int product_id, string image_link)
+        {
+            //if user directory name is (for some reason), return place holder video
+            var directory_name = AccountHelper.GetProductImageDirectoty(account_id);
+            if (directory_name == null)
+            {
+                return "defaults/products/product-placeholder.mp4";
+            }
+
+            using (var db = new DBConnection())
+            {
+                var query = db.ProductImages.Where(s => s.ProductID == product_id).OrderBy(s => s.ID).Take(1);
+                if (query.Any())
+                {
+                    return directory_name + "/products/" + image_link;
+                }
+            }
+
+            //return default image place holder
+            return "defaults/products/product-placeholder.mp4";
+        }
 
         //get navigation category list from database
         public static HtmlString GetNavCategoryList()

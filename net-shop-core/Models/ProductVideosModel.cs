@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ModestLiving.Models
+namespace net_shop_core.Models
 {
-    [Table("ProductImages")]
-    public class ProductImagesModel
+    [Table("ProductVideos")]
+    public class ProductVideosModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,14 +18,14 @@ namespace ModestLiving.Models
         [Display(Name = "Product ID")]
         public int? ProductID { get; set; }
 
-        [Display(Name = "Image Type")]
-        public string ImageType { get; set; }
+        [Display(Name = "Video Type")]
+        public string VideoType { get; set; }
 
-        [Display(Name = "Image Link")]
-        public string ImageLink { get; set; }
+        [Display(Name = "Video Link")]
+        public string VideoLink { get; set; }
 
-        [Display(Name = "Image Description")]
-        public string ImageDescription { get; set; }
+        [Display(Name = "Video Description")]
+        public string VideoDescription { get; set; }
 
         [Display(Name = "Date Added")]
         public DateTime? DateAdded { get; set; } = DateTime.Now;

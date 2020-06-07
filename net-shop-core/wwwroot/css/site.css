@@ -339,6 +339,42 @@ cursor: pointer;
 }
 
 
+/* Zoom Image In And Out */
+/*////////////////////////////////////////////////////////////*/
+.zoom-xm, .zoom-sm, .zoom, .zoom-lg {
+    transition: transform .2s; /* Animation */
+}
+
+.zoom-xm:hover {
+    transform: scale(1.01); /* (101% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.zoom-sm:hover {
+    transform: scale(1.1); /* (110% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.zoom:hover {
+    transform: scale(1.2); /* (120% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.zoom-lg:hover {
+    transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+/* Center modal on screen */
+/*////////////////////////////////////////////////////////////*/
+.modal-dialog-center {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+
+    @media(max-width: 768px) {
+        min-height: calc(100vh - 20px);
+    }
+}
 
 
 /* Mobile Responsive Design */

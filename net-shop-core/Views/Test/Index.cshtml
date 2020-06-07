@@ -1,6 +1,10 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
+
 @{
     ViewData["Title"] = "Test";
+
+    //overriding session 
+    Context.Session.SetString("SessionName", "Kassaman");
 }
 
 <h1>Device : @ViewBag.device</h1>
@@ -11,3 +15,5 @@
 <h1>Country : @ViewBag.country</h1>
 <h1>View Log : @ViewBag.view</h1>
 <h1>Session : @ViewBag.session</h1>
+<h1>Cart : @ViewBag.cartData</h1>
+<h1>SessionView : @Context.Session.GetString("SessionName")</h1>

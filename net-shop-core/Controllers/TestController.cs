@@ -61,6 +61,7 @@ namespace ModestLiving.Controllers
                 ViewBag.view = "Not Logged";
             }
 
+            ViewBag.cartData = HttpContext.Session.GetString("ShoppingCart"); 
 
             return View(_detectionService);
         }

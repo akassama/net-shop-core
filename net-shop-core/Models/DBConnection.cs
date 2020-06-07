@@ -31,6 +31,7 @@ namespace net_shop_core.Models
         public DbSet<SubscribersModel> Subscribers { get; set; }
         public DbSet<LoginInfoModel> LoginInfo { get; set; }
         public DbSet<ProductImagesModel> ProductImages { get; set; }
+        public DbSet<ProductVideosModel> ProductVideos { get; set; }
         public DbSet<SiteDataLookupModel> SiteDataLookup { get; set; }
         public DbSet<ProductColorsModel> ProductColors { get; set; }
         public DbSet<ProductSizeModel> ProductSize { get; set; }
@@ -40,7 +41,7 @@ namespace net_shop_core.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-O81UVC0\\SQLEXPRESS;database=MODEST_LIVING;trusted_connection=true;");
+            optionsBuilder.UseSqlServer("server=DESKTOP-O81UVC0\\SQLEXPRESS;database=NetShopCore;trusted_connection=true;");
         }
     }
 }

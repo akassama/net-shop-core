@@ -2,22 +2,25 @@
 @using AppHelpers.App_Code
 
 <div class="col-md-6">
-    <img src="~/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID)" alt="Image" class="img-fluid" width="480" height="600">
+    <img src="~/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID)" alt="Image" class="img-fluid pr-main-img zoom-xm" width="480" height="600">
     <div class="row mt-2">
         @foreach (var images in ViewBag.ProductImages)
         {
             <div class="col-3">
-                <img src="~/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID, images.ImageLink)" class="rounded" alt="image-title" width="125" height="150">
+                <img src="~/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID, images.ImageLink)" class="rounded pr-sub-img zoom-xm" alt="image-title" width="125" height="150">
+            </div>
+        }
+        @foreach (var videos in ViewBag.ProductVideos)
+        {
+            <div class="col-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item zoom-xm" src="~/files/@ProductsHelper.GetProductVideoLink(Model.AccountID, Model.ID, videos.VideoLink)" width="480" height="600">
+
+                    </iframe>
+                </div>
             </div>
         }
     </div>
-      @*<div class="row">
-        <div class="col-4 offset-4">
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://cdn.accentuate.io/10490069959/5396278247520/Rose-Quartz-jersey-v1588104616930.mp4"></iframe>
-          </div>
-        </div>
-      </div>*@
 </div>
 <div class="col-md-6">
     <h2 class="text-black">
@@ -51,15 +54,19 @@
     <div class="mb-5">
         <div class="input-group mb-3" style="max-width: 120px;">
             <div class="input-group-prepend">
-                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                <button class="btn btn-outline-primary js-btn-minus update-quantity" type="button">&minus;</button>
             </div>
-            <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <input type="text" class="form-control text-center" id="total-quantity" name="total-quantity" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
             <div class="input-group-append">
-                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                <button class="btn btn-outline-primary js-btn-plus update-quantity" type="button">&plus;</button>
             </div>
         </div>
 
     </div>
-    <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+    <p>
+        <a href="#" class="buy-now btn btn-sm btn-primary cart-btn" data-product-id="@Model.ID" data-product-name="@Model.ProductName" data-product-price="@Model.ProductPrice" data-product-quantity="1" data-product-image="/files/@ProductsHelper.GetProductImageLink(Model.AccountID, Model.ID)">
+            Add To Cart
+        </a>
+    </p>
 
 </div>
