@@ -164,6 +164,40 @@ $(document).ready(function () {
 
 
 
+    /**
+    * Updates cart data to current data in cart
+    *
+    */
+    $("#UpdateCart").click(function () {
+        const host = window.location.origin;//get site host url
+        var session_data = "";
+        $('.table > tbody  > tr').each(function () { 
+            $this = $(this);
+            const product_id = $this.find("span.pr-id").html();
+            const product_name = $this.find("h2.text-black").html();
+            const product_price = $this.find("span.pr-price").html();
+            const product_quantity = $this.find("input.pr-quantity").val();
+
+            var product_image = $this.find("img.pr-image").attr("src");
+            product_image = product_image.replace(host, "");
+            if (product_image.indexOf("//") >= 0) {
+                product_image = product_image.replace("//", "/");
+            }
+
+            var product_link = $this.find("a.pr-link").attr("href");
+            product_link = product_link.replace(host, "");
+            if (product_link.indexOf("//") >= 0) {
+                product_link = product_link.replace("//", "/");
+            }
+
+            session_data += product_id + "," + product_name + "," + product_price + "," + product_quantity + "," + product_image + "," + product_link + "[#]";
+        });
+
+        $.session.set('ShoppingCart', session_data); //update cart data
+        setCartNumber();//update total number in cart 
+        location.reload();// reload page
+    });
+
 
     /**
     * Checks if strings has undefined, replaces it with empty
@@ -240,20 +274,21 @@ $(document).ready(function () {
                     var data_array = item.split(',');
                     content += `<tr> 
 	                            <td class='product-thumbnail'>
-                                    <a href='`+ host + `/Shop/Details/` + data_array[5] + `'>
-		                                <img src='`+ host + `/` + data_array[4] + `' alt='Image' class='rounded' height='162' width='115'>
+                                    <a class='pr-link' href='`+ host + `/Shop/Details/` + data_array[5] + `'>
+		                                <img class='pr-image' src='`+ host + `/` + data_array[4] + `' alt='Image' class='rounded' height='162' width='115'>
                                     </a>
 	                            </td>
 	                            <td class='product-name'>
 		                            <h2 class='h5 text-black'>` + data_array[1] + `</h2>
+                                    <span class='pr-id sr-only'>` + data_array[0] + `</span>
 	                            </td>
-	                            <td>` + data_array[2] + `</td>
+	                            <td><span class='pr-price'>` + data_array[2] + `</span></td>
                                 <td>
 	                                <div class='input-group mb-3' style='max-width: 120px;'>
 		                                <div class='input-group-prepend'>
 			                                <button class='btn btn-outline-primary js-btn-minus' type='button'>&minus;</button>
 		                                </div>
-		                                <input type='text' class='form-control text-center' value='` + data_array[3] + `' placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1'>
+		                                <input type='text' class='form-control text-center pr-quantity' value='` + data_array[3] + `' placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1'>
 		                                <div class='input-group-append'>
 			                                <button class='btn btn-outline-primary js-btn-plus' type='button'>&plus;</button>
 		                                </div>
@@ -273,7 +308,7 @@ $(document).ready(function () {
                 $('#EmptyCartText').text("Cart is empty");
                 $(".other-cart-components").hide();//hide Update, Shopping, and Coupon components
             }
-    }, 100);
+        }, 100);
 
 
 
