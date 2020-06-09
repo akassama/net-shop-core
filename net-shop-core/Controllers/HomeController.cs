@@ -29,7 +29,8 @@ namespace ModestLiving.Controllers
             //Get the top 3 from collections (catefories)
             ViewBag.CollectionsData = _context.Categories.OrderByDescending(s => s.ID).Take(3);
 
-            var data = _context.Products.ToListAsync();
+            //Get last 12 products 
+            var data = _context.Products.OrderByDescending(s => s.ID).Take(12).ToListAsync(); 
 
             return View(await data);
         }
