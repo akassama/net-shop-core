@@ -19,12 +19,23 @@ namespace ModestLiving.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 0)
         {
             //Get the last 6 products from db
-            var data = _context.Products.OrderByDescending(s => s.ID).Take(6).ToListAsync(); 
+            var dataSource = _context.Products.Where(s => s.ApproveStatus == 1).OrderByDescending(s => s.ID);
 
-            return View(await data);
+            //TODO make option for size dynamic
+            const int PageSize = 6; 
+
+            int count = dataSource.Count();
+
+            var data = dataSource.Skip(page * PageSize).Take(PageSize).ToList();
+
+            ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+            ViewBag.Page = page;
+
+            return View(data);
         }
     }
 }

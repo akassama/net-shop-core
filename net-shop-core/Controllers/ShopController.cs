@@ -24,7 +24,6 @@ namespace ModestLiving.Controllers
         private static IHttpContextAccessor _accessor;
 
 
-
         public ShopController(DBConnection context, IDetectionService detectionService, IHttpContextAccessor accessor)
         {
             _accessor = accessor;
@@ -32,16 +31,28 @@ namespace ModestLiving.Controllers
             _detectionService = detectionService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 0)
         {
-            
+
             //Get the top 3 from collections (catefories)
             ViewBag.CollectionsData = _context.Categories.OrderBy(s => s.ID).Take(3);
 
-            //Get the last 15 products from db
-            var data = _context.Products.OrderByDescending(s => s.ID).Take(15).ToListAsync();
 
-            return View(await data);
+            //Get the last 6 products from db
+            var dataSource = _context.Products.Where(s => s.ApproveStatus == 1).OrderByDescending(s => s.ID);
+
+            //TODO make option for size dynamic
+            const int PageSize = 6;
+
+            int count = dataSource.Count();
+
+            var data = dataSource.Skip(page * PageSize).Take(PageSize).ToList();
+
+            ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+            ViewBag.Page = page;
+
+            return View(data);
 
         }
 
