@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using net_shop_core.Models;
 using ModestLiving.Models;
 using Wangkanai.Detection.Services;
+using Microsoft.Extensions.Options;
 
 namespace ModestLiving.Controllers
 {
@@ -23,12 +24,15 @@ namespace ModestLiving.Controllers
 
         private static IHttpContextAccessor _accessor;
 
+        private readonly SystemConfiguration _systemConfiguration;
 
-        public ShopController(DBConnection context, IDetectionService detectionService, IHttpContextAccessor accessor)
+
+        public ShopController(DBConnection context, IDetectionService detectionService, IHttpContextAccessor accessor, IOptions<SystemConfiguration> systemConfiguration)
         {
             _accessor = accessor;
             _context = context;
             _detectionService = detectionService;
+            _systemConfiguration = systemConfiguration.Value;
         }
 
         public IActionResult Index(int page = 0)
@@ -38,11 +42,11 @@ namespace ModestLiving.Controllers
             ViewBag.CollectionsData = _context.Categories.OrderBy(s => s.ID).Take(3);
 
 
-            //Get the last 6 products from db
+            //Get products from db
             var dataSource = _context.Products.Where(s => s.ApproveStatus == 1).OrderByDescending(s => s.ID);
 
-            //TODO make option for size dynamic
-            const int PageSize = 6;
+            //Page size from config file
+            int PageSize = _systemConfiguration.shopPageSize;
 
             int count = dataSource.Count();
 

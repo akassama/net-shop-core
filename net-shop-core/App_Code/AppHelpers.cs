@@ -307,6 +307,7 @@ namespace AppHelpers.App_Code
             catch(Exception ex)
             {
                 //TODO log error
+                Console.WriteLine(ex);
             }
             return "NA";
         }

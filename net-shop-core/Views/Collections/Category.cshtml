@@ -10,12 +10,10 @@
 <header class="site-navbar" role="banner">
     <!-- //Top menu item -->
     @await Html.PartialAsync("~/Views/Shared/NavLayout/_NavBarTop.cshtml")
-
-
+        
     <!-- //Navigation menu -->
     @await Html.PartialAsync("~/Views/Shared/NavLayout/_SiteNavigation.cshtml")
 </header>
-
 
 <!-- //Breadcrump -->
 @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
@@ -33,6 +31,29 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @if (ViewBag.Page > 0)
+                {
+                    <a href="@Url.Action("Category", new { page = ViewBag.Page - 1 })"
+                       class="btn btn-primary" style="float:left;">
+                        <i class="fas fa-chevron-left"></i>
+                        Prev
+                    </a>
+                }
+            </div>
+            <div class="col-md-6">
+                @if (ViewBag.Page < ViewBag.MaxPage)
+                {
+                    <a href="@Url.Action("Category", new { page = ViewBag.Page + 1 })"
+                       class="btn btn-primary" style="float:right;">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                }
             </div>
         </div>
 

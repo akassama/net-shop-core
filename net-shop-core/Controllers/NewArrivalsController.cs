@@ -6,17 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using net_shop_core.Models;
 using ModestLiving.Models;
+using Microsoft.Extensions.Options;
 
 namespace ModestLiving.Controllers
 {
     public class NewArrivalsController : Controller
     {
         private readonly DBConnection _context;
+        private readonly SystemConfiguration _systemConfiguration;
 
 
-        public NewArrivalsController(DBConnection context)
+        public NewArrivalsController(DBConnection context, IOptions<SystemConfiguration> systemConfiguration)
         {
             _context = context;
+            _systemConfiguration = systemConfiguration.Value;
         }
 
         public IActionResult Index(int page = 0)
@@ -24,8 +27,8 @@ namespace ModestLiving.Controllers
             //Get the last 6 products from db
             var dataSource = _context.Products.Where(s => s.ApproveStatus == 1).OrderByDescending(s => s.ID);
 
-            //TODO make option for size dynamic
-            const int PageSize = 6; 
+            //Page size from config file
+            int PageSize = _systemConfiguration.newArrivalPageSize; 
 
             int count = dataSource.Count();
 

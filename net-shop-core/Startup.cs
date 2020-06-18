@@ -34,6 +34,9 @@ namespace net_shop_core
 
             services.AddControllersWithViews();
 
+            //Read config from apsettings
+            services.Configure<SystemConfiguration>(Configuration.GetSection("systemConfiguration"));
+
             //runtime compilation
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
