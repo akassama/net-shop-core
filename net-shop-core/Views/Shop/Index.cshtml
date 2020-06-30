@@ -19,7 +19,6 @@
 
 <div class="site-section">
     <div class="container">
-
         <div class="row mb-5">
             <div class="col-md-9 order-2">
                 <div class="row">
@@ -30,6 +29,10 @@
                 <div class="row mb-5">
                     <!-- //Shopping Products List -->
                     @await Html.PartialAsync("~/Views/Shared/Shop/_Products.cshtml")
+                    @if(ViewBag.TotalProducts == 0)
+                    {
+                    <span class="text-danger font-weight-bold ml-2">No available product(s) for @TempData["LatestCategory"]</span>
+                    }
                 </div>
 
 
@@ -40,7 +43,7 @@
                                 <li>
                                     @if (ViewBag.Page > 0)
                                     {
-                                        <a class="active" href="@Url.Action("Index", new { page = ViewBag.Page - 1 })">
+                                        <a class="active" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @page = ViewBag.Page - 1, @sort = ViewBag.Sort })">
                                             <i class="fas fa-chevron-left"></i>
                                         </a>
                                     }
@@ -54,7 +57,7 @@
                                 <li>
                                     @if (ViewBag.Page < ViewBag.MaxPage)
                                     {
-                                        <a class="active" href="@Url.Action("Index", new { page = ViewBag.Page + 1 })">
+                                        <a class="active" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @page = ViewBag.Page + 1, @sort = ViewBag.Sort })">
                                             <i class="fas fa-chevron-right"></i>
                                         </a>
                                     }
@@ -77,10 +80,13 @@
                     @await Html.PartialAsync("~/Views/Shared/Shop/_CategoriesLeft.cshtml")
                 </div>
 
+                @*
+                <!--TODO To be implemented in phase II -->
                 <div class="border p-4 rounded mb-4">
                     <!-- //Shop Filters -->
                     @await Html.PartialAsync("~/Views/Shared/Shop/_FiltersLeft.cshtml")
                 </div>
+                *@
             </div>
         </div>
 

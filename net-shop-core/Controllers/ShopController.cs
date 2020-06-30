@@ -35,20 +35,58 @@ namespace ModestLiving.Controllers
             _systemConfiguration = systemConfiguration.Value;
         }
 
-        public IActionResult Index(int page = 0)
+        //index view for shop
+        public IActionResult Index([FromQuery(Name = "l")] string latest, int page = 0, [FromQuery(Name = "sort")] string sort ="relevance")
         {
-
             //Get the top 3 from collections (catefories)
             ViewBag.CollectionsData = _context.Categories.OrderBy(s => s.ID).Take(3);
 
+            //set viewbag for sort
+            ViewBag.Sort = sort;
 
             //Get products from db
             var dataSource = _context.Products.Where(s => s.ApproveStatus == 1).OrderByDescending(s => s.ID);
+
+            TempData["LatestCategory"] = "All";
+            //If sort by latest category
+            if (!string.IsNullOrEmpty(latest) && latest.ToLower() != "all")
+            {
+                //get category id from category name
+                int category_id = _context.Categories.Where(s => s.CategoryName == latest).FirstOrDefault().ID;
+
+                dataSource = _context.Products.Where(s => s.CategoryID == category_id && s.ApproveStatus == 1).OrderByDescending(s => s.ID);
+
+                TempData["LatestCategory"] = latest;
+            }
+
+            //check if sort by is selected and sort
+            switch (sort)
+            {
+                case "relevance":
+                    dataSource = dataSource.OrderByDescending(s => s.ID);
+                    break;
+                case "az":
+                    dataSource = dataSource.OrderBy(s => s.ProductName);
+                    break;
+                case "za":
+                    dataSource = dataSource.OrderByDescending(s => s.ProductName);
+                    break;
+                case "lh":
+                    dataSource = dataSource.OrderBy(s => s.ProductPrice);
+                    break;
+                case "hl":
+                    dataSource = dataSource.OrderByDescending(s => s.ProductPrice);
+                    break;
+                default:
+                    break;
+            }
 
             //Page size from config file
             int PageSize = _systemConfiguration.shopPageSize;
 
             int count = dataSource.Count();
+
+            ViewBag.TotalProducts = count;
 
             var data = dataSource.Skip(page * PageSize).Take(PageSize).ToList();
 
@@ -124,9 +162,8 @@ namespace ModestLiving.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Search([FromQuery(Name = "q")] string query)
+        public IActionResult Search([FromQuery(Name = "q")] string query, int page = 0)
         {
-
             //If search query passed
             if (!string.IsNullOrEmpty(query))
             {
@@ -137,12 +174,25 @@ namespace ModestLiving.Controllers
                 TempData["SearchText"] = query;
 
                 ViewBag.TotalRecords = _context.Products.Count(s => s.ProductName.Contains(query) || s.ProductDescription.Contains(query) || s.ProductTags.Contains(query));
+                
                 //Get all query products
-                var data = _context.Products.Where(s => s.ProductName.Contains(query) || s.ProductDescription.Contains(query) || s.ProductTags.Contains(query)).OrderByDescending(s => s.ID).ToListAsync();
-                return View(await data);
+                var dataSource = _context.Products.Where(s => s.ProductName.Contains(query) || s.ProductDescription.Contains(query) || s.ProductTags.Contains(query)).OrderByDescending(s => s.ID);
+
+                //Page size from config file
+                int PageSize = _systemConfiguration.searchPageSize;
+
+                int count = dataSource.Count();
+
+                var data = dataSource.Skip(page * PageSize).Take(PageSize).ToList();
+
+                ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+                ViewBag.Page = page;
+
+                return View(data);
             }
 
-           return RedirectToAction("", "Shop");
+            return RedirectToAction("", "Shop");
 
         }
 

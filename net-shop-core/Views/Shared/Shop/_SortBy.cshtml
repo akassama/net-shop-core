@@ -1,25 +1,27 @@
-﻿<div class="col-md-12 mb-5">
-    <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
+﻿@using AppHelpers.App_Code
+
+
+<div class="col-md-12 mb-5">
+    <div class="float-md-left mb-4"><h2 class="text-black h5">Shop @TempData["LatestCategory"]</h2></div>
     <div class="d-flex">
         <div class="dropdown mr-1 ml-md-auto">
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Latest
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                <a class="dropdown-item" href="#">Men</a>
-                <a class="dropdown-item" href="#">Women</a>
-                <a class="dropdown-item" href="#">Children</a>
+                <a class="dropdown-item" href="~/Shop">All</a>
+                @ProductsHelper.GetLatestCategoryList()
             </div>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Sort By</button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                <a class="dropdown-item" href="#">Relevance</a>
-                <a class="dropdown-item" href="#">Name, A to Z</a>
-                <a class="dropdown-item" href="#">Name, Z to A</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @page = 0, @sort = "relevance" })">Relevance</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @page = 0, @sort = "az" })">Name, A to Z</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @sort = "za" })">Name, Z to A</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Price, low to high</a>
-                <a class="dropdown-item" href="#">Price, high to low</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @sort = "lh" })">Price, low to high</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Shop", new { @l = TempData["LatestCategory"], @sort = "hl" })">Price, high to low</a>
             </div>
         </div>
     </div>

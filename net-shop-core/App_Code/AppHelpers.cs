@@ -78,13 +78,20 @@ namespace AppHelpers.App_Code
         //get username directory of product uploader using account id of uploader
         public static string GetProductImageDirectoty(string account_id)
         {
-            using (var db = new DBConnection())
+            try
             {
-                var query = db.Accounts.Where(s => s.AccountID == account_id);
-                if (query.Any())
+                using (var db = new DBConnection())
                 {
-                    return query.FirstOrDefault().DirectoryName;
+                    var query = db.Accounts.Where(s => s.AccountID == account_id);
+                    if (query.Any())
+                    {
+                        return query.FirstOrDefault().DirectoryName;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                //TOD) log error
             }
             return null;
         }
@@ -116,15 +123,39 @@ namespace AppHelpers.App_Code
         //get product category from category id
         public static string GetProductCategory(int category_id)
         {
-            using (var db = new DBConnection())
+            try
             {
-                var query = db.Categories.Where(s => s.ID == category_id);
-                if (query.Any())
+                using (var db = new DBConnection())
                 {
-                    return query.FirstOrDefault().CategoryName;
+                    var query = db.Categories.Where(s => s.ID == category_id);
+                    if (query.Any())
+                    {
+                        return query.FirstOrDefault().CategoryName;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                //TODO log error
+            }
             return "Unknown";
+        }
+
+        //get number of products in product category using category id
+        public static int GetProductCategoryCount(int category_id)
+        {
+            try
+            {
+                using (var db = new DBConnection())
+                {
+                    return db.Products.Count(s => s.CategoryID == category_id);
+                }
+            }
+            catch(Exception ex)
+            {
+                //TOD) log error
+                return 0;
+            }
         }
 
         //get product image link using account id of uploader. Takes the first image
@@ -213,9 +244,46 @@ namespace AppHelpers.App_Code
                     return new HtmlString(result);
                 }
             }
-            return new HtmlString("<li><a href='#'>Not available</a></li>");
+            return new HtmlString("<li class='text-danger'><a href='#'>Not available</a></li>");
         }
 
+        //get shop category list from database
+        public static HtmlString GetShopCategoryList()
+        {
+            using (var db = new DBConnection())
+            {
+                var query = db.Categories.OrderBy(s => s.ID);
+                if (query.Any())
+                {
+                    string result = "";
+                    foreach (var item in query)
+                    {
+                        result += "<li class='mb-1'><a href='/Collections/Category/" + item.CategoryName + "' class='d-flex'> <span>" + item.CategoryName + "</span> <span class='text-black ml-auto'>("+GetProductCategoryCount(item.ID)+")</span> </a></li>";
+                    }
+                    return new HtmlString(result);
+                }
+            }
+            return new HtmlString("<li class='mb-1 text-danger'><a href='#'>Not available</a></li>");
+        }
+
+        //get latest category list from database
+        public static HtmlString GetLatestCategoryList()
+        {
+            using (var db = new DBConnection())
+            {
+                var query = db.Categories.OrderBy(s => s.ID);
+                if (query.Any())
+                {
+                    string result = "";
+                    foreach (var item in query)
+                    {
+                        result += "<a class='dropdown-item' href='/Shop/?l=" + item.CategoryName + "'>" + item.CategoryName + "</a>";
+                    }
+                    return new HtmlString(result);
+                }
+            }
+            return new HtmlString("<a class='dropdown-item' href='#'>Not available</a>");
+        }
 
         //get footer category list from database
         public static HtmlString GetFooterCategoryList()

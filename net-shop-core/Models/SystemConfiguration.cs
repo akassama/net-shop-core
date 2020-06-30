@@ -10,5 +10,8 @@ namespace net_shop_core.Models
         public int shopPageSize { get; set; }
         public int newArrivalPageSize { get; set; }
         public int categoryPageSize { get; set; }
+        public int totalHomeProducts { get; set; }
+
+        public int searchPageSize { get; set; }
     }
 }

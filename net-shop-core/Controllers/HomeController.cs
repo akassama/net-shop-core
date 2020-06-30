@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using ModestLiving.Models;
 using net_shop_core.Models;
 
@@ -17,11 +18,13 @@ namespace ModestLiving.Controllers
 
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(DBConnection context)
+        private readonly SystemConfiguration _systemConfiguration;
+
+        public HomeController(DBConnection context, IOptions<SystemConfiguration> systemConfiguration)
         {
            // _logger = logger;
-
             _context = context;
+            _systemConfiguration = systemConfiguration.Value;
         }
 
         public async Task<IActionResult> Index()
@@ -29,8 +32,9 @@ namespace ModestLiving.Controllers
             //Get the top 3 from collections (catefories)
             ViewBag.CollectionsData = _context.Categories.OrderByDescending(s => s.ID).Take(3);
 
-            //Get last 12 products 
-            var data = _context.Products.OrderByDescending(s => s.ID).Take(12).ToListAsync(); 
+            //Get recent products 
+            int totalProducts = _systemConfiguration.totalHomeProducts;
+            var data = _context.Products.OrderByDescending(s => s.ID).Take(totalProducts).ToListAsync(); 
 
             return View(await data);
         }
