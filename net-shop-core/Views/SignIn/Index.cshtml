@@ -1,4 +1,6 @@
-﻿@{
+﻿@model net_shop_core.Models.LoginViewModel
+
+@{
     ViewData["Parent"] = "";
     ViewData["Title"] = "Sign In";
 }
@@ -9,14 +11,25 @@
 
 
 <div class="wrapper">
-    <form class="form-signin" asp-controller="Auth" asp-action="Login" method="post">
-        <h2 class="form-signin-heading">Please login</h2>
-        <input type="text" class="form-control" name="username" placeholder="Email Address" autofocus="" />
+    <form class="form-signin" asp-controller="SignIn" asp-action="Index" id="signIn" method="post">
+        <h2 class="form-signin-heading">Please Sign-In</h2>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Email" class="form-control" placeholder="Email Address" autofocus="" required>
+        <span asp-validation-for="Email" class="text-danger"></span>
         <br />
-        <input type="password" class="form-control form-sign-in" name="password" placeholder="Password" />
+        <input asp-for="Password" class="form-control form-sign-in" placeholder="Password" required />
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <br />
         <label class="checkbox">
             <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign-In</button>
+        <br />
+        <p>
+            Don't have an account yet? <a href="~/SignUp" class="text-dark font-weight-bold no-ul">Create an account</a>
+        </p>
     </form>
+    <script>
+        $("#signIn").validate();
+    </script>
 </div>

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using net_shop_core.Models;
-using ModestLiving.Models;
 using Microsoft.Extensions.Options;
 
 namespace ModestLiving.Controllers

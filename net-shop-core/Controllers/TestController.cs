@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using net_shop_core.Models;
-using ModestLiving.Models;
 using Wangkanai.Detection.Services;
 
 namespace ModestLiving.Controllers

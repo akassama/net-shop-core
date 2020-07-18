@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ModestLiving.Models;
-using System.Globalization;
 using net_shop_core.Models;
+using System.Globalization;
 
 namespace AppHelpers.App_Code
 {
@@ -91,7 +90,8 @@ namespace AppHelpers.App_Code
             }
             catch (Exception ex)
             {
-                //TOD) log error
+                //TODO log error
+                Console.WriteLine(ex);
             }
             return null;
         }
@@ -137,6 +137,7 @@ namespace AppHelpers.App_Code
             catch (Exception ex)
             {
                 //TODO log error
+                Console.WriteLine(ex);
             }
             return "Unknown";
         }
@@ -153,7 +154,8 @@ namespace AppHelpers.App_Code
             }
             catch(Exception ex)
             {
-                //TOD) log error
+                //TODO log error
+                Console.WriteLine(ex);
                 return 0;
             }
         }
@@ -325,50 +327,53 @@ namespace AppHelpers.App_Code
         {
             try
             {
-                using (var db = new DBConnection())
+                if(product_id > 0)
                 {
-                    switch (return_data)
+                    using (var db = new DBConnection())
                     {
-                        case "ProductName":
-                            return db.Products.Where(s=> s.ID == product_id).FirstOrDefault().ProductName;
-                        case "ProductDescription":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductDescription;
-                        case "UniqueProductName":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UniqueProductName;
-                        case "ProductType":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductType.ToString();
-                        case "WholeSaleQuantity":
-                            if(db.Products.Where(s => s.ID == product_id).Any())
-                            {
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().WholeSaleQuantity.ToString();
-                            }
-                            return null;
-                        case "StoreID":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().StoreID.ToString();
-                        case "CategoryID":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().CategoryID.ToString();
-                        case "ProductPrice":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductPrice;
-                        case "ProductPreviousPrice":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductPreviousPrice;
-                        case "ProductTags":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductTags;
-                        case "ApproveStatus":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ApproveStatus.ToString();
-                        case "UpdatedBy":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UpdatedBy;
-                        case "UpdateDate":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UpdateDate.ToString();
-                        case "DateAdded":
-                            return db.Products.Where(s => s.ID == product_id).FirstOrDefault().DateAdded.ToString();
-                        case "ImageLink":
-                            var account_id = db.Products.Where(s => s.ID == product_id).FirstOrDefault().AccountID;
-                            return GetProductImageLink(account_id, product_id);
-                        case "ProductCategory":
-                            var category_id = db.Products.Where(s => s.ID == product_id).FirstOrDefault().CategoryID;
-                            return db.Categories.Where(s => s.ID == category_id).FirstOrDefault().CategoryName;
-                        default:
-                            return "NA";
+                        switch (return_data)
+                        {
+                            case "ProductName":
+                                return db.Products.Where(s=> s.ID == product_id).FirstOrDefault().ProductName;
+                            case "ProductDescription":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductDescription;
+                            case "UniqueProductName":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UniqueProductName;
+                            case "ProductType":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductType.ToString();
+                            case "WholeSaleQuantity":
+                                if(db.Products.Where(s => s.ID == product_id).Any())
+                                {
+                                    return db.Products.Where(s => s.ID == product_id).FirstOrDefault().WholeSaleQuantity.ToString();
+                                }
+                                return null;
+                            case "StoreID":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().StoreID.ToString();
+                            case "CategoryID":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().CategoryID.ToString();
+                            case "ProductPrice":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductPrice;
+                            case "ProductPreviousPrice":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductPreviousPrice;
+                            case "ProductTags":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductTags;
+                            case "ApproveStatus":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ApproveStatus.ToString();
+                            case "UpdatedBy":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UpdatedBy;
+                            case "UpdateDate":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UpdateDate.ToString();
+                            case "DateAdded":
+                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().DateAdded.ToString();
+                            case "ImageLink":
+                                var account_id = db.Products.Where(s => s.ID == product_id).FirstOrDefault().AccountID;
+                                return GetProductImageLink(account_id, product_id);
+                            case "ProductCategory":
+                                var category_id = db.Products.Where(s => s.ID == product_id).FirstOrDefault().CategoryID;
+                                return db.Categories.Where(s => s.ID == category_id).FirstOrDefault().CategoryName;
+                            default:
+                                return "NA";
+                        }
                     }
                 }
             }

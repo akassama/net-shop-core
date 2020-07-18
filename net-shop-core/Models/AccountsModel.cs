@@ -6,7 +6,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ModestLiving.Models
+namespace net_shop_core.Models
 {
     [Table("Accounts")]
     public class AccountsModel
@@ -16,12 +16,10 @@ namespace ModestLiving.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
-        [Required]
         [RegularExpression(@"^[A-Za-z 0-9]{10,20}$", ErrorMessage = "Minimum 10 characters required, and maximum of 20 characters.")]
         [Display(Name = "Account ID")]
         public string AccountID { get; set; }
 
-        [Required]
         [RegularExpression(@"^[A-Za-z 0-9]{2,50}$", ErrorMessage = "Minimum 2 characters required, and maximum of 50 characters.")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -43,7 +41,6 @@ namespace ModestLiving.Models
         public string PhoneNumber { get; set; }
 
         [Required]
-       //[RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -58,9 +55,6 @@ namespace ModestLiving.Models
         [Display(Name = "Profile Picture")]
         public string ProfilePicture { get; set; }
 
-        [RegularExpression(@"^[A-Za-z 0-9]{4,20}$", ErrorMessage = "Minimum 4 characters required, and maximum of 20 characters.")]
-        [Display(Name = "Salt")]
-        public string Salt { get; set; }
 
         [RegularExpression(@"^[A-Za-z 0-9]{5,250}$", ErrorMessage = "Minimum 5 characters required, and maximum of 250 characters.")]
         [Display(Name = "Directory Name")]
@@ -88,6 +82,21 @@ namespace ModestLiving.Models
         public DateTime? DateAdded { get; set; } = DateTime.Now;
     }
 
+
+    public class LoginViewModel
+    {
+        [Key]
+        [Required]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [RegularExpression("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}", ErrorMessage = "Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+    }
 
     [Table("LoginInfo")]
     public class LoginInfoModel

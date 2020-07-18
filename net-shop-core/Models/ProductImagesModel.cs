@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ModestLiving.Models
+namespace net_shop_core.Models
 {
     [Table("ProductImages")]
     public class ProductImagesModel

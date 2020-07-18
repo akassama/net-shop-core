@@ -6,7 +6,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ModestLiving.Models
+namespace net_shop_core.Models
 {
     [Table("OrderDetails")]
     public class OrderDetailsModel

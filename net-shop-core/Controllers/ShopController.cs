@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using net_shop_core.Models;
-using ModestLiving.Models;
 using Wangkanai.Detection.Services;
 using Microsoft.Extensions.Options;
 

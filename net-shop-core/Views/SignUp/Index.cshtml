@@ -1,0 +1,33 @@
+﻿@model net_shop_core.Models.AccountsModel
+@{
+    ViewData["Parent"] = "";
+    ViewData["Title"] = "Sign Up";
+}
+
+<!-- //Breadcrump -->
+@await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+
+<div class="wrapper">
+    <form class="form-signin" asp-controller="SignUp" asp-action="Index" id="signUp" method="post">
+        <h2 class="form-signin-heading">Please Sign-Up</h2>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Email" class="form-control" placeholder="Email Address" autofocus="" required>
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <br />
+        <input asp-for="Password" class="form-control form-sign-in" placeholder="Password" required />
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <br />
+        <input type="password" class="form-control form-sign-in" name="RepeatPassword" id="RepeatPassword" placeholder="RepeatPassword" required />
+        <div id="PasswordInfo"></div>
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" id="RegisterButton" name="RegisterButton" type="submit" disabled>Sign-Up</button>
+        <br />
+        <p>
+            Already have an account? <a href="~/SignIn" class="text-dark font-weight-bold no-ul">Sign-In</a>
+        </p>
+    </form>
+    <script>
+        $("#signUp").validate();
+    </script>
+</div>

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ModestLiving.Models;
+using net_shop_core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

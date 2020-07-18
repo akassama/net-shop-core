@@ -2,6 +2,15 @@
 // Write your JavaScript code.
 $(document).ready(function () {
 
+//    _____   _____    ____   _____   _    _   _____  _______     _____  __  __            _____  ______ 
+//   |  __ \ |  __ \  / __ \ |  __ \ | |  | | / ____||__   __|   |_   _||  \/  |    /\    / ____||  ____|
+//   | |__) || |__) || |  | || |  | || |  | || |        | |        | |  | \  / |   /  \  | |  __ | |__   
+//   |  ___/ |  _  / | |  | || |  | || |  | || |        | |        | |  | |\/| |  / /\ \ | | |_ ||  __|  
+//   | |     | | \ \ | |__| || |__| || |__| || |____    | |       _| |_ | |  | | / ____ \| |__| || |____ 
+//   |_|     |_|  \_\ \____/ |_____/  \____/  \_____|   |_|      |_____||_|  |_|/_/    \_\\_____||______|
+//                                                                                                       
+//
+
     /**
     * Sets modal image for product
     *
@@ -25,6 +34,15 @@ $(document).ready(function () {
     });
 
 
+
+//     _____  _    _   ____   _____   _____  _____  _   _   _____      _____            _____  _______ 
+//    / ____|| |  | | / __ \ |  __ \ |  __ \|_   _|| \ | | / ____|    / ____|    /\    |  __ \|__   __|
+//   | (___  | |__| || |  | || |__) || |__) | | |  |  \| || |  __    | |        /  \   | |__) |  | |   
+//    \___ \ |  __  || |  | ||  ___/ |  ___/  | |  | . ` || | |_ |   | |       / /\ \  |  _  /   | |   
+//    ____) || |  | || |__| || |     | |     _| |_ | |\  || |__| |   | |____  / ____ \ | | \ \   | |   
+//   |_____/ |_|  |_| \____/ |_|     |_|    |_____||_| \_| \_____|    \_____|/_/    \_\|_|  \_\  |_|   
+//                                                                                                     
+//
     /**
     * Adds product data to shopping cart session data
     *
@@ -47,13 +65,6 @@ $(document).ready(function () {
 
         setCartNumber();//update total number in cart 
 
-
-        //$.session.clear();
-        //const cart_data = formatCartSession();
-        //$.each(cart_data.split("[#]").slice(0, -1), function (index, item) {
-        //    var data_array = item.split(',');
-        //    alert("PID: " + data_array[0] + "| PNM: " + data_array[1] + "| PPR: " + data_array[2] + "| PQN: " + data_array[3] + "| PIM: " + data_array[4]);
-        //});
     });
 
 
@@ -311,5 +322,46 @@ $(document).ready(function () {
         }, 100);
 
 
+
+
+//    ______  ____   _____   __  __    __      __       _       _____  _____         _______  _____  ____   _   _   _____ 
+//   |  ____|/ __ \ |  __ \ |  \/  |   \ \    / //\    | |     |_   _||  __ \    /\ |__   __||_   _|/ __ \ | \ | | / ____|
+//   | |__  | |  | || |__) || \  / |    \ \  / //  \   | |       | |  | |  | |  /  \   | |     | | | |  | ||  \| || (___  
+//   |  __| | |  | ||  _  / | |\/| |     \ \/ // /\ \  | |       | |  | |  | | / /\ \  | |     | | | |  | || . ` | \___ \ 
+//   | |    | |__| || | \ \ | |  | |      \  // ____ \ | |____  _| |_ | |__| |/ ____ \ | |    _| |_| |__| || |\  | ____) |
+//   |_|     \____/ |_|  \_\|_|  |_|       \//_/    \_\|______||_____||_____//_/    \_\|_|   |_____|\____/ |_| \_||_____/ 
+//                                                                                                                        
+//                                                                                                                        
+
+    /**
+    * Checks if the Password and RepeatPassword fields match
+    *
+    */
+    $("#RepeatPassword").keyup(function () {
+        var password = $("#Password").val();
+        var confirmPassword = $("#RepeatPassword").val();
+
+        if (password == confirmPassword && password.length > 1) {
+            $("#PasswordInfo").html("<strong class='text-success'>Passwords match.</strong>");
+            $("#RegisterButton").attr("disabled", false);
+        }
+        else {
+            $("#PasswordInfo").html("<strong class='text-danger'>Passwords do not match!</strong>");
+            $("#RegisterButton").attr("disabled", true);
+        }
+    });
+
+
+    /**
+    * Disable buttons on click
+    *
+    */
+    $("#SubmitButton, #RegisterButton").click(function () {
+        //wait 0.1 seconds and disable submit button
+        setTimeout(
+            function () {
+                $(this).prop('disabled', true);
+            }, 100);
+    });
 
 });

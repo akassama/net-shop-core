@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ModestLiving.Models;
 using net_shop_core.Models;
 
 namespace ModestLiving.Controllers
@@ -16,13 +15,11 @@ namespace ModestLiving.Controllers
     {
         private readonly DBConnection _context;
 
-        private readonly ILogger<HomeController> _logger;
 
         private readonly SystemConfiguration _systemConfiguration;
 
         public HomeController(DBConnection context, IOptions<SystemConfiguration> systemConfiguration)
         {
-           // _logger = logger;
             _context = context;
             _systemConfiguration = systemConfiguration.Value;
         }
