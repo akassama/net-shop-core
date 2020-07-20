@@ -2,6 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
+
+
 <script>
     $(function () {
         $('#newProductForm').on('keydown', '#product_price, #precious_price, #number_in_stock, #whole_sale_quantity', function (e) { -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) || /65|67|86|88/.test(e.keyCode) && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode) && e.preventDefault() });
@@ -21,28 +25,28 @@
     //Limit file upload buttons to n number
     function checkUpLimit() {
         const totalNum = $('.uploadFile').length;
-        if(totalNum > 3){
-            $('.imgAdd').css({pointerEvents: "none"});
+        if (totalNum > 3) {
+            $('.imgAdd').css({ pointerEvents: "none" });
 
             $('#add-image').removeClass('fa fa-plus');
             $('#add-image').addClass('fas fa-location-slash text-danger');
         }
-        else{
+        else {
             $('#add-image').removeClass('fas fa-location-slash text-danger');
             $('#add-image').addClass('fa fa-plus');
         }
     }
 
     //check if whole sale, enable whole sale quantity
-    $(document).ready(function(){
-        $('#product_type').click(function(){
-            if($(this).prop("checked") == true){
-                $("#whole_sale_quantity").prop('disabled',false);
-                $("#whole_sale_quantity").prop('required',true);
+    $(document).ready(function () {
+        $('#product_type').click(function () {
+            if ($(this).prop("checked") == true) {
+                $("#whole_sale_quantity").prop('disabled', false);
+                $("#whole_sale_quantity").prop('required', true);
             }
-            else if($(this).prop("checked") == false){
-                $("#whole_sale_quantity").prop('disabled',true);
-                $("#whole_sale_quantity").prop('required',false);
+            else if ($(this).prop("checked") == false) {
+                $("#whole_sale_quantity").prop('disabled', true);
+                $("#whole_sale_quantity").prop('required', false);
             }
         });
     });
@@ -52,13 +56,13 @@
 
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    @await Html.PartialAsync("~/Views/Shared/AdminLayout/_LeftSideBar.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/AccountLayout/_LeftSideBar.cshtml")
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
         <!-- //Top menu item -->
-        @await Html.PartialAsync("~/Views/Shared/AdminLayout/_NavBarTop.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
 
 
         <div class="container-fluid">
@@ -240,8 +244,8 @@
 
     </div>
 
-<script>
-    $("#newProductForm").validate();
-</script>
+    <script>
+        $("#newProductForm").validate();
+    </script>
 
 </div>

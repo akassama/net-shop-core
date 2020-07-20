@@ -13,7 +13,7 @@ namespace net_shop_core.Models
     {
         [Key]
         [Display(Name = "Product ID")]
-        public int ProductID { get; set; }
+        public string ProductID { get; set; }
 
         [Display(Name = "Value Occurrence")]
         public int ValueOccurrence { get; set; }

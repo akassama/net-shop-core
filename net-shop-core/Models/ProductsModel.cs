@@ -16,6 +16,9 @@ namespace net_shop_core.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
+        [Display(Name = "Product ID")]
+        public string ProductID { get; set; }
+
         [Display(Name = "Account ID")]
         [RegularExpression(@"^[A-Za-z 0-9]{10,250}$", ErrorMessage = "Minimum 10 characters required, and maximum of 250 characters.")]
         public string AccountID { get; set; }

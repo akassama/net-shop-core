@@ -2,18 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
 
 
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    @await Html.PartialAsync("~/Views/Shared/AdminLayout/_LeftSideBar.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/AccountLayout/_LeftSideBar.cshtml")
     <!-- /#sidebar-wrapper -->
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
         <!-- //Top menu item -->
-        @await Html.PartialAsync("~/Views/Shared/AdminLayout/_NavBarTop.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
 
 
         <div class="container-fluid">

@@ -31,19 +31,10 @@ namespace ModestLiving.Controllers
 
             //Get recent products 
             int totalProducts = _systemConfiguration.totalHomeProducts;
-            var data = _context.Products.OrderByDescending(s => s.ID).Take(totalProducts).ToListAsync(); 
+            var data = _context.Products.OrderByDescending(s => s.ID).Take(totalProducts).ToListAsync();
 
             return View(await data);
         }
-
-        //public async Task<IActionResult> Index()
-        //{
-        //    //get last 9 products
-        //    var data = _context.Products.Where(s=> s.ApproveStatus == 1).OrderByDescending(s=> s.ID).ToListAsync();
-
-        //    //return View(data);
-        //     return View(await _context.Products.ToListAsync().ConfigureAwait(false));
-        //}
 
 
         public IActionResult Upload()

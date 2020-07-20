@@ -38,21 +38,44 @@ namespace ModestLiving.Controllers
                 {
                     if (BCrypt.Net.BCrypt.Verify(loginModel.Password, hashedPassword))
                     {
-                        TempData["Message"] = "Login Success";
+                        //If account not activated
+                        if(query.FirstOrDefault().Status == 0)
+                        {
+                            TempData["ErrorMessage"] = "Account not activated.";
+                            return View(loginModel);
+                        }
+                        //If account suspended
+                        if (query.FirstOrDefault().Status == 2)
+                        {
+                            TempData["ErrorMessage"] = "Account suspended.";
+                            return View(loginModel);
+                        }
 
-                        //Set session
+                        //Set sessions
                         _sessionManager.ID = query.FirstOrDefault().ID;
-                        _sessionManager.LoginName = query.FirstOrDefault().Email.Split('@')[0];
+                        _sessionManager.LoginUsername = query.FirstOrDefault().Email.Split('@')[0];
                         _sessionManager.LoginEmail = query.FirstOrDefault().Email;
+                        _sessionManager.LoginFirstName =  (query.FirstOrDefault().FirstName != null) ? query.FirstOrDefault().FirstName : "";
+                        _sessionManager.LoginLastName = (query.FirstOrDefault().LastName != null) ? query.FirstOrDefault().LastName : "";
+                        _sessionManager.LoginDirectoryName = query.FirstOrDefault().DirectoryName;
+                        if (query.FirstOrDefault().Oauth == 0)
+                        {
+                            //set profile pic to default if null
+                            _sessionManager.LoginProfilePicture = (query.FirstOrDefault().FirstName != null) ? "/files/" + _sessionManager.LoginDirectoryName + "/profile/"+ query.FirstOrDefault().ProfilePicture : "/files/defaults/account/default.jpg";
 
-                        //return RedirectToAction("Index", "Account");
-                        return Content("You are logged in!");
+                        }
+                        else
+                        {
+                            _sessionManager.LoginProfilePicture = "/files/defaults/account/default.jpg";
+                        }
+
+                        return RedirectToAction("Index", "Account");
                     }
                 }
-                TempData["Message"] = "Wrong login details";
+                TempData["ErrorMessage"] = "Login failed. You have entered an invalid email or password";
                 return View(loginModel);
             }
-            TempData["Message"] = "Login Failed";
+            TempData["ErrorMessage"] = "Login failed";
             return View(loginModel);
         }
     }

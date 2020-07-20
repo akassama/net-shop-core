@@ -364,4 +364,14 @@ $(document).ready(function () {
             }, 100);
     });
 
+
+
+    /**
+    * Scroll to message div
+    *
+    */
+    $('html, body').animate({
+        scrollTop: ($("#ProcessMessages").offset().top - 50)
+    }, 1000);
+
 });

@@ -3,36 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using net_shop_core.Models;
 
 namespace ModestLiving.Controllers
 {
-    public class AccountStoreController : Controller
+    [TypeFilter(typeof(SessionAuthorize))] 
+    public class AccountController : Controller
     {
         public IActionResult Index()
         {
-            TempData["authenticated"] = true;
-
             return View();
         }
 
         public IActionResult NewPost()
         {
-            TempData["authenticated"] = true;
-
             return View();
         }        
         
         public IActionResult ManagePosts()
         {
-            TempData["authenticated"] = true;
-
             return View();
         }
 
         public IActionResult TestUpload()
         {
-            TempData["authenticated"] = true;
+            return View();
+        }
 
+        public IActionResult ManageStores()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
+        {
+            return View();
+        }
+        public IActionResult Empty()
+        {
             return View();
         }
     }

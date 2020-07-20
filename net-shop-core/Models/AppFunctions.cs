@@ -16,7 +16,7 @@ namespace net_shop_core.Models
         const string SessionViewedProducts = "_ViewedProducts";
 
         //Log product view to database
-        public bool LogProductView(int product_id, string visitor_id, string visitor_ip, string visitor_browser, string visitor_device, string other)
+        public bool LogProductView(string product_id, string visitor_id, string visitor_ip, string visitor_browser, string visitor_device, string other)
         {
 
             using (var db = new DBConnection())
@@ -119,7 +119,7 @@ namespace net_shop_core.Models
         /// Check if the product id has already been viewed by the visitor
         /// </summary>
         /// <returns>True or False</returns>
-        public bool IsProductViewed(int product_id, string _viewed_products)
+        public bool IsProductViewed(string product_id, string _viewed_products)
         {
             var viewed_products = "";
             if (_viewed_products != null)

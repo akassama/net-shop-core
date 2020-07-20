@@ -17,13 +17,6 @@
     <link rel="stylesheet" href="~/lib/modest/css/aos.css">
     <link rel="stylesheet" href="~/lib/modest/css/style.css">
 
-    @if (TempData["authenticated"] != null)
-    {
-        <!-- Admin design css -->
-        <link href="~/css/admin-sidebar.css" rel="stylesheet">
-        <link href="~/css/admin.css" rel="stylesheet">
-    }
-
 
     <script src="~/lib/modest/js/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -83,7 +76,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        @{ 
+                        @{
                             var WeeksPopularProduct = ProductsHelper.GetWeeksPopularProduct();
                         }
                         <h3 class="footer-heading mb-4">Popular this week</h3>
@@ -135,22 +128,19 @@
 
     <script src="~/lib/modest/js/jquery-ui.js"></script>
     <script src="~/lib/modest/js/popper.min.js"></script>
-    @if (TempData["authenticated"] == null)
-    {
-        <script src="~/lib/modest/js/owl.carousel.min.js"></script>
-        <script src="~/lib/modest/js/jquery.magnific-popup.min.js"></script>
-        <script src="~/lib/modest/js/aos.js"></script>
-        <script src="~/lib/modest/js/main.js"></script>
-    }
-    else
-    {
-        <script src="~/js/image-preview.js"></script>
-        <script src="~/js/jquery-ui.min.js"></script>
 
-        <!-- Datatables JS -->
-        <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
-        <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
-    }
+    <!-- //Account design js -->
+    <script src="~/lib/modest/js/owl.carousel.min.js"></script>
+    <script src="~/lib/modest/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/lib/modest/js/aos.js"></script>
+    <script src="~/lib/modest/js/main.js"></script>
+
+    <!-- //Site js -->
+    <script src="~/js/image-preview.js"></script>
+    <!-- Datatables JS -->
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
 
     <!-- Menu Toggle Script -->
     <script>

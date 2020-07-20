@@ -2,18 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
 
 
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    @await Html.PartialAsync("~/Views/Shared/AdminLayout/_LeftSideBar.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/AccountLayout/_LeftSideBar.cshtml")
     <!-- /#sidebar-wrapper -->
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
         <!-- //Top menu item -->
-        @await Html.PartialAsync("~/Views/Shared/AdminLayout/_NavBarTop.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
 
 
         <div class="container-fluid">
@@ -22,11 +23,13 @@
             </h1>
             <div class="row">
                 <div class="col main pt-0 mt-3">
-                    <p class="lead d-none d-sm-block">Manage dashboard</p>
+                    <p class="lead d-none d-sm-block">
+                        Manage dashboard
+                    </p>
 
                     <div class="row mb-3">
                         <div class="col-xl-3 col-sm-6 py-2">
-                            <a href="~/Dashboard/Inbox" style="">
+                            <a href="~/Account/Profile" style="">
                                 <div class="card bg-success text-white h-100">
                                     <div class="card-body bg-success">
                                         <div class="rotate">
@@ -38,7 +41,7 @@
                             </a>
                         </div>
                         <div class="col-xl-3 col-sm-6 py-2">
-                            <a href="~/AccountStore/ManagePosts" style="">
+                            <a href="~/Account/ManagePosts" style="">
                                 <div class="card text-white bg-danger h-100">
                                     <div class="card-body bg-danger">
                                         <div class="rotate">
@@ -53,7 +56,7 @@
                             </a>
                         </div>
                         <div class="col-xl-3 col-sm-6 py-2">
-                            <a href="~/Dashboard/Unsent" style="">
+                            <a href="~/Account/Statistics" style="">
                                 <div class="card text-white bg-info h-100">
                                     <div class="card-body bg-info">
                                         <div class="rotate">
@@ -65,7 +68,7 @@
                             </a>
                         </div>
                         <div class="col-xl-3 col-sm-6 py-2">
-                            <a href="~/Dashboard/Settings" style="">
+                            <a href="~/Account/Settings" style="">
                                 <div class="card text-white bg-warning h-100">
                                     <div class="card-body">
                                         <div class="rotate">
@@ -86,5 +89,8 @@
 
     </div>
     <!-- /#page-content-wrapper -->
-
 </div>
+
+
+<!-- Account Modals -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")

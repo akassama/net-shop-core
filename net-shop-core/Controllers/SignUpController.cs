@@ -41,10 +41,10 @@ namespace net_shop_core.Controllers
 
                 _context.Add(accountsModel);
                 await _context.SaveChangesAsync();
-                TempData["Message"] = "Registration was successful";
+                TempData["SuccessMessage"] = "Registration was successful";
                 return RedirectToAction("Index", "SignIn");
             }
-            TempData["Message"] = "Registration Failed";
+            TempData["ErrorMessage"] = "Registration Failed";
             return View(accountsModel);
         }
 

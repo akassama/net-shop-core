@@ -8,6 +8,9 @@
 @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
 
 
+<!--//Action Messages-->
+@await Html.PartialAsync("~/Views/Shared/_ProcessMessage.cshtml")
+
 <div class="wrapper">
     <form class="form-signin" asp-controller="SignUp" asp-action="Index" id="signUp" method="post">
         <h2 class="form-signin-heading">Please Sign-Up</h2>
@@ -18,7 +21,7 @@
         <input asp-for="Password" class="form-control form-sign-in" placeholder="Password" required />
         <span asp-validation-for="Password" class="text-danger"></span>
         <br />
-        <input type="password" class="form-control form-sign-in" name="RepeatPassword" id="RepeatPassword" placeholder="RepeatPassword" required />
+        <input type="password" class="form-control form-sign-in" name="RepeatPassword" id="RepeatPassword" placeholder="Repeat Password" required />
         <div id="PasswordInfo"></div>
         <br />
         <button class="btn btn-lg btn-primary btn-block" id="RegisterButton" name="RegisterButton" type="submit" disabled>Sign-Up</button>

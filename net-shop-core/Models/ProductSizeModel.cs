@@ -17,7 +17,7 @@ namespace net_shop_core.Models
         public int ID { get; set; }
 
         [Display(Name = "Product ID")]
-        public int? ProductID { get; set; }
+        public string ProductID { get; set; }
 
         [Display(Name = "Size")]
         public string Size { get; set; }

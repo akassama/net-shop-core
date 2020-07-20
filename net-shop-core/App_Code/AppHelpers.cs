@@ -95,6 +95,28 @@ namespace AppHelpers.App_Code
             }
             return null;
         }
+
+        //get account profile picture
+        public static string GetAccountProfilePicture(string account_id) 
+        {
+            try
+            {
+                using (var db = new DBConnection())
+                {
+                    var query = db.Accounts.Where(s => s.AccountID == account_id);
+                    if (query.Any())
+                    {
+                        return query.FirstOrDefault().DirectoryName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO log error
+                Console.WriteLine(ex);
+            }
+            return null;
+        }
     }
 
     //Helper for site data 
@@ -161,7 +183,7 @@ namespace AppHelpers.App_Code
         }
 
         //get product image link using account id of uploader. Takes the first image
-        public static string GetProductImageLink(string account_id, int product_id)
+        public static string GetProductImageLink(string account_id, string product_id)
         {
             //if user directory name is (for some reason), return place holder image
             var directory_name = AccountHelper.GetProductImageDirectoty(account_id);
@@ -185,7 +207,7 @@ namespace AppHelpers.App_Code
 
 
         //get product image link using account id of uploader and image link passed.
-        public static string GetProductImageLink(string account_id, int product_id, string image_link)
+        public static string GetProductImageLink(string account_id, string product_id, string image_link)
         {
             //if user directory name is (for some reason), return place holder image
             var directory_name = AccountHelper.GetProductImageDirectoty(account_id);
@@ -208,7 +230,7 @@ namespace AppHelpers.App_Code
         }
 
         //get product video link using account id of uploader and video link passed.
-        public static string GetProductVideoLink(string account_id, int product_id, string image_link)
+        public static string GetProductVideoLink(string account_id, string product_id, string image_link)
         {
             //if user directory name is (for some reason), return place holder video
             var directory_name = AccountHelper.GetProductImageDirectoty(account_id);
@@ -308,7 +330,7 @@ namespace AppHelpers.App_Code
 
 
         //get popular this week product id
-        public static int GetWeeksPopularProduct()
+        public static string GetWeeksPopularProduct()
         {
             using (var db = new DBConnection())
             {
@@ -318,58 +340,58 @@ namespace AppHelpers.App_Code
                     return query.FirstOrDefault().ProductID;
                 }
             }
-            return 0;
+            return null;
         }
 
 
         //get specific product data. Takes product id and data to return
-        public static string GetProductData(int product_id, string return_data)
+        public static string GetProductData(string product_id, string return_data)
         {
             try
             {
-                if(product_id > 0)
+                if(!string.IsNullOrEmpty(product_id))
                 {
                     using (var db = new DBConnection())
                     {
                         switch (return_data)
                         {
                             case "ProductName":
-                                return db.Products.Where(s=> s.ID == product_id).FirstOrDefault().ProductName;
+                                return db.Products.Where(s=> s.ProductID == product_id).FirstOrDefault().ProductName;
                             case "ProductDescription":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductDescription;
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductDescription;
                             case "UniqueProductName":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UniqueProductName;
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UniqueProductName;
                             case "ProductType":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductType.ToString();
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductType.ToString();
                             case "WholeSaleQuantity":
-                                if(db.Products.Where(s => s.ID == product_id).Any())
+                                if(db.Products.Where(s => s.ProductID == product_id).Any())
                                 {
-                                    return db.Products.Where(s => s.ID == product_id).FirstOrDefault().WholeSaleQuantity.ToString();
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().WholeSaleQuantity.ToString();
                                 }
                                 return null;
                             case "StoreID":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().StoreID.ToString();
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().StoreID.ToString();
                             case "CategoryID":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().CategoryID.ToString();
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID.ToString();
                             case "ProductPrice":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductPrice;
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPrice;
                             case "ProductPreviousPrice":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductPreviousPrice;
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPreviousPrice;
                             case "ProductTags":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ProductTags;
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductTags;
                             case "ApproveStatus":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().ApproveStatus.ToString();
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ApproveStatus.ToString();
                             case "UpdatedBy":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UpdatedBy;
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UpdatedBy;
                             case "UpdateDate":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().UpdateDate.ToString();
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UpdateDate.ToString();
                             case "DateAdded":
-                                return db.Products.Where(s => s.ID == product_id).FirstOrDefault().DateAdded.ToString();
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().DateAdded.ToString();
                             case "ImageLink":
-                                var account_id = db.Products.Where(s => s.ID == product_id).FirstOrDefault().AccountID;
+                                var account_id = db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().AccountID;
                                 return GetProductImageLink(account_id, product_id);
                             case "ProductCategory":
-                                var category_id = db.Products.Where(s => s.ID == product_id).FirstOrDefault().CategoryID;
+                                var category_id = db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID;
                                 return db.Categories.Where(s => s.ID == category_id).FirstOrDefault().CategoryName;
                             default:
                                 return "NA";

@@ -43,7 +43,7 @@ namespace ModestLiving.Controllers
             ViewBag.country = functions.GetIpInfo("188.130.155.151", "Country");
             ViewBag.session = SessionName;
 
-            int product_id = 2;
+            string product_id = "9DG52SMLA21F";
 
             //Get current ViewedProducts session
             var ViewedProducts = (HttpContext.Session.GetString("ViewedProducts") != null) ? HttpContext.Session.GetString("ViewedProducts") : "";

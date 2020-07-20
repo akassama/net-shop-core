@@ -105,9 +105,9 @@ namespace ModestLiving.Controllers
                 if (!string.IsNullOrEmpty(id))
                 {
                     //get product id from product unique name
-                    int product_id = _context.Products.Where(s => s.UniqueProductName == id).FirstOrDefault().ID;
+                    string product_id = _context.Products.Where(s => s.UniqueProductName == id).FirstOrDefault().ProductID;
 
-                    var productsModel = await _context.Products.FirstOrDefaultAsync(m => m.ID == product_id);
+                    var productsModel = await _context.Products.FirstOrDefaultAsync(m => m.ProductID == product_id);
 
                     //check if empty result
                     if (productsModel == null)
