@@ -27,6 +27,10 @@ namespace net_shop_core.Models
         public string ProductName { get; set; }
 
         [Required]
+        [Display(Name = "Currency")]
+        public string Currency { get; set; }
+
+        [Required]
         [RegularExpression(@"[+-]?([0-9]*[.])?[0-9]+", ErrorMessage = "Only numbers allowed.")]
         [Display(Name = "Product Price")]
         public string ProductPrice { get; set; }

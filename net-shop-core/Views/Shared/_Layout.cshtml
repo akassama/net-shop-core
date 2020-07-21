@@ -87,7 +87,7 @@
                             </h3>
                             <p>
                                 @ProductsHelper.GetProductData(WeeksPopularProduct, "ProductName"),
-                                GMD @ProductsHelper.GetProductData(WeeksPopularProduct, "ProductPrice")
+                                @ProductsHelper.GetCurrencySymbol(WeeksPopularProduct) @ProductsHelper.GetProductData(WeeksPopularProduct, "ProductPrice")
                             </p>
                         </a>
                     </div>

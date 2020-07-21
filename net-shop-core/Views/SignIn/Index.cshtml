@@ -1,9 +1,26 @@
 ﻿@model net_shop_core.Models.LoginViewModel
 
 @{
-    ViewData["Parent"] = "";
+    ViewData["Parent-0"] = "";
+    ViewData["Parent-1"] = "";
     ViewData["Title"] = "Sign In";
 }
+<script>
+    //TODO Remove auto login
+    $(document).ready(function () {
+        setTimeout(
+            function () {
+                //auto login
+                if ($.session.get('ShoppingCart') != "1") {
+                    $("#Email").val("abliekassama@yahoo.com");
+                    $("#Password").val("#Ablie1");
+                    $.session.set('AutoLogin', "1");
+                    $('button#SubmitButton').click();
+                }
+            }, 1000);
+    });
+
+</script>
 
 <!-- //Breadcrump -->
 @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
@@ -25,7 +42,7 @@
         <label class="checkbox">
             <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign-In</button>
+        <button class="btn btn-lg btn-primary btn-block" id="SubmitButton" name="SubmitButton" type="submit">Sign-In</button>
         <br />
         <p>
             Don't have an account yet? <a href="~/SignUp" class="text-dark font-weight-bold no-ul">Create an account</a>

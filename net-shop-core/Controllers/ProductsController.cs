@@ -53,7 +53,7 @@ namespace ModestLiving.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,AccountID,ProductName,ProductDescription,UniqueProductName,ProductType,WholeSaleQuantity,StoreID,CategoryID,ProductPrice,ProductPreviousPrice,ProductTags,ApproveStatus,UpdatedBy,UpdateDate,DateAdded")] ProductsModel productsModel)
+        public async Task<IActionResult> Create([Bind("ID,AccountID,ProductName,ProductDescription,UniqueProductName,ProductType,WholeSaleQuantity,StoreID,CategoryID,Currency,ProductPrice,ProductPreviousPrice,ProductTags,ApproveStatus,UpdatedBy,UpdateDate,DateAdded")] ProductsModel productsModel)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace ModestLiving.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountID,ProductName,ProductDescription,UniqueProductName,ProductType,WholeSaleQuantity,StoreID,CategoryID,ProductPrice,ProductPreviousPrice,ProductTags,ApproveStatus,UpdatedBy,UpdateDate,DateAdded")] ProductsModel productsModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountID,ProductName,ProductDescription,UniqueProductName,ProductType,WholeSaleQuantity,StoreID,CategoryID,Currency,ProductPrice,ProductPreviousPrice,ProductTags,ApproveStatus,UpdatedBy,UpdateDate,DateAdded")] ProductsModel productsModel)
         {
             if (id != productsModel.ID)
             {

@@ -12,7 +12,7 @@ foreach (var item in Model)
             <div class="block-4-text p-4">
                 <h3><a href="~/Shop/Details/@item.UniqueProductName">@ProductsHelper.GetProductCategory(item.CategoryID)</a></h3>
                 <p class="mb-0">@item.ProductName</p>
-                <p class="text-primary font-weight-bold">GMD @item.ProductPrice</p>
+                <p class="text-primary font-weight-bold">@ProductsHelper.GetCurrencySymbol(item.Currency) @item.ProductPrice</p>
             </div>
         </div>
     </div>

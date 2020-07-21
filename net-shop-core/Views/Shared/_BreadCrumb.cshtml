@@ -1,14 +1,32 @@
-﻿<div class="bg-light py-3">
+﻿@using AppHelpers.App_Code
+
+<div class="bg-light py-3">
     <div class="container">
         <div class="row">
             @{
-                if (!string.IsNullOrEmpty(ViewData["Parent"].ToString()))
+                if (!string.IsNullOrEmpty(ViewData["Parent-0"].ToString()) && !string.IsNullOrEmpty(ViewData["Parent-1"].ToString()))
                 {
-                        <div class="col-md-12 mb-0"><a href="~/">Home</a> <span class="mx-2 mb-0">/</span> <a href="~/@ViewData["Parent"]">@ViewData["Parent"]</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@ViewData["Title"]</strong></div>
+                    <div class="col-md-12 mb-0">
+                        <a href="~/">Home</a> <span class="mx-2 mb-0">/</span>
+                        <a href="~/@ViewData["Parent-0"]">@TextHelper.ConvertCase(ViewData["Parent-0"].ToString(), "SplitUpper") </a> <span class="mx-2 mb-0">/</span>
+                        <a href="~/@ViewData["Parent-0"]/@ViewData["Parent-1"]">@TextHelper.ConvertCase(ViewData["Parent-1"].ToString(), "SplitUpper") </a> <span class="mx-2 mb-0">/</span>
+                        <strong class="text-black">@ViewData["Title"]</strong>
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(ViewData["Parent-0"].ToString()))
+                {
+                    <div class="col-md-12 mb-0">
+                        <a href="~/">Home</a> <span class="mx-2 mb-0">/</span>
+                        <a href="~/@ViewData["Parent-0"]">@TextHelper.ConvertCase(ViewData["Parent-0"].ToString(), "SplitUpper") </a> <span class="mx-2 mb-0">/</span>
+                        <strong class="text-black">@ViewData["Title"]</strong>
+                    </div>
                 }
                 else
                 {
-                    <div class="col-md-12 mb-0"><a href="~/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@ViewData["Title"] </strong></div>
+                    <div class="col-md-12 mb-0">
+                        <a href="~/">Home</a> <span class="mx-2 mb-0">/</span>
+                        <strong class="text-black">@ViewData["Title"] </strong>
+                    </div>
                 }
             }
         </div>

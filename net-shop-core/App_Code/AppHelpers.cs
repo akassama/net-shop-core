@@ -63,6 +63,9 @@ namespace AppHelpers.App_Code
                 case "Title":
                     // convert to title case
                     return textInfo.ToTitleCase(text);
+                case "SplitUpper":
+                    //split text by capital case
+                    return Regex.Replace(text, "([A-Z])", " $1").Trim();
                 default:
                     return text;
             }
@@ -344,6 +347,35 @@ namespace AppHelpers.App_Code
         }
 
 
+        //get product currency symbol from currency code/product id
+        public static string GetCurrencySymbol(string currency_code)
+        {
+            try
+            {
+                using (var db = new DBConnection())
+                {
+                    //if using product id insted of currency, get currency code from product id
+                    if(currency_code.Length > 4)
+                    {
+                         currency_code = db.Products.Where(s => s.ProductID == currency_code).FirstOrDefault().Currency;
+                    }
+
+                    var query = db.Currency.Where(s => s.Code == currency_code);
+                    if (query.Any())
+                    {
+                        return query.FirstOrDefault().Symbol;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO log error
+                Console.WriteLine(ex);
+            }
+            return "NA";
+        }
+
+
         //get specific product data. Takes product id and data to return
         public static string GetProductData(string product_id, string return_data)
         {
@@ -373,6 +405,8 @@ namespace AppHelpers.App_Code
                                 return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().StoreID.ToString();
                             case "CategoryID":
                                 return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID.ToString();
+                            case "Currency":
+                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().Currency;
                             case "ProductPrice":
                                 return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPrice;
                             case "ProductPreviousPrice":

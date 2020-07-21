@@ -37,7 +37,9 @@ namespace net_shop_core.Models
         public DbSet<ProductSizeModel> ProductSize { get; set; }
         public DbSet<ProductViewsModel> ProductViews { get; set; }
         public DbSet<PopularThisWeekModel> PopularThisWeek { get; set; }
+        public DbSet<CurrencyModel> Currency { get; set; }
 
+        public DbSet<StoresModel> Stores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

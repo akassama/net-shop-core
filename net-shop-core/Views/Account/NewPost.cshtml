@@ -1,5 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model net_shop_core.Models.ProductsModel
+
+@{
+    ViewData["Parent-0"] = "Account";
+    ViewData["Parent-1"] = "ManagePosts";
+    ViewData["Title"] = "New Post";
 }
 
 <!-- Account Style CSS -->
@@ -67,179 +71,94 @@
 
         <div class="container-fluid">
             <h1 class="mt-4">
-                Dashboard
+                Post New Product
             </h1>
 
-            <div class="row justify-content-center mb-4">
-                <div class="col-md-12">
-                    <span class="anchor" id="formComplex"></span>
-                    <hr class="my-5">
-                    <!-- form complex example -->
-                    <div class="card card-outline-secondary">
-                        <div class="card-header">
-                            <h3 class="mb-0">New Post</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mt-4">
-                                <div class="col-sm-4 pb-3">
-                                    <label for="exampleAccount">Product Name</label>
-                                    <input class="form-control" name="ProductName" id="ProductName" placeholder="Product Name" type="text">
-                                </div>
-                                <div class="col-sm-3 pb-3">
-                                    <label for="Type">Type</label>
-                                    <select class="form-control custom-select" name="ProductType" id="ProductType">
-                                        <option class="text-white bg-warning">
-                                            Whole Sale
-                                        </option>
-                                        <option value="AL">
-                                            Retail
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-1 pb-3">
-                                    <label for="exampleAccount">Quantity</label>
-                                    <input class="form-control" name="WholeSaleQuantity" id="WholeSaleQuantity" placeholder="Total" type="text" readonly>
-                                </div>
-                                <div class="col-sm-2 pb-3">
-                                    <label for="exampleAmount">Price</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            $
-                                        </div>
-                                        <input class="form-control" name="Price" id="Price" placeholder="Amount" type="number">
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 pb-3">
-                                    <label for="exampleAmount">Previous Price</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            $
-                                        </div>
-                                        <input class="form-control" name="PreviousPrice" id="PreviousPrice" placeholder="Amount" type="number">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 pb-3">
-                                    <label for="Store">Store</label>
-                                    <select class="form-control custom-select" id="exampleSt">
-                                        <option class="text-white bg-warning">
-                                            Banjul
-                                        </option>
-                                        <option value="AL">
-                                            Serrekunda
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-3 pb-3">
-                                    <label for="Category">Category</label>
-                                    <select class="form-control custom-select" id="exampleSt">
-                                        <option class="text-white bg-warning">
-                                            Hijab
-                                        </option>
-                                        <option value="AL">
-                                            Abaya
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pb-3">
-                                    <label for="exampleLast">Tags <small>seperate by comma</small></label>
-                                    <input class="form-control" name="ProductTags" id="ProductTags" type="text">
-                                </div>
-                                <div class="col-md-6 pb-3">
-                                    <label for="exampleAccount">Product Colors</label>
-                                    <div class="row ml-1">
-                                        <label class="custom-control black-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Black</span>
-                                        </label>
-                                        <label class="custom-control lime-green-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Lime Green</span>
-                                        </label>
-                                        <label class="custom-control silver-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Silver</span>
-                                        </label>
-                                        <label class="custom-control blue-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Blue</span>
-                                        </label>
-                                        <label class="custom-control maroon-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Maroon</span>
-                                        </label>
-                                        <label class="custom-control brown-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Brown</span>
-                                        </label>
-                                        <label class="custom-control khaki-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Khaki</span>
-                                        </label>
-                                        <label class="custom-control orange-checkbox mr-1">
-                                            <input type="checkbox" class="fill-control-input">
-                                            <span class="fill-control-indicator"></span>
-                                            <span class="fill-control-description">Orange</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 pb-3">
-                                    <label for="exampleAccount">Product Size</label>
-                                    <br />
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-secondary m-1">
-                                            <input autocomplete="off" id="blue" name="options" type="checkbox">
-                                            Small
-                                        </label>
-                                        <label class="btn btn-secondary m-1">
-                                            <input autocomplete="off" id="red" name="options" type="checkbox">
-                                            Medium
-                                        </label>
-                                        <label class="btn btn-secondary m-1">
-                                            <input autocomplete="off" id="green" name="options" type="checkbox">
-                                            Large
-                                        </label>
-                                        <label class="btn btn-secondary m-1">
-                                            <input autocomplete="off" id="yellow" name="options" type="checkbox">
-                                            Extra Large
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 pb-3">
-                                    <label for="exampleMessage">Product Description</label>
-                                    <textarea class="form-control" id="complexExampleMessage" rows="3"></textarea>
-                                    <small class="text-muted">Add product description here.</small>
-                                </div>
+            <!-- //Breadcrump -->
+            @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
 
-                                <br><div class="container">
-                                    <label>Product Images</label>
-                                    <div class="row">
-                                        <div class="col-sm-2 imgUp">
-                                            <div class="imagePreview"></div>
-                                            <label class="btn btn-primary upload-btn-primary">
-                                                Upload<input type="file" class="uploadFile img" name="ProductImages" id="ProductImages" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
-                                            </label>
-                                        </div><!-- col-2 -->
-                                        <i class="fa fa-plus imgAdd" onclick="checkUpLimit()" id="add-image"></i>
-                                    </div><!-- row -->
-                                </div><!-- container -->
+            <!--row-->
+            <div class="row justify-content-center mb-4">
+                <div class="col-12">
+                    <form asp-controller="Account" asp-action="NewPost" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row jumbotron border border-dark m-2">
+                            <div class="col-sm-6 form-group">
+                                <label asp-for="ProductName"></label>
+                                <input asp-for="ProductName" class="form-control" required>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="float-right">
-                                <input class="btn btn-secondary" type="reset" value="Cancel">
-                                <input class="btn btn-primary" type="button" value="Send">
+                            <div class="col-sm-6 form-group">
+                                <label asp-for="ProductDescription"></label>
+                                <input asp-for="ProductDescription" class="form-control" required>
                             </div>
+                            <div class="col-sm-3 form-group">
+                                <label asp-for="ProductType"></label>
+                                <select class="form-control custom-select" asp-for="ProductName" required>
+                                    <option value="1" class="text-white bg-dark">
+                                        Whole Sale
+                                    </option>
+                                    <option value="0" class="text-white bg-dark">
+                                        Retail
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <label asp-for="WholeSaleQuantity"></label>
+                                @*<input asp-for="WholeSaleQuantity" class="form-control" readonly required>*@
+                                <input class="form-control" name="WholeSaleQuantity" id="WholeSaleQuantity" readonly required>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label asp-for="Currency"></label>
+                                <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CurrencyList,"Code","Code"))">
+                                </select>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label asp-for="ProductPrice"></label>
+                                <input asp-for="ProductPrice" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label asp-for="ProductPreviousPrice"></label>
+                                <input asp-for="ProductPreviousPrice" class="form-control" required>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label asp-for="CategoryID"></label>
+                                <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CategoryList,"ID","CategoryName"))">
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label asp-for="StoreID"></label>
+                                <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.StoresList,"ID","StoreName"))">
+                                </select>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <label asp-for="ProductTags"></label>
+                                <input asp-for="ProductTags" class="form-control" required>
+                            </div>
+                            <br>
+                            <!-- container -->
+                            <div class="container">
+                                <label>Product Images</label>
+                                <div class="row">
+                                    <div class="col-sm-2 imgUp">
+                                        <div class="imagePreview"></div>
+                                        <label class="btn btn-primary upload-btn-primary">
+                                            Upload<input type="file" class="uploadFile img" name="ProductImages" id="ProductImages" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                        </label>
+                                    </div><!-- col-2 -->
+                                    <i class="fa fa-plus imgAdd" onclick="checkUpLimit()" id="add-image"></i>
+                                </div><!-- row -->
+                            </div>
+                            <!-- //container -->
+
+                            <div class="col-sm-12 form-group mb-0">
+                                <button type="submit" class="btn btn-primary float-right">Submit</button>
+                            </div>
+
                         </div>
-                    </div><!--/card-->
+                    </form>
                 </div>
-            </div><!--/row-->
+            </div>
+            <!--/row-->
         </div>
 
     </div>

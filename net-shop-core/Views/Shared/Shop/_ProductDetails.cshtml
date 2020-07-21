@@ -27,7 +27,7 @@
         @ViewData["Title"].ToString().ToUpper()
     </h2>
     <p>@Html.DisplayFor(model => model.ProductDescription)</p>
-    <p><strong class="text-primary h4">GMD @Html.DisplayFor(model => model.ProductPrice)</strong></p>
+    <p><strong class="text-primary h4">@ProductsHelper.GetCurrencySymbol(Model.Currency) @Html.DisplayFor(model => model.ProductPrice)</strong></p>
     <div class="mb-1 d-flex">
         @foreach (var sizes in ViewBag.ProductSizes)
         {

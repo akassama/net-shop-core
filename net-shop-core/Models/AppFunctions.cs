@@ -178,6 +178,93 @@ namespace net_shop_core.Models
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
+
+        //Get List Of Currencies 
+        /// <summary>
+        /// Get the list of currencies in database
+        /// </summary>
+        /// <returns>list of currencies </returns>
+        public List<CurrencyModel> GetCurrencyList()
+        {
+            using (var db = new DBConnection())
+            {
+                List<CurrencyModel> currency_list = new List<CurrencyModel>();
+
+                //-- Get data from db --//
+                currency_list = db.Currency.ToList();
+
+                //-- Inserting select item in list --//
+                currency_list.Insert(0, new CurrencyModel {Code = "Select Currency" });
+
+                return currency_list;
+            }
+        }
+
+        //Get List Of Product Categories 
+        /// <summary>
+        /// Get the list of categories in database
+        /// </summary>
+        /// <returns>list of categories </returns>
+        public List<CategoriesModel> GetCategoryList()
+        {
+            using (var db = new DBConnection())
+            {
+                List<CategoriesModel> category_list = new List<CategoriesModel>();
+
+                //-- Get data from db --//
+                category_list = db.Categories.ToList();
+
+                //-- Inserting select item in list --//
+                category_list.Insert(0, new CategoriesModel { ID = 0, CategoryName = "Select Category" });
+
+                return category_list;
+            }
+        }
+
+
+        //Get List Of Stores
+        /// <summary>
+        /// Get the list of all stores
+        /// </summary>
+        /// <returns>list of stores</returns>
+        public List<StoresModel> GetStoresList()
+        {
+            using (var db = new DBConnection())
+            {
+                List<StoresModel> stores_list = new List<StoresModel>();
+
+                //-- Get data from db --//
+                stores_list = db.Stores.ToList();
+
+                //-- Inserting select item in list --//
+                stores_list.Insert(0, new StoresModel { ID = 0, StoreName = "Select Store" });
+
+                return stores_list;
+            }
+        }
+
+        //Get List Of Stores
+        /// <summary>
+        /// Get the list of store for user
+        /// </summary>
+        /// <returns>list of stores</returns>
+        public List<StoresModel> GetStoresList(string account_id)
+        {
+            using (var db = new DBConnection())
+            {
+                List<StoresModel> stores_list = new List<StoresModel>();
+
+                //-- Get data from db --//
+                stores_list = db.Stores.Where(s=> s.AccountID == account_id).ToList();
+
+                //-- Inserting select item in list --//
+                stores_list.Insert(0, new StoresModel {ID = 0, StoreName = "Select Store" });
+
+                return stores_list;
+            }
+        }
+
+
     }
 
 }

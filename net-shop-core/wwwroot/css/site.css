@@ -387,6 +387,13 @@ cursor: pointer;
 }
 
 
+/* Style select option bg to dark */
+.custom-select * {
+    /* bg-dark style */
+    background-color: #343a40 !important;
+    color: #fff !important;
+}
+
 /* Mobile Responsive Design */
 /*////////////////////////////////////////////////////////////*/
 

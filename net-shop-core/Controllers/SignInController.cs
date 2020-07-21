@@ -45,31 +45,42 @@ namespace ModestLiving.Controllers
                             return View(loginModel);
                         }
                         //If account suspended
-                        if (query.FirstOrDefault().Status == 2)
+                        else if (query.FirstOrDefault().Status == 2)
                         {
                             TempData["ErrorMessage"] = "Account suspended.";
                             return View(loginModel);
                         }
-
-                        //Set sessions
-                        _sessionManager.ID = query.FirstOrDefault().ID;
-                        _sessionManager.LoginUsername = query.FirstOrDefault().Email.Split('@')[0];
-                        _sessionManager.LoginEmail = query.FirstOrDefault().Email;
-                        _sessionManager.LoginFirstName =  (query.FirstOrDefault().FirstName != null) ? query.FirstOrDefault().FirstName : "";
-                        _sessionManager.LoginLastName = (query.FirstOrDefault().LastName != null) ? query.FirstOrDefault().LastName : "";
-                        _sessionManager.LoginDirectoryName = query.FirstOrDefault().DirectoryName;
-                        if (query.FirstOrDefault().Oauth == 0)
+                        //active account
+                        else if (query.FirstOrDefault().Status == 1)
                         {
-                            //set profile pic to default if null
-                            _sessionManager.LoginProfilePicture = (query.FirstOrDefault().FirstName != null) ? "/files/" + _sessionManager.LoginDirectoryName + "/profile/"+ query.FirstOrDefault().ProfilePicture : "/files/defaults/account/default.jpg";
+                            //Set sessions
+                            _sessionManager.ID = query.FirstOrDefault().ID;
+                            _sessionManager.LoginAccountId = query.FirstOrDefault().AccountID;
+                            _sessionManager.LoginUsername = query.FirstOrDefault().Email.Split('@')[0];
+                            _sessionManager.LoginEmail = query.FirstOrDefault().Email;
+                            _sessionManager.LoginFirstName = (query.FirstOrDefault().FirstName != null) ? query.FirstOrDefault().FirstName : "";
+                            _sessionManager.LoginLastName = (query.FirstOrDefault().LastName != null) ? query.FirstOrDefault().LastName : "";
+                            _sessionManager.LoginDirectoryName = query.FirstOrDefault().DirectoryName;
+                            if (query.FirstOrDefault().Oauth == 0)
+                            {
+                                //set profile pic to default if null
+                                _sessionManager.LoginProfilePicture = (query.FirstOrDefault().FirstName != null) ? "/files/" + _sessionManager.LoginDirectoryName + "/profile/" + query.FirstOrDefault().ProfilePicture : "/files/defaults/account/default.jpg";
 
+                            }
+                            else
+                            {
+                                _sessionManager.LoginProfilePicture = "/files/defaults/account/default.jpg";
+                            }
+
+                            return RedirectToAction("Index", "Account");
                         }
+                        //Undefined status
                         else
                         {
-                            _sessionManager.LoginProfilePicture = "/files/defaults/account/default.jpg";
+                            TempData["ErrorMessage"] = "Account status unknown. Please contact admin.";
+                            return View(loginModel);
                         }
 
-                        return RedirectToAction("Index", "Account");
                     }
                 }
                 TempData["ErrorMessage"] = "Login failed. You have entered an invalid email or password";
