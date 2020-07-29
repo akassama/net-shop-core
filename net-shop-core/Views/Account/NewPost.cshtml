@@ -80,19 +80,21 @@
             <!--row-->
             <div class="row justify-content-center mb-4">
                 <div class="col-12">
-                    <form asp-controller="Account" asp-action="NewPost" method="post">
+                    <form asp-controller="Account" asp-action="NewPost" id="newProductForm" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="row jumbotron border border-dark m-2">
                             <div class="col-sm-6 form-group">
-                                <label asp-for="ProductName"></label>
+                                <label asp-for="ProductName" class="font-weight-bold h5"></label>
                                 <input asp-for="ProductName" class="form-control" required>
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label asp-for="ProductDescription"></label>
+                                <label asp-for="ProductDescription" class="font-weight-bold h5"></label>
                                 <input asp-for="ProductDescription" class="form-control" required>
+                                <span asp-validation-for="ProductDescription" class="text-danger"></span>
                             </div>
                             <div class="col-sm-3 form-group">
-                                <label asp-for="ProductType"></label>
+                                <label asp-for="ProductType" class="font-weight-bold h5"></label>
                                 <select class="form-control custom-select" asp-for="ProductName" required>
                                     <option value="1" class="text-white bg-dark">
                                         Whole Sale
@@ -101,43 +103,51 @@
                                         Retail
                                     </option>
                                 </select>
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
                             </div>
                             <div class="col-sm-3 form-group">
-                                <label asp-for="WholeSaleQuantity"></label>
+                                <label asp-for="WholeSaleQuantity" class="font-weight-bold h5"></label>
                                 @*<input asp-for="WholeSaleQuantity" class="form-control" readonly required>*@
-                                <input class="form-control" name="WholeSaleQuantity" id="WholeSaleQuantity" readonly required>
+                                <input class="form-control" name="WholeSaleQuantity" id="WholeSaleQuantity" readonly>
+                                <span asp-validation-for="WholeSaleQuantity" class="text-danger"></span>
                             </div>
                             <div class="col-sm-2 form-group">
-                                <label asp-for="Currency"></label>
+                                <label asp-for="Currency" class="font-weight-bold h5"></label>
                                 <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CurrencyList,"Code","Code"))">
                                 </select>
+                                <span asp-validation-for="Currency" class="text-danger"></span>
                             </div>
                             <div class="col-sm-2 form-group">
-                                <label asp-for="ProductPrice"></label>
+                                <label asp-for="ProductPrice" class="font-weight-bold h5"></label>
                                 <input asp-for="ProductPrice" class="form-control" required>
+                                <span asp-validation-for="ProductPrice" class="text-danger"></span>
                             </div>
                             <div class="col-sm-2 form-group">
-                                <label asp-for="ProductPreviousPrice"></label>
+                                <label asp-for="ProductPreviousPrice" class="font-weight-bold h6"></label>
                                 <input asp-for="ProductPreviousPrice" class="form-control" required>
+                                <span asp-validation-for="ProductPreviousPrice" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label asp-for="CategoryID"></label>
-                                <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CategoryList,"ID","CategoryName"))">
+                                <label asp-for="CategoryID" class="font-weight-bold h5"></label>
+                                <select asp-for="CategoryID" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CategoryList,"ID","CategoryName"))">
                                 </select>
+                                <span asp-validation-for="CategoryID" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label asp-for="StoreID"></label>
-                                <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.StoresList,"ID","StoreName"))">
+                                <label asp-for="StoreID" class="font-weight-bold h5"></label>
+                                <select asp-for="StoreID" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.StoresList,"ID","StoreName"))">
                                 </select>
+                                <span asp-validation-for="StoreID" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12 form-group">
-                                <label asp-for="ProductTags"></label>
+                                <label asp-for="ProductTags" class="font-weight-bold h5"></label>
                                 <input asp-for="ProductTags" class="form-control" required>
+                                <span asp-validation-for="ProductTags" class="text-danger"></span>
                             </div>
                             <br>
                             <!-- container -->
                             <div class="container">
-                                <label>Product Images</label>
+                                <label class="font-weight-bold h5">Product Images</label>
                                 <div class="row">
                                     <div class="col-sm-2 imgUp">
                                         <div class="imagePreview"></div>
@@ -150,8 +160,17 @@
                             </div>
                             <!-- //container -->
 
-                            <div class="col-sm-12 form-group mb-0">
-                                <button type="submit" class="btn btn-primary float-right">Submit</button>
+                            <div class="col-sm-12 form-group">
+                                <div class="row">
+                                    <div class="col-3 offset-9">
+                                        <a href="~/Account/ManagePosts" class="btn btn-danger m-3">
+                                            <i class="fas fa-chevron-left"></i> Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="far fa-paper-plane"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -168,3 +187,8 @@
     </script>
 
 </div>
+
+
+
+<!-- Account Modals -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")

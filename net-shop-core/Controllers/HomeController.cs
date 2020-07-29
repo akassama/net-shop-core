@@ -15,7 +15,6 @@ namespace ModestLiving.Controllers
     {
         private readonly DBConnection _context;
 
-
         private readonly SystemConfiguration _systemConfiguration;
 
         public HomeController(DBConnection context, IOptions<SystemConfiguration> systemConfiguration)

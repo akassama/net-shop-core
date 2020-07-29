@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<net_shop_core.Models.StoresModel>
+
+@{
     ViewData["Title"] = "Manage Stores";
 }
 
@@ -16,17 +18,114 @@
         <!-- //Top menu item -->
         @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
 
-
         <div class="container-fluid">
             <h1 class="mt-4">
-                Bootstrap 4 Admin Dashboard
+                Manage Stores
             </h1>
-            <div class="row">
 
+            <div class="row bg-white">
+                @if (Model.Count() > 0)
+                {
+                    <div class="col-12">
+                        <a href="~/Account/NewStore" class="float-right m-2">
+                            <i class="fas fa-plus"></i> New Store
+                        </a>
+                    </div>
+                    <div class="col-10 offset-1">
+                        <table id="dataTable" class="table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">
+                                        @Html.DisplayNameFor(model => model.StoreName)
+                                    </th>
+                                    <th class="th-sm">
+                                        @Html.DisplayNameFor(model => model.StoreDescription)
+                                    </th>
+                                    <th class="th-sm">
+                                        @Html.DisplayNameFor(model => model.StoreLocation)
+                                    </th>
+                                    <th class="th-sm">
+                                        @Html.DisplayNameFor(model => model.StoreLocationMap)
+                                    </th>
+                                    <th class="th-sm text-center">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.StoreName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.StoreDescription)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.StoreLocation)</td>
+                                        <td class="text-center">
+                                            @{
+                                                var map_available = "";
+                                                if (item.StoreLocationMap == "")
+                                                {
+                                                    map_available = "disabled";
+                                                }
+                                            }
+                                            <a href="@item.StoreLocationMap" class="@map_available" target="_blank">
+                                                <i class="fas fa-map-pin text-danger"></i>
+                                            </a>
+                                        </td>
+                                        <td class="center-container">
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Action
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="@Url.Action("EditStore", "Account", new { id = item.ID })">
+                                                        <i class="fas fa-pencil-alt text-success"></i> Edit
+                                                    </a>
+                                                    <a class="dropdown-item" onclick="setModalData('@item.ID','@item.StoreName')">
+                                                        <i class="fas fa-times text-danger"></i> Remove
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreDescription)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreLocation)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreLocationMap)
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-center text-danger ml-2">No stores available</h4>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-
     </div>
     <!-- /#page-content-wrapper -->
 
 </div>
+
+
+<!-- Account Modals -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")

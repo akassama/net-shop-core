@@ -16,14 +16,14 @@ namespace net_shop_core.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
-        [Required]
         [Display(Name = "Account ID")]
         public string AccountID { get; set; }
 
         [Required]
         [Display(Name = "Store Name")]
-        public string StoreName { get; set; } 
+        public string StoreName { get; set; }
 
+        [Required]
         [Display(Name = "Store Description")]
         public string StoreDescription { get; set; }
 
