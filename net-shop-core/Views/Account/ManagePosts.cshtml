@@ -1,5 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<net_shop_core.Models.ProductsModel>
+@using AppHelpers.App_Code
+
+@{
+    ViewData["Parent-0"] = "Account";
+    ViewData["Parent-1"] = "";
+
+    ViewData["Title"] = "Manage Posts";
 }
 
 <!-- Account Style CSS -->
@@ -19,115 +25,110 @@
 
         <div class="container-fluid">
             <h1 class="mt-4">
-                Dashboard
+                Manage Posts
             </h1>
+
+            <!-- //Breadcrump -->
+            @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
             <div class="row">
                 <div class="col-12">
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th>Product Description</th>
-                                            <th>Product Image</th>
-                                            <th>Product Price</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th>Product Description</th>
-                                            <th>Product Image</th>
-                                            <th>Product Price</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Premium Jersey Hijab - Light Mink</td>
-                                            <td style="width:30em;">Not your ordinary jersey hijab. Our cult-favorite premium jersey is super-soft, effortless and made to last. It comes in our cult-favorite warm beige hue with a touch of pink that flatters any skin tone. Say hello to your new go-to.</td>
-                                            <td><img src="https://cdn.shopify.com/s/files/1/0059/1592/products/Haute-Hijab-Day-12437_1024x1024.jpg" class="rounded" alt="Cinque Terre" width="200" height="300"></td>
-                                            <td>D1200</td>
-                                            <td class="center-container">
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                        Action
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-edit text-info"></i> Edit
-                                                        </a>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-eye text-success"></i> View
-                                                        </a>
-                                                        <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
-                                                            <i class="far fa-trash-alt text-danger"></i> Remove
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Premium Jersey Hijab - Camel</td>
-                                            <td style="width:30em;">Not your ordinary jersey hijab. Our cult-favorite premium jersey is super-soft, effortless and made to last. It comes in our cult-favorite warm beige hue with a touch of pink that flatters any skin tone. Say hello to your new go-to.</td>
-                                            <td><img src="https://cdn.shopify.com/s/files/1/0059/1592/products/Haute-Hijab-Day-28366_34979dfd-6123-4284-b864-756fb2cff33f_1024x1024.jpg" class="rounded" alt="Cinque Terre" width="200" height="300"></td>
-                                            <td>D900</td>
-                                            <td class="center-container">
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                        Action
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-edit text-info"></i> Edit
-                                                        </a>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-eye text-success"></i> View
-                                                        </a>
-                                                        <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
-                                                            <i class="far fa-trash-alt text-danger"></i> Remove
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Premium Jersey Hijab - Dark Olive</td>
-                                            <td style="width:30em;">Not your ordinary jersey hijab. Our cult-favorite premium jersey is super-soft, effortless and made to last. It comes in our cult-favorite warm beige hue with a touch of pink that flatters any skin tone. Say hello to your new go-to.</td>
-                                            <td><img src="https://cdn.shopify.com/s/files/1/0059/1592/products/Haute-Hijab-Day_-16642_1024x1024.jpg" class="rounded" alt="Cinque Terre" width="200" height="300"></td>
-                                            <td>D1000</td>
-                                            <td class="center-container">
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                        Action
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-edit text-info"></i> Edit
-                                                        </a>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-eye text-success"></i> View
-                                                        </a>
-                                                        <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
-                                                            <i class="far fa-trash-alt text-danger"></i> Remove
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <a href="~/Account/NewPost" class="float-right m-2">
+                        <i class="fas fa-plus"></i> New Post
+                    </a>
+                </div>
+                @if (Model.Count() > 0)
+                {
+                    <div class="col-12">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Manage Posts</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="th-sm">
+                                                    @Html.DisplayNameFor(model => model.ProductName)
+                                                </th>
+                                                <th class="th-sm">
+                                                    @Html.DisplayNameFor(model => model.ProductDescription)
+                                                </th>
+                                                <th class="th-sm">
+                                                    Product Image
+                                                </th>
+                                                <th class="th-sm">
+                                                    @Html.DisplayNameFor(model => model.ProductPrice)
+                                                </th>
+                                                <th class="th-sm text-center">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="th-sm">
+                                                    @Html.DisplayNameFor(model => model.ProductName)
+                                                </th>
+                                                <th class="th-sm">
+                                                    @Html.DisplayNameFor(model => model.ProductDescription)
+                                                </th>
+                                                <th class="th-sm">
+                                                    Product Image
+                                                </th>
+                                                <th class="th-sm">
+                                                    @Html.DisplayNameFor(model => model.ProductPrice)
+                                                </th>
+                                                <th class="th-sm text-center">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.ProductName
+                                                    </td>
+                                                    <td style="width:30em;">
+                                                        @TextHelper.FormatLongText(item.ProductDescription, 500)
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <img src="~/files/@ProductsHelper.GetProductImageLink(item.AccountID, item.ProductID)" class="rounded" alt="@item.ProductName" width="120" height="150">
+                                                    </td>
+                                                    <td>
+                                                        @ProductsHelper.GetCurrencySymbol(item.Currency) @item.ProductPrice
+                                                    </td>
+                                                    <td class="center-container">
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                Action
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" href="~/">
+                                                                    <i class="fas fa-edit text-info"></i> Edit
+                                                                </a>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="fas fa-eye text-success"></i> View
+                                                                </a>
+                                                                <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
+                                                                    <i class="far fa-trash-alt text-danger"></i> Remove
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
 

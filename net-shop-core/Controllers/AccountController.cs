@@ -27,6 +27,9 @@ namespace ModestLiving.Controllers
 
         public IActionResult Index()
         {
+            //Get total products for user
+            ViewBag.TotalProducts = _context.Products.Where(s => s.AccountID == _sessionManager.LoginAccountId).Count();
+
             return View();
         }
 
@@ -38,11 +41,41 @@ namespace ModestLiving.Controllers
             ViewBag.StoresList = functions.GetStoresList(_sessionManager.LoginAccountId);
 
             return View();
-        }        
-        
+        }
+
+        // POST: Account/NewPost/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> NewPost(ProductsModel productsModel) 
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    productsModel.AccountID = _sessionManager.LoginAccountId;
+                    productsModel.DateAdded = DateTime.Now;
+
+                    _context.Add(productsModel);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Product added successfully";
+                    return RedirectToAction("ManageProducts", "Account");
+                }
+                catch (Exception)
+                {
+                    //TODO log error
+                    TempData["ErrorMessage"] = "An error occured while processing your request.";
+                    return View(productsModel);
+                }
+            }
+            TempData["ErrorMessage"] = "Failed to add product";
+            return View(productsModel);
+        }
+
         public IActionResult ManagePosts()
         {
-            return View();
+            //Get all user posts 
+            var data = _context.Products.Where(s => s.AccountID == _sessionManager.LoginAccountId).OrderByDescending(s => s.ID).ToList();
+            return View(data);
         }
 
         public IActionResult TestUpload()
@@ -61,25 +94,36 @@ namespace ModestLiving.Controllers
             return View();
         }
 
+        // POST: Account/NewStore/
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewStore(StoresModel storesModel)
         {
             if (ModelState.IsValid)
             {
-                storesModel.AccountID = _sessionManager.LoginAccountId;
-                storesModel.DateAdded = DateTime.Now;
+                try
+                {
+                    storesModel.AccountID = _sessionManager.LoginAccountId;
+                    storesModel.DateAdded = DateTime.Now;
 
-                _context.Add(storesModel);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Store added successfully";
+                    _context.Add(storesModel);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Store added successfully";
+                }
+                catch (Exception)
+                {
+                    //TODO log error
+                    TempData["ErrorMessage"] = "An error occured while processing your request.";
+                    return View(storesModel);
+                }
+
                 return RedirectToAction("ManageStores", "Account");
             }
             TempData["ErrorMessage"] = "Failed to add store";
             return View(storesModel);
         }
 
-        // GET: Products/EditStore/5
+        // GET: Account/EditStore/5
         public async Task<IActionResult> EditStore(int? id)
         {
             if (id == null)

@@ -350,27 +350,30 @@ namespace AppHelpers.App_Code
         //get product currency symbol from currency code/product id
         public static string GetCurrencySymbol(string currency_code)
         {
-            try
+            if (!string.IsNullOrEmpty(currency_code))
             {
-                using (var db = new DBConnection())
+                try
                 {
-                    //if using product id insted of currency, get currency code from product id
-                    if(currency_code.Length > 4)
+                    using (var db = new DBConnection())
                     {
-                         currency_code = db.Products.Where(s => s.ProductID == currency_code).FirstOrDefault().Currency;
-                    }
+                        //if using product id insted of currency, get currency code from product id
+                        if (currency_code.Length > 4)
+                        {
+                            currency_code = db.Products.Where(s => s.ProductID == currency_code).FirstOrDefault().Currency;
+                        }
 
-                    var query = db.Currency.Where(s => s.Code == currency_code);
-                    if (query.Any())
-                    {
-                        return query.FirstOrDefault().Symbol;
+                        var query = db.Currency.Where(s => s.Code == currency_code);
+                        if (query.Any())
+                        {
+                            return query.FirstOrDefault().Symbol;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                //TODO log error
-                Console.WriteLine(ex);
+                catch (Exception ex)
+                {
+                    //TODO log error
+                    Console.WriteLine(ex);
+                }
             }
             return "NA";
         }

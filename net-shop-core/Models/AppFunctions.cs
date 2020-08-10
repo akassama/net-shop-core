@@ -194,7 +194,7 @@ namespace net_shop_core.Models
                 currency_list = db.Currency.ToList();
 
                 //-- Inserting select item in list --//
-                currency_list.Insert(0, new CurrencyModel {Code = "Select Currency" });
+                //currency_list.Insert(0, new CurrencyModel {Code = "Select Currency" });
 
                 return currency_list;
             }
@@ -215,7 +215,7 @@ namespace net_shop_core.Models
                 category_list = db.Categories.ToList();
 
                 //-- Inserting select item in list --//
-                category_list.Insert(0, new CategoriesModel { ID = 0, CategoryName = "Select Category" });
+                //category_list.Insert(0, new CategoriesModel { ID = 0, CategoryName = "Select Category" });
 
                 return category_list;
             }
@@ -237,7 +237,7 @@ namespace net_shop_core.Models
                 stores_list = db.Stores.ToList();
 
                 //-- Inserting select item in list --//
-                stores_list.Insert(0, new StoresModel { ID = 0, StoreName = "Select Store" });
+                //stores_list.Insert(0, new StoresModel { ID = 0, StoreName = "Select Store" });
 
                 return stores_list;
             }

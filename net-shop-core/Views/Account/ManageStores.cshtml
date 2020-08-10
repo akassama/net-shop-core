@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<net_shop_core.Models.StoresModel>
 
 @{
+    ViewData["Parent-0"] = "Account";
+    ViewData["Parent-1"] = "";
+
     ViewData["Title"] = "Manage Stores";
 }
 
@@ -23,14 +26,18 @@
                 Manage Stores
             </h1>
 
+            <!-- //Breadcrump -->
+            @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+            <br/>
+
             <div class="row bg-white">
+                <div class="col-12">
+                    <a href="~/Account/NewStore" class="float-right m-2">
+                        <i class="fas fa-plus"></i> New Store
+                    </a>
+                </div>
                 @if (Model.Count() > 0)
                 {
-                    <div class="col-12">
-                        <a href="~/Account/NewStore" class="float-right m-2">
-                            <i class="fas fa-plus"></i> New Store
-                        </a>
-                    </div>
                     <div class="col-10 offset-1">
                         <table id="dataTable" class="table" width="100%">
                             <thead>
