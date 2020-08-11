@@ -4,7 +4,12 @@
     var url_path = Context.Request.Host + Context.Request.Path; //get current url path
     var title = url_path.Substring(url_path.LastIndexOf("/") + 1); //get last test after slash in url
 
-    ViewData["Title"] = title.ToString().Replace("-", " ");
+    title = title.ToString().Replace("-", " ");
+
+    //get auto generated string to remove
+    var last_word = title.Substring(title.LastIndexOf(" ", title.Length));
+
+    ViewData["Title"] = title.Replace(last_word, "");
 }
 
 

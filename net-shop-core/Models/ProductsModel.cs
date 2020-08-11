@@ -29,7 +29,7 @@ namespace net_shop_core.Models
         public string ProductName { get; set; }
 
         [Required]
-        [RegularExpression(@"^[A-Za-z 0-9]{20,500}$", ErrorMessage = "Minimum 20 characters required, and maximum of 500 characters.")]
+        //[RegularExpression(@"^[A-Za-z 0-9]{20,500}$", ErrorMessage = "Minimum 20 characters required, and maximum of 500 characters.")]
         [Display(Name = "Product Description")]
         public string ProductDescription { get; set; }
 

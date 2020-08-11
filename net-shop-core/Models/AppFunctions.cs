@@ -4,9 +4,11 @@ using net_shop_core.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace net_shop_core.Models
@@ -92,8 +94,6 @@ namespace net_shop_core.Models
                 var country_flag_url = (string)obj["location"]["country_flag"];
                 string calling_code = (string)obj["location"]["calling_code"];
 
-
-
                 switch (return_data)
                 {
                     case "Continent":
@@ -157,7 +157,7 @@ namespace net_shop_core.Models
         /// Generate unique alphanumeric strings
         /// </summary>
         /// <returns>unique string</returns>
-        public  string GetUinqueId()
+        public string GetUinqueId()
         {
             byte[] buffer = Guid.NewGuid().ToByteArray();
             var FormNumber = BitConverter.ToUInt32(buffer, 0) ^ BitConverter.ToUInt32(buffer, 4) ^ BitConverter.ToUInt32(buffer, 8) ^ BitConverter.ToUInt32(buffer, 12);
@@ -264,6 +264,229 @@ namespace net_shop_core.Models
             }
         }
 
+
+        //Get Specific Account Data
+        /// <summary>
+        /// Get the account data passed
+        /// </summary>
+        /// <returns>account data value</returns>
+        public string GetAccountData(string account_id, string account_data)
+        {
+            using (var db = new DBConnection())
+            {
+                var data = db.Accounts.Where(s => s.AccountID == account_id);
+                switch (account_data)
+                {
+                    case "FirstName":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.FirstName != null);
+                        return (data.Any() ? data.FirstOrDefault().FirstName :  null);
+                    case "LastName":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.LastName != null);
+                        return (data.Any() ? data.FirstOrDefault().LastName : null);
+                    case "FullName":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.FirstName != null && s.LastName != null);
+                        return (data.Any() ? data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName : null);
+                    case "Country":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.Country != null);
+                        return (data.Any() ? data.FirstOrDefault().Country : null);
+                    case "CountryCode":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.CountryCode != null);
+                        return (data.Any() ? data.FirstOrDefault().CountryCode.ToString() : null);
+                    case "PhoneNumber":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.PhoneNumber != null);
+                        return (data.Any() ? data.FirstOrDefault().PhoneNumber.ToString() : null);
+                    case "Email":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.Email != null);
+                        return (data.Any() ? data.FirstOrDefault().Email : null);
+                    case "ProfilePicture":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.ProfilePicture != null);
+                        return (data.Any() ? data.FirstOrDefault().ProfilePicture : null);
+                    case "Status":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.Status != null);
+                        return (data.Any() ? data.FirstOrDefault().Status.ToString() : null);
+                    case "Oauth":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.Oauth != null);
+                        return (data.Any() ? data.FirstOrDefault().Oauth.ToString() : null);
+                    case "DirectoryName":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.DirectoryName != null);
+                        return (data.Any() ? data.FirstOrDefault().DirectoryName : null);
+                    case "DateAdded":
+                        data = db.Accounts.Where(s => s.AccountID == account_id && s.DateAdded != null);
+                        return (data.Any() ? data.FirstOrDefault().DateAdded.ToString() : null);
+                    default:
+                        return null;
+                }
+            }
+        }
+
+
+        //Add image to Product Images table
+        /// <summary>
+        /// Add product images
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool AddProductImages(string product_id, string product_image, string description)
+        {
+            using (var db = new DBConnection())
+            {
+                // Create ProductImage object.
+                ProductImagesModel image_data = new ProductImagesModel
+                {
+                    ProductID = product_id,
+                    ImageType = GetImageFormat(product_image).ToString(),
+                    ImageLink = product_image,
+                    ImageDescription = description,
+                    DateAdded = DateTime.Now
+                };
+
+                // Add object to the ProductImages collection.
+                db.ProductImages.Add(image_data);
+
+                // Submit the change to the database.
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    //TODO log error
+                    return false;
+                }
+            }
+        }
+
+
+        //Gets image file extension
+        /// <summary>
+        /// Get the image file extension
+        /// </summary>
+        /// <returns>image file extension</returns>
+        private ImageFormat GetImageFormat(string fileName)
+        {
+            string extension = Path.GetExtension(fileName);
+            if (string.IsNullOrEmpty(extension))
+                throw new ArgumentException(
+                    string.Format("Unable to determine file extension for fileName: {0}", fileName));
+
+            switch (extension.ToLower())
+            {
+                case @".bmp":
+                    return ImageFormat.Bmp;
+
+                case @".gif":
+                    return ImageFormat.Gif;
+
+                case @".ico":
+                    return ImageFormat.Icon;
+
+                case @".jpg":
+                case @".jpeg":
+                    return ImageFormat.Jpeg;
+
+                case @".png":
+                    return ImageFormat.Png;
+
+                case @".tif":
+                case @".tiff":
+                    return ImageFormat.Tiff;
+
+                case @".wmf":
+                    return ImageFormat.Wmf;
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+
+        //Generate unique product name
+        /// <summary>
+        /// Generate unique product name for new product created, takes in product name text
+        /// </summary>
+        /// <returns>unique product name</returns>
+        public string GenerateUniqueProductName(string product_name)
+        {
+            //remove multiple spaces if any
+            product_name = Regex.Replace(product_name, @"\s+", " ");
+
+            //replace all spaces with dash
+            product_name = product_name.Replace(' ', '-') + "-" +GetUinqueId();
+
+            return product_name.ToLower();
+        }
+
+
+        //Add colors to Product Colors table
+        /// <summary>
+        /// Add product colors
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool AddProductColors(string product_id, string product_color)
+        {
+            using (var db = new DBConnection())
+            {
+                // Create ProductColors object.
+                ProductColorsModel color_data = new ProductColorsModel
+                {
+                    ProductID = product_id,
+                    ColorName = product_color,
+                    ColorCode = product_color,
+                    DateAdded = DateTime.Now
+                };
+
+                // Add object to the ProductColors collection.
+                db.ProductColors.Add(color_data);
+
+                // Submit the change to the database.
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    //TODO log error
+                    return false;
+                }
+            }
+        }
+
+
+        //Add colors to Product Colors table
+        /// <summary>
+        /// Add product colors
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool AddProductSizes(string product_id, string product_size)
+        {
+            using (var db = new DBConnection())
+            {
+                // Create ProductSizes object.
+                ProductSizeModel size_data = new ProductSizeModel
+                {
+                    ProductID = product_id,
+                    Size = product_size,
+                    DateAdded = DateTime.Now
+                };
+
+                // Add object to the ProductColors collection.
+                db.ProductSize.Add(size_data);
+
+                // Submit the change to the database.
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    //TODO log error
+                    return false;
+                }
+            }
+        }
 
     }
 

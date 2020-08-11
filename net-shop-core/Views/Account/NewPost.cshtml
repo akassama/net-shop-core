@@ -89,10 +89,14 @@
             <!-- //Breadcrump -->
             @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
 
+
+            <!--//Action Messages-->
+            @await Html.PartialAsync("~/Views/Shared/_ProcessMessage.cshtml")
+
             <!--row-->
             <div class="row justify-content-center mb-4">
                 <div class="col-12">
-                    <form asp-controller="Account" asp-action="NewPost" id="newProductForm" method="post">
+                    <form asp-controller="Account" asp-action="NewPost" id="newProductForm" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="row jumbotron border border-dark m-2">
                             <div class="col-sm-6 form-group">
@@ -102,7 +106,7 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label asp-for="ProductDescription" class="font-weight-bold h5"></label>
-                                <input asp-for="ProductDescription" class="form-control" required>
+                                <textarea asp-for="ProductDescription" class="form-control" rows="1" required></textarea>
                                 <span asp-validation-for="ProductDescription" class="text-danger"></span>
                             </div>
                             <div class="col-sm-3 form-group">
@@ -111,11 +115,11 @@
                                     <option value="" class="text-white bg-dark">
                                         Slect Product Type
                                     </option>
-                                    <option value="1" class="text-white bg-dark">
-                                        Whole Sale
-                                    </option>
                                     <option value="0" class="text-white bg-dark">
                                         Retail
+                                    </option>
+                                    <option value="1" class="text-white bg-dark">
+                                        Whole Sale
                                     </option>
                                 </select>
                                 <span asp-validation-for="ProductName" class="text-danger"></span>
@@ -141,7 +145,7 @@
                             </div>
                             <div class="col-sm-2 form-group">
                                 <label asp-for="ProductPreviousPrice" class="font-weight-bold h6"></label>
-                                <input asp-for="ProductPreviousPrice" class="form-control" required>
+                                <input asp-for="ProductPreviousPrice" class="form-control">
                                 <span asp-validation-for="ProductPreviousPrice" class="text-danger"></span>
                             </div>
                             <div class="col-sm-6 form-group">
@@ -166,6 +170,43 @@
                                 <label asp-for="ProductTags" class="font-weight-bold h5"></label>
                                 <input asp-for="ProductTags" class="form-control" required>
                                 <span asp-validation-for="ProductTags" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label for="ProductColors" class="font-weight-bold h5">
+                                    Avialable colors
+                                    <small>(hold ctrl/shift to select more than one)</small>
+                                </label>
+                                <select multiple class="form-control" id="ProductColors" name="ProductColors" required>
+                                    <option value="black" class="text-white bg-dark">Black</option>
+                                    <option value="white" class="text-dark bg-white">White</option>
+                                    <option value="red" class="text-white bg-danger">Red</option>
+                                    <option value="blue" class="text-blue bg-info">Blue</option>
+                                    <option value="green" class="text-white bg-success">Green</option>
+                                    <option value="cream" class="text-dark bg-cream">Cream</option>
+                                    <option value="gray" class="text-dark bg-light">Gray</option>
+                                    <option value="pink" class="text-dark bg-pink">Pink</option>
+                                    <option value="brown" class="text-white bg-brown">Brown</option>
+                                    <option value="purple" class="text-white bg-purple">Purple</option>
+                                    <option value="orange" class="text-white bg-orange">Orange</option>
+                                    <option value="yellow" class="text-dark bg-yellow">Yellow</option>
+                                    <option value="gold" class="text-dark bg-gold">Gold</option>
+                                    <option value="mix" class="text-danger">Mix</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <div class="form-group">
+                                    <label for="ProductSizes" class="font-weight-bold h5">
+                                        Product sizes
+                                        <small>(hold ctrl/shift to select more than one)</small>
+                                    </label>
+                                    <select multiple class="form-control" id="ProductSizes" name="ProductSizes" required>
+                                        <option value="NA" class="text-white bg-dark">Not applicable</option>
+                                        <option value="sm" class="text-white bg-dark">Small (sm)</option>
+                                        <option value="md" class="text-white bg-dark">Medium (md)</option>
+                                        <option value="lg" class="text-white bg-dark">Large (lg)</option>
+                                        <option value="xl" class="text-white bg-dark">Extra Large (xl)</option>
+                                    </select>
+                                </div>
                             </div>
                             <br>
                             <!-- container -->

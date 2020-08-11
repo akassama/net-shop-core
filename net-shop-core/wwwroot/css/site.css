@@ -394,6 +394,71 @@ cursor: pointer;
     color: #fff !important;
 }
 
+
+/* Custom Bootstrap Background Color Classes */
+/*////////////////////////////////////////////////////////////*/
+.bg-cream {
+    background-color: #fffdd0 !important;
+}
+a.bg-cream:hover, a.bg-cream:focus,
+button.bg-cream:hover,
+button.bg-cream:focus {
+    background-color: #faf8c5 !important;
+}
+
+.bg-pink {
+    background-color: #ffc0cb !important;
+}
+a.bg-pink:hover, a.bg-cream:focus,
+button.bg-pink:hover,
+button.bg-pink:focus {
+    background-color: #f5abb8 !important;
+}
+
+.bg-brown {
+    background-color: #8b4513 !important;
+}
+a.bg-brown:hover, a.bg-cream:focus,
+button.bg-brown:hover,
+button.bg-brown:focus {
+    background-color: #7d3d0f !important;
+}
+
+.bg-purple {
+    background-color: #9370db !important;
+}
+a.bg-purple:hover, a.bg-cream:focus,
+button.bg-purple:hover,
+button.bg-purple:focus {
+    background-color: #663399 !important;
+}
+
+.bg-orange {
+    background-color: #ff8C00 !important;
+}
+a.bg-orange:hover, a.bg-cream:focus,
+button.bg-orange:hover,
+button.bg-orange:focus {
+    background-color: #ffa500 !important;
+}
+
+.bg-yellow {
+    background-color: #ffff00 !important;
+}
+a.bg-yellow:hover, a.bg-cream:focus,
+button.bg-yellow:hover,
+button.bg-yellow:focus {
+    background-color: #f2f202 !important;
+}
+
+.bg-gold {
+    background-color: #ffd700 !important;
+}
+a.bg-gold:hover, a.bg-cream:focus,
+button.bg-gold:hover,
+button.bg-gold:focus {
+    background-color: #f5cf02 !important;
+}
 /* Mobile Responsive Design */
 /*////////////////////////////////////////////////////////////*/
 

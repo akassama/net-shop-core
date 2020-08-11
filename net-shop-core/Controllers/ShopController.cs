@@ -104,6 +104,12 @@ namespace ModestLiving.Controllers
                 //Check if string pass in not empty
                 if (!string.IsNullOrEmpty(id))
                 {
+                    //if product does not exists, return home
+                    if(!_context.Products.Any(s => s.UniqueProductName == id))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
                     //get product id from product unique name
                     string product_id = _context.Products.Where(s => s.UniqueProductName == id).FirstOrDefault().ProductID;
 
