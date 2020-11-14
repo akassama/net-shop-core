@@ -1,0 +1,256 @@
+﻿@model net_shop_core.Models.ProductsModel
+
+@{
+    ViewData["Parent-0"] = "Account";
+    ViewData["Parent-1"] = "ManagePosts";
+    ViewData["Title"] = "New Post";
+}
+
+<script>
+
+</script>
+
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
+
+
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    @await Html.PartialAsync("~/Views/Shared/AccountLayout/_LeftSideBar.cshtml")
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- //Top menu item -->
+        @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
+
+
+        <div class="container-fluid">
+            <h1 class="mt-4">
+                Post New Product
+            </h1>
+
+            <!-- //Breadcrump -->
+            @await Html.PartialAsync("~/Views/Shared/_BreadCrumb.cshtml")
+
+
+            <!--//Action Messages-->
+            @await Html.PartialAsync("~/Views/Shared/_ProcessMessage.cshtml")
+
+            <!--row-->
+            <div class="row justify-content-center mb-4">
+                <div class="col-12">
+                    <form asp-controller="Account" asp-action="NewPost" id="ValidateForm" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row jumbotron border border-dark m-2">
+                            <div class="col-sm-12 form-group">
+                                <label asp-for="ProductName" class="font-weight-bold h5"></label>
+                                <input asp-for="ProductName" class="form-control count-chars" data-chars-max="250" data-msg-color="danger" maxlength="250" required>
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                            </div>
+                            @*<div class="col-sm-6 form-group">
+                                    <label for="ProductStock" class="font-weight-bold h5">Number in Stock</label>
+                                    <select class="form-control" id="ProductStock" name="ProductStock" required>
+                                        @for (int i = 1; i <= 49; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                        @for (int i = 50; i <= 99; i += 10)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                        @for (int i = 100; i <= 1000; i += 50)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>*@
+                            <div class="col-sm-3 form-group">
+                                <label asp-for="ProductType" class="font-weight-bold h5"></label>
+                                <select class="form-control custom-select" id="ProductType" name="ProductType" required>
+                                    <option value="" class="text-white bg-dark">
+                                        Slect Product Type
+                                    </option>
+                                    <option value="0" class="text-white bg-dark">
+                                        Retail
+                                    </option>
+                                    <option value="1" class="text-white bg-dark">
+                                        Whole Sale
+                                    </option>
+                                </select>
+                                <span asp-validation-for="ProductType" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-3 form-group">
+                                <label asp-for="WholeSaleQuantity" class="font-weight-bold h5"></label>
+                                <input asp-for="WholeSaleQuantity" class="form-control integer-plus-only" readonly>
+                                <span asp-validation-for="WholeSaleQuantity" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-2 form-group">
+                                <label asp-for="Currency" class="font-weight-bold h5"></label>
+                                <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CurrencyList,"Code","Code"))" required>
+                                    <option value="" class="text-white bg-dark">
+                                        Select Currency
+                                    </option>
+                                </select>
+                                <span asp-validation-for="Currency" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label asp-for="ProductPrice" class="font-weight-bold h5"></label>
+                                <input asp-for="ProductPrice" class="form-control currency-number" required>
+                                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label asp-for="ProductPreviousPrice" class="font-weight-bold h6"></label>
+                                <input asp-for="ProductPreviousPrice" class="form-control currency-number">
+                                <span asp-validation-for="ProductPreviousPrice" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-6 form-group">
+                                <label asp-for="CategoryID" class="font-weight-bold h5"></label>
+                                <select asp-for="CategoryID" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CategoryList,"ID","CategoryName"))" required>
+                                    <option value="" class="text-white bg-dark">
+                                        Selecto Category
+                                    </option>
+                                </select>
+                                <span asp-validation-for="CategoryID" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-6 form-group">
+                                <label asp-for="StoreID" class="font-weight-bold h5"></label>
+                                <select asp-for="StoreID" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.StoresList,"ID","StoreName"))" required>
+                                    <option value="" class="text-white bg-dark">
+                                        Selecto Store
+                                    </option>
+                                </select>
+                                <span asp-validation-for="StoreID" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="ProductTags" class="font-weight-bold h5">Product Tags (separate by commas)</label>
+                                <input asp-for="ProductTags" class="form-control count-chars" data-chars-max="150" data-msg-color="danger" maxlength="150" required>
+                                <span asp-validation-for="ProductTags" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label asp-for="ProductDescription" class="font-weight-bold h5"></label>
+                                <div class="bg-white">
+                                    <textarea asp-for="ProductDescription" class="form-control" required></textarea>
+                                </div>
+                                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                            </div>
+
+                            @*<div class="col-sm-6 form-group">
+                                    <label for="ProductColors" class="font-weight-bold h5">
+                                        Avialable colors
+                                        <small>(hold ctrl/shift to select more than one)</small>
+                                    </label>
+                                    <select multiple class="form-control" id="ProductColors" name="ProductColors" required>
+                                        <option value="black" class="bg-white text-dark font-weight-bold">Black</option>
+                                        <option value="white" class="bg-gray text-white font-weight-bold">White</option>
+                                        <option value="red" class="bg-white text-danger font-weight-bold">Red</option>
+                                        <option value="blue" class="bg-white text-info font-weight-bold">Blue</option>
+                                        <option value="green" class="bg-white text-success font-weight-bold">Green</option>
+                                        <option value="cream" class="bg-gray text-cream font-weight-bold">Cream</option>
+                                        <option value="gray" class="bg-dark text-light font-weight-bold">Gray</option>
+                                        <option value="pink" class="bg-white text-pink font-weight-bold">Pink</option>
+                                        <option value="brown" class="bg-white text-brown font-weight-bold">Brown</option>
+                                        <option value="purple" class="bg-white text-purple font-weight-bold">Purple</option>
+                                        <option value="orange" class="bg-white text-orange font-weight-bold">Orange</option>
+                                        <option value="yellow" class="bg-gray text-yellow font-weight-bold">Yellow</option>
+                                        <option value="gold" class="bg-white text-gold font-weight-bold">Gold</option>
+                                        <option value="olive" class="bg-white text-olive font-weight-bold">Olive</option>
+                                        <option value="teal" class="bg-white text-teal font-weight-bold">Teal</option>
+                                        <option value="mix" class="bg-white font-weight-bold">Mix</option>
+                                    </select>
+                                </div>
+                                <!--//TODO https://www.asos.com/discover/size-charts/women/dresses/ -->
+                                <div class="col-sm-6 form-group">
+                                    <div class="form-group">
+                                        <label for="ProductSizes" class="font-weight-bold h5">
+                                            Product sizes
+                                            <small>(hold ctrl/shift to select more than one)</small>
+                                        </label>
+                                        <select multiple class="form-control" name="ProductSizes" id="ProductSizes">
+                                            <option value="NA" class="text-dark bg-white">Not applicable</option>
+                                            <optgroup label="Clothing">
+                                                <option value="CLT#UK#SM" class="text-dark bg-white">Small (UK)</option>
+                                                <option value="CLT#UK#MD" class="text-dark bg-white">Medium (UK)</option>
+                                                <option value="CLT#UK#LG" class="text-dark bg-white">Large (UK)</option>
+                                                <option value="CLT#UK#XL" class="text-dark bg-white">Extra Large (UK)</option>
+                                            </optgroup>
+                                            <optgroup label="Shoes">
+                                                <option value="SHO#UK#08">Size 08 (UK)</option>
+                                                <option value="SHO#UK#09">Size 09 (UK)</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <br>
+                            <!-- container -->
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <label class="font-weight-bold h5 col-12">Product Images</label>
+                                            <div class="col-sm-2 imgUp">
+                                                <div class="imagePreview"></div>
+                                                <label class="btn btn-primary upload-btn-primary">
+                                                    Upload<input type="file" class="uploadFile img" name="ProductImages" id="ProductImages" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                                </label>
+                                            </div><!-- col-2 -->
+                                            <i class="fa fa-plus imgAdd" id="addImage"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="font-weight-bold h5 col-12">
+                                            Product Video
+                                            <small>(max 10 mb)</small>
+                                        </label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="ProductVideo" name="ProductVideo">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div><!-- row -->
+                            </div>
+                            <!-- //container -->
+
+                            <div class="col-sm-12 form-group">
+                                <div class="row">
+                                    <div class="col-3 offset-9">
+                                        <a href="~/Account/ManagePosts" class="btn btn-danger m-3">
+                                            <i class="fas fa-chevron-left"></i> Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="far fa-paper-plane"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+
+<!-- Account Modals -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")

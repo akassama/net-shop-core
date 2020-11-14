@@ -111,9 +111,8 @@ $(document).ready(function () {
         setTimeout(
             function () {
                 $.session.set('ShoppingCart', "");
-                $('#clearCartModal').modal('hide');
                 location.reload();// reload page
-            }, 100);
+            }, 150);
     });
 
 
@@ -323,6 +322,14 @@ $(document).ready(function () {
 
 
 
+    /**
+    * Prevent cart button from scrolling to top on click with empty href="#"
+    *
+    */
+    $('a.cart-btn').click(function (event) {
+        event.preventDefault();
+    });
+
 
 //    ______  ____   _____   __  __    __      __       _       _____  _____         _______  _____  ____   _   _   _____ 
 //   |  ____|/ __ \ |  __ \ |  \/  |   \ \    / //\    | |     |_   _||  __ \    /\ |__   __||_   _|/ __ \ | \ | | / ____|
@@ -373,5 +380,135 @@ $(document).ready(function () {
     $('html, body').animate({
         scrollTop: ($("#ProcessMessages").offset().top - 50)
     }, 1000);
+});
+
+
+
+
+$(document).ready(function () {
+    /**
+    * Enable or disable Wholesale
+    *
+    */
+    //set readonly on load
+    $("#WholeSaleQuantity").prop('readonly', true);
+
+    //Enable or disable whole sale input
+    $('#ProductType').on('change', function (e) {
+        //Get selected
+        var selectedOption = $(this).children("option:selected").val();
+
+        //Disable Whole Sale Quantity
+        if (selectedOption == "0") {
+            $("#WholeSaleQuantity").prop('readonly', true);
+            $("#WholeSaleQuantity").val('');
+            $("#WholeSaleQuantity").prop('required', false);
+        }
+        //Enable Whole Sale Quantity
+        else if (selectedOption == "1") {
+            $("#WholeSaleQuantity").prop('readonly', false);
+            $("#WholeSaleQuantity").prop('required', true);
+        }
+    });
+});
+
+
+
+
+
+$(document).ready(function () {
+    // Restricts input for each element in the set of matched elements to the given inputFilter.
+    (function ($) {
+        $.fn.inputFilter = function (inputFilter) {
+            return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+            });
+        };
+    }(jQuery));
+
+    // Install input filters.
+    $(".integer-only").inputFilter(function (value) {
+        return /^-?\d*$/.test(value);
+    });
+
+    $(".integer-plus-only").inputFilter(function (value) {
+        return /^\d*$/.test(value);
+    });
+
+    $(".integer-range").inputFilter(function (value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 500);
+    });
+
+    $(".float-number").inputFilter(function (value) {
+        return /^-?\d*[.,]?\d*$/.test(value);
+    });
+
+    $(".currency-number").inputFilter(function (value) {
+        return /^-?\d*[.,]?\d{0,2}$/.test(value);
+    });
+
+    $(".latin-only").inputFilter(function (value) {
+        return /^[a-z]*$/i.test(value);
+    });
+
+    $(".letters-only").inputFilter(function (value) {
+        return /^[a-z ]*$/i.test(value);
+    });
+
+    $(".hex-text").inputFilter(function (value) {
+        return /^[0-9a-f]*$/i.test(value);
+    });
+});
+
+
+
+
+ // _____  _____   ____  _____  _    _  _____ _______   __  __          _   _          _____ ______ __  __ ______ _   _ _______ 
+ //|  __ \|  __ \ / __ \|  __ \| |  | |/ ____|__   __| |  \/  |   /\   | \ | |   /\   / ____|  ____|  \/  |  ____| \ | |__   __|
+ //| |__) | |__) | |  | | |  | | |  | | |       | |    | \  / |  /  \  |  \| |  /  \ | |  __| |__  | \  / | |__  |  \| |  | |   
+ //|  ___/|  _  /| |  | | |  | | |  | | |       | |    | |\/| | / /\ \ | . ` | / /\ \| | |_ |  __| | |\/| |  __| | . ` |  | |   
+ //| |    | | \ \| |__| | |__| | |__| | |____   | |    | |  | |/ ____ \| |\  |/ ____ \ |__| | |____| |  | | |____| |\  |  | |   
+ //|_|    |_|  \_\\____/|_____/ \____/ \_____|  |_|    |_|  |_/_/    \_\_| \_/_/    \_\_____|______|_|  |_|______|_| \_|  |_| 
+ //  
+
+$(document).ready(function () {
+    //Delete Post Modal
+    $(".delete-product").click(function () {
+        //get clicked element id
+        var inputId = this.getAttribute('id');
+        $("#ModalDeleteProductID").val(inputId);
+        jQuery.noConflict();
+        $('#confirmDeleteProductModal').modal('show');
+    });
+
+    //Reset Colors Modal
+    $(".reset-colors").click(function () {
+        //get clicked element id
+        var inputId = this.getAttribute('id');
+        $("#ModalResetColorID").val(inputId);
+        jQuery.noConflict();
+        $('#confirmResetColorsModal').modal('show');
+    });
+
+    //Reset Sizes Modal
+    $(".reset-sizes").click(function () {
+        //get clicked element id
+        var inputId = this.getAttribute('id');
+        $("#ModalResetSizeID").val(inputId);
+        jQuery.noConflict();
+        $('#confirmResetSizesModal').modal('show');
+    });
 
 });
+
+                                                                                                                              
+                                                                                                                              

@@ -192,128 +192,115 @@ form fieldset legend {
 
 /* Radio Color Picker */
 /*////////////////////////////////////////////////////////////*/
-.radio-input [type="radio"] {
-    display: none;
-}
+    .radio-input [type="radio"] {
+        display: none;
+    }
 
-.radio-input [type="radio"]:checked + label span {
-    transform: scale(1.25);
-}
 
-.radio-input [type="radio"]:checked + label .red {
-    border: 2px solid #711313;
-}
+    .radio-input label {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+    }
 
-.radio-input [type="radio"]:checked + label .orange {
-    border: 2px solid #873a08;
-}
+    .radio-input label:hover span {
+        transform: scale(1.25);
+    }
 
-.radio-input [type="radio"]:checked + label .black {
-    border: 2px solid #000000;
-}
+    .radio-input label span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: transform .2s ease-in-out;
+    }
 
-.radio-input [type="radio"]:checked + label .yellow {
-    border: 2px solid #816102;
-}
+    .radio-input label span.red {
+        background: #DB2828;
+        border: 2px solid #8B0000;
+    }
 
-.radio-input [type="radio"]:checked + label .olive {
-    border: 2px solid #505a0b;
-}
+    .radio-input label span.orange {
+        background: #F2711C;
+        border: 2px solid #FF8C00;
+    }
 
-.radio-input [type="radio"]:checked + label .green {
-    border: 2px solid #0e4e1d;
-}
+    .radio-input label span.black {
+        background: #000000;
+        border: 2px solid #2F4F4F;
+    }
 
-.radio-input [type="radio"]:checked + label .teal {
-    border: 2px solid #003633;
-}
+    .radio-input label span.yellow {
+        background: #FBBD08;
+        border: 2px solid #DAA520;
+    }
 
-.radio-input [type="radio"]:checked + label .blue {
-    border: 2px solid #103f62;
-}
+    .radio-input label span.olive {
+        background: #B5CC18;
+        border: 2px solid #6B8E23;
+    }
 
-.radio-input [type="radio"]:checked + label .violet {
-    border: 2px solid #321a64;
-}
+    .radio-input label span.green {
+        background: #21BA45;
+        border: 2px solid #3CB371;
+    }
 
-.radio-input [type="radio"]:checked + label .purple {
-    border: 2px solid #501962;
-}
+    .radio-input label span.teal {
+        background: #00B5AD;
+        border: 2px solid #008080;
+    }
 
-.radio-input [type="radio"]:checked + label .pink {
-    border: 2px solid #851554;
-}
+    .radio-input label span.blue {
+        background: #2185D0;
+        border: 2px solid #4682B4;
+    }
 
-.radio-input [type="radio"]:checked + label .brown {
-    border: 2px solid #A52A2A;
-}
+    .radio-input label span.violet {
+        background: #6435C9;
+        border: 2px solid #8A2BE2;
+    }
 
-.radio-input label {
-display: inline-block;
-width: 25px;
-height: 25px;
-margin-right: 10px;
-cursor: pointer;
-}
+    .radio-input label span.purple {
+        background: #A333C8;
+        border: 2px solid #9370DB;
+    }
 
-.radio-input label:hover span {
-    transform: scale(1.25);
-}
+    .radio-input label span.pink {
+        background: #E03997;
+        border: 2px solid #FF69B4;
+    }
 
-.radio-input label span {
-    display: block;
-    width: 100%;
-    height: 100%;
-    transition: transform .2s ease-in-out;
-}
+    .radio-input label span.gold {
+        background: #FFD700;
+        border: 2px solid #DAA520;
+    }
 
-.radio-input label span.red {
-    background: #DB2828;
-}
+    .radio-input label span.white {
+        background: #F5F5F5;
+        border: 2px solid #F0FFF0;
+    }
 
-.radio-input label span.orange {
-    background: #F2711C;
-}
+    .radio-input label span.cream {
+        background: #F5FFFA;
+        border: 2px solid #FFF5EE;
+    }
 
-.radio-input label span.black {
-    background: #070606;
-}
+    .radio-input label span.brown {
+        background: #A0522D;
+        border: 2px solid #8B4513;
+    }
 
-.radio-input label span.yellow {
-    background: #FBBD08;
-}
+    .radio-input label span.gray {
+        background: #708090;
+        border: 2px solid #C0C0C0;
+    }
 
-.radio-input label span.olive {
-    background: #B5CC18;
-}
+    .radio-input label span.grey {
+        background: #708090;
+        border: 2px solid #C0C0C0;
+    }
 
-.radio-input label span.green {
-    background: #21BA45;
-}
-
-.radio-input label span.teal {
-    background: #00B5AD;
-}
-
-.radio-input label span.blue {
-    background: #2185D0;
-}
-
-.radio-input label span.violet {
-    background: #6435C9;
-}
-
-.radio-input label span.purple {
-    background: #A333C8;
-}
-
-.radio-input label span.pink {
-    background: #E03997;
-}
-
-.radio-input label span.pink {
-    background: #8B4513;
-}
 
 
 /* Site images */
@@ -395,7 +382,7 @@ cursor: pointer;
 }
 
 
-/* Custom Bootstrap Background Color Classes */
+/* Adding Custom Bootstrap Background and Color Classes */
 /*////////////////////////////////////////////////////////////*/
 .bg-cream {
     background-color: #fffdd0 !important;
@@ -405,6 +392,10 @@ button.bg-cream:hover,
 button.bg-cream:focus {
     background-color: #faf8c5 !important;
 }
+.text-cream {
+    color: #faf8c5 !important;
+}
+
 
 .bg-pink {
     background-color: #ffc0cb !important;
@@ -414,6 +405,10 @@ button.bg-pink:hover,
 button.bg-pink:focus {
     background-color: #f5abb8 !important;
 }
+.text-pink {
+    color: #f5abb8 !important;
+}
+
 
 .bg-brown {
     background-color: #8b4513 !important;
@@ -423,6 +418,11 @@ button.bg-brown:hover,
 button.bg-brown:focus {
     background-color: #7d3d0f !important;
 }
+.text-brown {
+    color: #7d3d0f !important;
+}
+
+
 
 .bg-purple {
     background-color: #9370db !important;
@@ -432,6 +432,10 @@ button.bg-purple:hover,
 button.bg-purple:focus {
     background-color: #663399 !important;
 }
+.text-purple {
+    color: #663399 !important;
+}
+
 
 .bg-orange {
     background-color: #ff8C00 !important;
@@ -441,6 +445,10 @@ button.bg-orange:hover,
 button.bg-orange:focus {
     background-color: #ffa500 !important;
 }
+.text-orange {
+    color: #ffa500 !important;
+}
+
 
 .bg-yellow {
     background-color: #ffff00 !important;
@@ -450,6 +458,10 @@ button.bg-yellow:hover,
 button.bg-yellow:focus {
     background-color: #f2f202 !important;
 }
+.text-yellow {
+    color: #f2f202 !important;
+}
+
 
 .bg-gold {
     background-color: #ffd700 !important;
@@ -459,6 +471,86 @@ button.bg-gold:hover,
 button.bg-gold:focus {
     background-color: #f5cf02 !important;
 }
+.text-gold {
+    color: #f5cf02 !important;
+}
+
+
+.bg-olive {
+    background-color: #B5CC18 !important;
+}
+a.bg-olive:hover, a.bg-cream:focus,
+button.bg-olive:hover,
+button.bg-olive:focus {
+    background-color: #DAA520 !important;
+}
+.text-olive {
+    color: #DAA520 !important;
+}
+
+
+.bg-teal {
+    background-color: #00B5AD !important;
+}
+a.bg-teal:hover, a.bg-cream:focus,
+button.bg-teal:hover,
+button.bg-teal:focus {
+    background-color: #008080 !important;
+}
+.text-teal {
+    color: #008080 !important;
+}
+
+
+.bg-violet {
+    background-color: #6435C9 !important;
+}
+a.bg-violet:hover, a.bg-cream:focus,
+button.bg-violet:hover,
+button.bg-violet:focus {
+    background-color: #8A2BE2 !important;
+}
+.text-violet {
+    color: #6435C9 !important;
+}
+
+
+.bg-gray {
+    background-color: #708090 !important;
+}
+a.bg-gray:hover, a.bg-cream:focus,
+button.bg-gray:hover,
+button.bg-gray:focus {
+    background-color: #C0C0C0 !important;
+}
+.text-gray {
+    color: #C0C0C0 !important;
+}
+
+
+.bg-grey {
+    background-color: #708090 !important;
+}
+a.bg-grey:hover, a.bg-cream:focus,
+button.bg-grey:hover,
+button.bg-grey:focus {
+    background-color: #C0C0C0 !important;
+}
+.text-grey {
+    color: #C0C0C0 !important;
+}
+
+
+/* text border */
+.text-bordered {
+    /* 1 pixel black shadow to left, top, right and bottom */
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+
+
+
+
 /* Mobile Responsive Design */
 /*////////////////////////////////////////////////////////////*/
 

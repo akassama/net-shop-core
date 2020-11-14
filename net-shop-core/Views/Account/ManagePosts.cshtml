@@ -8,6 +8,7 @@
     ViewData["Title"] = "Manage Posts";
 }
 
+
 <!-- Account Style CSS -->
 @await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
 
@@ -97,8 +98,8 @@
                                                     <td>
                                                         @item.ProductName
                                                     </td>
-                                                    <td style="width:30em;">
-                                                        @TextHelper.FormatLongText(item.ProductDescription, 500)
+                                                    <td style="width:30em; max-height: 30em;">
+                                                        @Html.Raw(item.ProductDescription)
                                                     </td>
                                                     <td class="text-center">
                                                         <img src="~/files/@ProductsHelper.GetProductImageLink(item.AccountID, item.ProductID)" class="rounded" alt="@item.ProductName" width="120" height="150">
@@ -112,14 +113,23 @@
                                                                 Action
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="~/">
-                                                                    <i class="fas fa-edit text-info"></i> Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="#">
+                                                                <a class="dropdown-item" href="@Url.Action("Details", "Shop", new { id = item.UniqueProductName })" target="_blank">
                                                                     <i class="fas fa-eye text-success"></i> View
                                                                 </a>
-                                                                <a class="dropdown-item" href="#" onclick="setDeleteModalData()">
-                                                                    <i class="far fa-trash-alt text-danger"></i> Remove
+                                                                <a class="dropdown-item" href="@Url.Action("EditPost", "Account", new { id = item.ProductID })">
+                                                                    <i class="fas fa-edit text-info"></i> Edit
+                                                                </a>
+                                                                <a class="dropdown-item" href="@Url.Action("AddProductColors", "Account", new { id = item.ProductID })">
+                                                                    <i class="fas fa-palette text-danger"></i> Update Colors
+                                                                </a>
+                                                                <a class="dropdown-item" href="@Url.Action("AddProductSizes", "Account", new { id = item.ProductID })">
+                                                                    <i class="far fa-ruler-triangle"></i> Update Sizes
+                                                                </a>
+                                                                <a class="dropdown-item" href="@Url.Action("UpdateProductStock", "Account", new { id = item.ProductID })">
+                                                                    <i class="fas fa-sigma"></i> Update Stock
+                                                                </a>
+                                                                <a class="dropdown-item delete-product" href="#" id="@item.ProductID">
+                                                                    <i class="fas fa-trash-alt text-danger mr-1"></i> Delete
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -144,3 +154,4 @@
 
 <!-- Account Modals -->
 @await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")
+

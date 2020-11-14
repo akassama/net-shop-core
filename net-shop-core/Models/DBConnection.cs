@@ -27,17 +27,17 @@ namespace net_shop_core.Models
         public DbSet<ContactMessageModel> ContactMessage { get; set; }
         public DbSet<LocationsModel> Locations { get; set; }
         public DbSet<PaymentsModel> Payments { get; set; }
-        public DbSet<ProductTagsModel> ProductTags { get; set; }
         public DbSet<SubscribersModel> Subscribers { get; set; }
-        public DbSet<LoginInfoModel> LoginInfo { get; set; }
+        public DbSet<ActivityLogsModel> ActivityLogs { get; set; } 
         public DbSet<ProductImagesModel> ProductImages { get; set; }
         public DbSet<ProductVideosModel> ProductVideos { get; set; }
         public DbSet<SiteDataLookupModel> SiteDataLookup { get; set; }
         public DbSet<ProductColorsModel> ProductColors { get; set; }
-        public DbSet<ProductSizeModel> ProductSize { get; set; }
+        public DbSet<ProductSizesModel> ProductSizes { get; set; }
         public DbSet<ProductViewsModel> ProductViews { get; set; }
         public DbSet<PopularThisWeekModel> PopularThisWeek { get; set; }
         public DbSet<CurrencyModel> Currency { get; set; }
+        public DbSet<ProductStockModel> ProductStock { get; set; }
 
         public DbSet<StoresModel> Stores { get; set; }
 

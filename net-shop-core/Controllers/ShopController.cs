@@ -132,7 +132,7 @@ namespace ModestLiving.Controllers
                     ViewBag.ProductColors = _context.ProductColors.Where(s => s.ProductID == product_id);
 
                     //Get all product sizes
-                    ViewBag.ProductSizes = _context.ProductSize.Where(s => s.ProductID == product_id);
+                    ViewBag.ProductSizes = _context.ProductSizes.Where(s => s.ProductID == product_id);
 
 
 

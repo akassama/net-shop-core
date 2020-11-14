@@ -30,6 +30,15 @@ namespace net_shop_core.Controllers
         {
             if (ModelState.IsValid)
             {
+                //verify password match
+                string RepeatPassword = Request.Form["RepeatPassword"];
+                if (!functions.PasswordsMatch(accountsModel.Password, RepeatPassword))
+                {
+                    TempData["ErrorMessage"] = "Passwords do not match";
+                    return View(accountsModel);
+                }
+
+
                 accountsModel.Password = BCrypt.Net.BCrypt.HashPassword(accountsModel.Password);
                 //Default registration values
                 accountsModel.AccountID = functions.GetUinqueId();
@@ -44,7 +53,7 @@ namespace net_shop_core.Controllers
                 TempData["SuccessMessage"] = "Registration was successful";
                 return RedirectToAction("Index", "SignIn");
             }
-            TempData["ErrorMessage"] = "Registration Failed";
+            TempData["ErrorMessage"] = "There was an error processing your request. Please try again. If this error persists, please send an email.";
             return View(accountsModel);
         }
 

@@ -1,0 +1,93 @@
+﻿@model net_shop_core.Models.ProductsModel
+@using AppHelpers.App_Code
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Add Product Colors";
+}
+
+<script>
+    $('document').ready(function () {
+        jQuery('#ProductColorPlate').on('change', function () {
+            $('#ProductColor').val(jQuery(this).val());
+        });
+    });
+</script>
+
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
+
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    @await Html.PartialAsync("~/Views/Shared/AccountLayout/_LeftSideBar.cshtml")
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- //Top menu item -->
+        @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
+
+
+        <div class="container-fluid">
+            <h1 class="mt-4">
+                Add Colors for @Model.ProductName
+            </h1>
+
+            <!--//Action Messages-->
+            @await Html.PartialAsync("~/Views/Shared/_ProcessMessage.cshtml")
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="#" class="btn btn-warning float-right reset-colors" role="button" id="@Model.ProductID">Reset All</a>
+                </div>
+                <div class="col-sm-12">
+                    <form asp-controller="Account" asp-action="AddProductColors" id="ValidateForm" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row jumbotron border border-dark m-2">
+                            <div class="col-sm-6 form-group">
+                                <label for="ProductColorPlate" class="font-weight-bold h5">Select Product Color</label>
+                                <input type="color" id="ProductColorPlate" name="ProductColorPlate" class="form-control" required>
+                            </div>
+
+                            <div class="col-sm-6 form-group mt-2">
+                                <label for="ProductColor">Selected Color</label>
+                                <input type="text" id="ProductColor" name="ProductColor" class="form-control" readonly required>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="CurrentColor" class="font-weight-bold h5">Current Colors</label>
+                                @ProductsHelper.GetCurrentProductColors(Model.ProductID)
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <input type="hidden" id="ProductID" name="ProductID" value="@Model.ProductID" required>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="~/Account/ManagePosts" class="btn btn-danger m-3">
+                                            <i class="fas fa-chevron-left"></i> Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+
+<!-- Account Modals -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")

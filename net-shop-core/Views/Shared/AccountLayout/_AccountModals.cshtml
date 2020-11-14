@@ -46,3 +46,85 @@
         </div>
     </div>
 </div>
+
+
+<!-- Delete Product Modal -->
+<div class="modal fade" id="confirmDeleteProductModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-controller="Account" asp-action="DeleteProduct" method="post" id="DeleteProduct">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteProductModalLabel">Confirm action</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to delete this product?</h4>
+                </div>
+                <div class="form-group d-none">
+                    <input type="hidden" class="form-control" id="ModalDeleteProductID" name="ModalDeleteProductID" required="">
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger disable-on-click" id="modal-btn-yes" value="Yes">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-no">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Reset Colors Modal -->
+<div class="modal fade" id="confirmResetColorsModal" tabindex="-1" role="dialog" aria-labelledby="confirmResetColorsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-controller="Account" asp-action="ResetProductColors" method="post" id="ResetProductColors">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmResetColorsModalLabel">Confirm action</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to reset colors for this product?</h4>
+                </div>
+                <div class="form-group d-none">
+                    <input type="hidden" class="form-control" id="ModalResetColorID" name="ModalResetColorID" required="">
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger disable-on-click" id="modal-btn-yes" value="Yes">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-no">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Reset Sizes Modal -->
+<div class="modal fade" id="confirmResetSizesModal" tabindex="-1" role="dialog" aria-labelledby="confirmResetSizesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-controller="Account" asp-action="ResetProductSizes" method="post" id="ResetProductSizes">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmResetSizesModalLabel">Confirm action</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to reset sizes for this product?</h4>
+                </div>
+                <div class="form-group d-none">
+                    <input type="hidden" class="form-control" id="ModalResetSizeID" name="ModalResetSizeID" required="">
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger disable-on-click" id="modal-btn-yes" value="Yes">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-no">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

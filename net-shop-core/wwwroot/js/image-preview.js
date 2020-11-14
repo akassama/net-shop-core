@@ -5,8 +5,8 @@ $(document).on("click", "i.del" , function() {
     $(this).parent().remove();
     //re-enable the plus icon
     $('.imgAdd').css({ pointerEvents: "visible" });
-    $('#add-image').removeClass('fas fa-location-slash text-danger');
-    $('#add-image').addClass('fa fa-plus');
+    $('#addImage').removeClass('fas fa-location-slash text-danger');
+    $('#addImage').addClass('fa fa-plus');
 });
 $(function() {
     $(document).on("change",".uploadFile", function()
@@ -26,4 +26,20 @@ uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(
         }
       
     });
+});
+
+
+//Limit file upload buttons to n number
+$(".imgAdd").click(function () {
+    const totalNum = $('.uploadFile').length;
+    if (totalNum > 4) {
+        $('.imgAdd').css({ pointerEvents: "none" });
+
+        $('#addImage').removeClass('fa fa-plus');
+        $('#addImage').addClass('fas fa-location-slash text-danger');
+    }
+    else {
+        $('#addImage').removeClass('fas fa-location-slash text-danger');
+        $('#addImage').addClass('fa fa-plus');
+    }
 });

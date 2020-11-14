@@ -1,0 +1,126 @@
+﻿@model net_shop_core.Models.ProductsModel
+@using AppHelpers.App_Code
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Add Product Sizes";
+}
+
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
+
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    @await Html.PartialAsync("~/Views/Shared/AccountLayout/_LeftSideBar.cshtml")
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <!-- //Top menu item -->
+        @await Html.PartialAsync("~/Views/Shared/AccountLayout/_NavBarTop.cshtml")
+
+
+        <div class="container-fluid">
+            <h1 class="mt-4">
+                Add Sizes for @Model.ProductName
+            </h1>
+
+            <!--//Action Messages-->
+            @await Html.PartialAsync("~/Views/Shared/_ProcessMessage.cshtml")
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="#" class="btn btn-warning float-right reset-sizes" role="button" id="@Model.ProductID">Reset All</a>
+                </div>
+                <div class="col-sm-12">
+                    <form asp-controller="Account" asp-action="AddProductSizes" id="ValidateForm" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row jumbotron border border-dark m-2">
+                            <div class="col-sm-12 col-md-4 form-group">
+                                <label for="ProductSizeCountry" class="font-weight-bold h5">
+                                    Product Size Country
+                                </label>
+                                <select class="form-control" name="ProductSizeCountry" id="ProductSizeCountry" required>
+                                    <option value="" class="text-dark bg-white">Select size country</option>
+                                    <option value="USA" class="text-dark bg-white">USA</option>
+                                    <option value="UK" class="text-dark bg-white">UK</option>
+                                    <option value="EUR" class="text-dark bg-white">EUR</option>
+                                    <option value="CHINA" class="text-dark bg-white">CHINA</option>
+                                    <option value="INCHES" class="text-dark bg-white">INCHES</option>
+                                    <option value="CM" class="text-dark bg-white">CM</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4 form-group">
+                                <label for="ProductSizeType" class="font-weight-bold h5">
+                                    Product Size Type
+                                </label>
+                                <select class="form-control" name="ProductSizeType" id="ProductSizeType" required>
+                                    <option value="" class="text-dark bg-white">Select size type</option>
+                                    <optgroup label="Women">
+                                        <option value="WM#CLT" class="text-dark bg-white">Clothing</option>
+                                        <option value="WM#SCH" class="text-dark bg-white">Shoes</option>
+                                        <option value="WM#BAG" class="text-dark bg-white">Bags</option>
+                                        <option value="WM#ACC" class="text-dark bg-white">Accessories</option>
+                                        <option value="WM#UND" class="text-dark bg-white">Undewear</option>
+                                        <option value="WM#TSH" class="text-dark bg-white">T-shirt</option>
+                                        <option value="WM#DRS" class="text-dark bg-white">Dress</option>
+                                        <option value="WM#JNS" class="text-dark bg-white">Jeans</option>
+                                        <option value="WM#HSC" class="text-dark bg-white">Headscarf</option>
+                                    </optgroup>
+                                    <optgroup label="Men">
+                                        <option value="MN#CLT" class="text-dark bg-white">Clothing</option>
+                                        <option value="MN#SCH" class="text-dark bg-white">Shoes</option>
+                                        <option value="MN#UND" class="text-dark bg-white">Undewear</option>
+                                        <option value="MN#TSH" class="text-dark bg-white">T-shirt</option>
+                                        <option value="MN#JNS" class="text-dark bg-white">Jeans</option>
+                                    </optgroup>
+                                    <optgroup label="Gadgets">
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4 form-group">
+                                <label for="ProductSize" class="font-weight-bold h5">Product Size</label>
+                                <input name="ProductSize" id="ProductSize" class="form-control float-number" required>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="CurrentColors" class="font-weight-bold h5">Current Sizes</label>
+                                <div class="row">
+                                    @ProductsHelper.GetCurrentProductSizes(Model.ProductID)
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 form-group d-none">
+                                <input type="hidden" id="ProductID" name="ProductID" value="@Model.ProductID" required>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <div class="row">
+                                    <div class="col-3 offset-9">
+                                        <a href="~/Account/ManagePosts" class="btn btn-danger m-3">
+                                            <i class="fas fa-chevron-left"></i> Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+
+<!-- Account Modals -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountModals.cshtml")

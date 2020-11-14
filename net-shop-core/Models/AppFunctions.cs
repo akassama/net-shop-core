@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AppHelpers.App_Code;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Data.SqlClient;
 using net_shop_core.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -15,8 +18,6 @@ namespace net_shop_core.Models
 {
     public class AppFunctions
     {
-        const string SessionViewedProducts = "_ViewedProducts";
-
         //Log product view to database
         public bool LogProductView(string product_id, string visitor_id, string visitor_ip, string visitor_browser, string visitor_device, string other)
         {
@@ -54,6 +55,23 @@ namespace net_shop_core.Models
             }
         }
 
+
+        //Converts string to integer
+        /// <summary>
+        /// Converts string to integer, returns zero if fails
+        /// </summary>
+        /// <returns>integer</returns>
+        public int Int32Parse(string string_number)
+        {
+            try
+            {
+                return Int32.Parse(string_number); ;
+            }
+            catch (FormatException)
+            {
+                return 0;
+            }
+        }
 
         //Get current visitor ip address
         /// <summary>
@@ -176,6 +194,22 @@ namespace net_shop_core.Models
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+
+
+        //Password match check
+        /// <summary>
+        /// Checks if the passwords passed are the same
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool PasswordsMatch(string password_one, string password_two)
+        {
+            if (password_one.Equals(password_two))
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -423,7 +457,7 @@ namespace net_shop_core.Models
         /// Add product colors
         /// </summary>
         /// <returns>boolean</returns>
-        public bool AddProductColors(string product_id, string product_color)
+        public bool AddProductColors(string product_id, string color_name, string color_code)
         {
             using (var db = new DBConnection())
             {
@@ -431,8 +465,8 @@ namespace net_shop_core.Models
                 ProductColorsModel color_data = new ProductColorsModel
                 {
                     ProductID = product_id,
-                    ColorName = product_color,
-                    ColorCode = product_color,
+                    ColorName = color_name,
+                    ColorCode = color_code,
                     DateAdded = DateTime.Now
                 };
 
@@ -464,7 +498,7 @@ namespace net_shop_core.Models
             using (var db = new DBConnection())
             {
                 // Create ProductSizes object.
-                ProductSizeModel size_data = new ProductSizeModel
+                ProductSizesModel size_data = new ProductSizesModel
                 {
                     ProductID = product_id,
                     Size = product_size,
@@ -472,7 +506,7 @@ namespace net_shop_core.Models
                 };
 
                 // Add object to the ProductColors collection.
-                db.ProductSize.Add(size_data);
+                db.ProductSizes.Add(size_data);
 
                 // Submit the change to the database.
                 try
@@ -487,6 +521,292 @@ namespace net_shop_core.Models
                 }
             }
         }
+
+
+        //Add colors to Product Colors table
+        /// <summary>
+        /// Add product colors
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool AddProductVideo(string product_id, string product_video_link, string description)
+        {
+            using (var db = new DBConnection())
+            {
+                // Create ProductVideos object.
+                ProductVideosModel video_data = new ProductVideosModel
+                {
+                    ProductID = product_id,
+                    VideoLink = product_video_link,
+                    VideoDescription = description,  
+                    DateAdded = DateTime.Now
+                };
+
+                // Add object to the ProductVideos collection.
+                db.ProductVideos.Add(video_data);
+
+                // Submit the change to the database.
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    //TODO log error
+                    return false;
+                }
+            }
+        }
+
+        //Validate required inputs 
+        /// <summary>
+        /// Validates array of inputs for not null
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool ValidateInputs(string[] inputs)
+        {
+            // Loop over and check if empty.
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                if (string.IsNullOrEmpty(inputs[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+        //Remove Product
+        /// <summary>
+        /// Delete Product Data
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool RemoveProduct(string product_id, string connection_string)
+        {
+            using (var db = new DBConnection())
+            {
+                try
+                {
+                    // Query the database for the rows to be deleted.
+                    var deletePostDetails =
+                        from details in db.Products
+                        where details.ProductID == product_id
+                        select details;
+
+                    foreach (var detail in deletePostDetails)
+                    {
+                        db.Products.Remove(detail);
+                    }
+
+                    db.SaveChanges();
+
+                    //delete relational data
+                    DeleteTableData("ProductSizes", "ProductID", product_id, connection_string); //delete from ProductSizes
+                    DeleteTableData("ProductColors", "ProductID", product_id, connection_string); //delete from ProductColors
+                    DeleteTableData("ProductImages", "ProductID", product_id, connection_string); //delete from ProductImages
+                    DeleteTableData("ProductStock", "ProductID", product_id, connection_string); //delete from ProductStock
+                    DeleteTableData("ProductVideos", "ProductID", product_id, connection_string); //delete from ProductVideos
+
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    //TODO Provide for exceptions.
+                }
+            }
+            return false;
+        }
+
+
+
+
+        //Add record into table
+        /// <summary>
+        /// Adds new recored into entity table passed
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool AddTableData(string model_name, string entry_column, string entry_value, string connection_string)
+        {
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connection_string))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        //Insert record to Users db
+                        cmd.Connection = connection;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = @"INSERT INTO [" + model_name + "] ([" + entry_column + "]) VALUES (@value)";
+                        cmd.Parameters.AddWithValue("@value", ((object)entry_value) ?? DBNull.Value);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (connection != null)
+                        {
+                            //cleanup connection i.e close 
+                            connection.Close();
+                        }
+
+                        if (rowsAffected == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //TODO Log Error
+            }
+
+            return false;
+        }
+
+
+        //Update Data Model Record
+        /// <summary>
+        /// Updates a column value of the data entity passed
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool UpdateTableData(string model_name, string pk_name, string pk_value, string update_column, string update_value, string connection_string)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connection_string))
+                {
+                    string DBQuery = $"Update [" + model_name + "] SET [" + update_column + "] = '" + update_value + "' Where [" + pk_name + "] = '" + pk_value + "' ";
+                    using (SqlCommand command = new SqlCommand(DBQuery, connection))
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                //TODO Provide for exceptions.
+            }
+            return false;
+        }
+
+
+
+        //Delete table record
+        /// <summary>
+        /// Delete table record(s) base on the key passed
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool DeleteTableData(string model_name, string pk_name, string pk_value, string connection_string)
+        {
+            var MsgCountQuery = @"DELETE FROM [" + model_name + "] WHERE [" + pk_name + "]  = @key";
+            try
+            {
+                using (var con = new SqlConnection(connection_string))
+                {
+                    con.Open();
+                    var cmd = new SqlCommand(MsgCountQuery, con);
+                    cmd.Parameters.AddWithValue("@key", pk_value);
+                    if (cmd.ExecuteScalar() != DBNull.Value)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                //throw; TODO Log error
+                return false;
+            }
+        }
+
+
+        /// Delete image in directory
+        /// <summary>
+        ///  Delete image in directory
+        /// </summary>
+        /// <returns>boolean</returns>
+        /// 
+        public bool DeleteProductImages(string account_id, string product_id)
+        {
+            using (var db = new DBConnection())
+            {
+                // Query the database for the rows to be deleted.
+                var DBQuery = db.ProductImages.Where(s => s.ProductID == product_id);
+                try
+                {
+                    foreach (var item in DBQuery)
+                    {
+                        var FilePath = @"wwwroot\\files\\" + ProductsHelper.GetProductImageLink(account_id, item.ProductID);
+                        if (File.Exists(FilePath))
+                        {
+                            File.Delete(FilePath);
+                        }
+                    }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// Logs activity
+        /// </summary>
+        public bool LogActivity(string activity_user, string action_by, string log_type, string action)
+        {
+            using (var db = new DBConnection())
+            {
+                ActivityLogsModel activity = new ActivityLogsModel
+                {
+                    ActivityUser = activity_user,
+                    ActionBy = action_by,
+                    LogType = log_type,
+                    Action = action,
+                    ActivityDate = DateTime.Now
+                    // …
+                };
+
+                // Add the new object to the collection.
+                db.ActivityLogs.Add(activity);
+
+                // Submit the change to the database.
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+            return false;
+        }
+
 
     }
 

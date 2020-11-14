@@ -26,7 +26,7 @@
     <h2 class="text-black">
         @ViewData["Title"].ToString().ToUpper()
     </h2>
-    <p>@Html.DisplayFor(model => model.ProductDescription)</p>
+    <p>@Html.Raw(Model.ProductDescription)</p>
     <p><strong class="text-primary h4">@ProductsHelper.GetCurrencySymbol(Model.Currency) @Html.DisplayFor(model => model.ProductPrice)</strong></p>
     <div class="mb-1 d-flex">
         @foreach (var sizes in ViewBag.ProductSizes)
@@ -46,7 +46,7 @@
             @foreach (var colors in ViewBag.ProductColors)
             {
                 <input type="radio" name="color" id="@colors.ColorName" value="@colors.ColorName" />
-                <label for="@colors.ColorName"><span class="@TextHelper.ConvertCase(@colors.ColorName, "Lower")"></span></label>
+                <label for="@colors.ColorName"><span class="@TextHelper.ConvertCase(colors.ColorName, "Lower")"></span></label>
 
             }
         </div>

@@ -6,21 +6,28 @@
             {
                 <div class="alert alert-success alert-dismissible" id="ProcessMessages">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    @TempData["SuccessMessage"]
+                    <strong>@Html.Raw(TempData["SuccessMessage"])</strong>
+                </div>
+            }
+            else if (TempData["InfoMessage"] != null)
+            {
+                <div class="alert alert-info alert-dismissible" id="ProcessMessages">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>@Html.Raw(TempData["InfoMessage"])</strong>
                 </div>
             }
             else if (TempData["WarningMessage"] != null)
             {
                 <div class="alert alert-warning alert-dismissible" id="ProcessMessages">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>@TempData["WarningMessage"]</strong>
+                    <strong>@Html.Raw(TempData["WarningMessage"])</strong>
                 </div>
             }
             else if (TempData["ErrorMessage"] != null)
             {
                 <div class="alert alert-danger alert-dismissible" id="ProcessMessages">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>@TempData["ErrorMessage"]</strong>
+                    <strong>@Html.Raw(TempData["ErrorMessage"])</strong>
                 </div>
             }
         }

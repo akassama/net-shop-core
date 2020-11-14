@@ -1,0 +1,90 @@
+2020-11-14 05:01:42.2006 Info Message Template Auto Format enabled
+2020-11-14 05:01:42.2219 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 05:01:42.2960 Info Adding target FileTarget(Name=alldata)
+2020-11-14 05:01:42.2960 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 05:01:42.3474 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 05:01:42.3659 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 05:34:54.3462 Info Message Template Auto Format enabled
+2020-11-14 05:34:54.5614 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 05:34:54.9560 Info Adding target FileTarget(Name=alldata)
+2020-11-14 05:34:55.2091 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 05:34:55.4888 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 05:34:55.5053 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 05:37:39.9822 Info Message Template Auto Format enabled
+2020-11-14 05:37:40.0139 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 05:37:40.0959 Info Adding target FileTarget(Name=alldata)
+2020-11-14 05:37:40.0959 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 05:37:40.2151 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 05:37:40.2550 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 05:41:54.3831 Info Message Template Auto Format enabled
+2020-11-14 05:41:54.4332 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 05:41:54.5453 Info Adding target FileTarget(Name=alldata)
+2020-11-14 05:41:54.5453 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 05:41:54.5918 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 05:41:54.6905 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 06:12:49.2334 Info Message Template Auto Format enabled
+2020-11-14 06:12:49.2499 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 06:12:49.3217 Info Adding target FileTarget(Name=alldata)
+2020-11-14 06:12:49.3314 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 06:12:49.3690 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 06:12:49.3859 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 06:15:49.3463 Info Message Template Auto Format enabled
+2020-11-14 06:15:49.3881 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 06:15:49.4593 Info Adding target FileTarget(Name=alldata)
+2020-11-14 06:15:49.5200 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 06:15:49.5642 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 06:15:49.5829 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 06:20:22.9240 Info Message Template Auto Format enabled
+2020-11-14 06:20:22.9431 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 06:20:23.0156 Info Adding target FileTarget(Name=alldata)
+2020-11-14 06:20:23.0156 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 06:20:23.0627 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 06:20:23.0823 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 06:40:53.3642 Info Message Template Auto Format enabled
+2020-11-14 06:40:53.3832 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 06:40:53.4683 Info Adding target FileTarget(Name=alldata)
+2020-11-14 06:40:53.4683 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 06:40:53.5223 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 06:40:53.5400 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:17:37.5357 Info Message Template Auto Format enabled
+2020-11-14 07:17:37.5645 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:17:37.6548 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:17:37.6753 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:17:37.7789 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:17:37.7981 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:22:56.5793 Info Message Template Auto Format enabled
+2020-11-14 07:22:56.6048 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:22:56.7115 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:22:56.7319 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:22:56.7941 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:22:56.8123 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:26:10.2393 Info Message Template Auto Format enabled
+2020-11-14 07:26:10.2647 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:26:10.3529 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:26:10.3690 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:26:10.4506 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:26:10.4710 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:28:35.6112 Info Message Template Auto Format enabled
+2020-11-14 07:28:35.6381 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:28:35.7439 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:28:35.7599 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:28:35.8220 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:28:35.8420 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:33:24.7441 Info Message Template Auto Format enabled
+2020-11-14 07:33:24.9697 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:33:25.1792 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:33:25.2106 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:33:25.2873 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:33:25.3126 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:35:42.4149 Info Message Template Auto Format enabled
+2020-11-14 07:35:42.4530 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:35:42.5646 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:35:42.5858 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:35:42.6701 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:35:42.6955 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web
+2020-11-14 07:37:13.0816 Info Message Template Auto Format enabled
+2020-11-14 07:37:13.1062 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-14 07:37:13.9153 Info Adding target FileTarget(Name=alldata)
+2020-11-14 07:37:13.9576 Info Adding target FileTarget(Name=otherFile-web)
+2020-11-14 07:37:14.0382 Info Validating config: TargetNames=alldata, ConfigItems=44, FilePath=C:\Users\Laiman\Documents\Visual Studio 2019\Projects\net-shop-core\net-shop-core\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-14 07:37:14.0613 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: otherFile-web

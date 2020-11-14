@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ModestLiving</title>
+    <title>@ViewData["Title"] - Shopping Gambia</title>
 
     <link rel="stylesheet" href="~/lib/modest/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/lib/modest/css/google-fonts.css">
@@ -23,20 +23,24 @@
 
     <script src="~/lib/modest/js/bootstrap.min.js"></script>
 
+    <!-- Summernote Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="~/lib/summernote/styles/summernote-lite.min.css" rel="stylesheet">
+    <script src="~/lib/summernote/styles/summernote-lite.min.js"></script>
+
     <!-- JQuery Session //https://github.com/AlexChittock/JQuery-Session-Plugin -->
     <script src="~/js/jquery.session.js"></script>
 
     <!-- Jquery Validation -->
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link href="~/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- font awesome css -->
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.css">
+
+    <script src="~/js/character-counter.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="~/css/site.css" rel="stylesheet">
-
-    <!-- Site js -->
-    <script src="~/js/site.js"></script>
 
     <link rel="icon" href="~/files/images/favicon.png" type="image/png">
 
@@ -141,6 +145,8 @@
     <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
+    <!-- Site js -->
+    <script src="~/js/site.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -152,6 +158,27 @@
 
         $(document).ready(function () {
             $('#dataTable').DataTable();
+        });
+
+        //Summernote
+        $('#ProductDescription').summernote({
+            placeholder: 'Write description here',
+            tabsize: 2,
+            height: 300,          // set editor height
+            width: "100%",        // set editor height
+            minHeight: null,      // set minimum height of editor
+            maxHeight: null,      // set maximum height of editor
+            dialogsInBody: true
+        });
+
+
+        //Jquery Validate. Add all form id requiring validation
+        $("#ValidateForm").validate({
+            errorClass: 'is-invalid text-danger',
+            successClass: 'is-valid',
+            errorsWrapper: '<span class="form-text text-danger"></span>',
+            errorTemplate: '<span></span>',
+            trigger: 'change'
         });
     </script>
 </body>

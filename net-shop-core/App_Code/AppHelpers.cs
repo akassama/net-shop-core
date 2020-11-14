@@ -359,7 +359,10 @@ namespace AppHelpers.App_Code
                         //if using product id insted of currency, get currency code from product id
                         if (currency_code.Length > 4)
                         {
-                            currency_code = db.Products.Where(s => s.ProductID == currency_code).FirstOrDefault().Currency;
+                            if (db.Products.Any(s => s.ProductID == currency_code))
+                            {
+                                currency_code = db.Products.Where(s => s.ProductID == currency_code).FirstOrDefault().Currency;
+                            }
                         }
 
                         var query = db.Currency.Where(s => s.Code == currency_code);
@@ -388,51 +391,55 @@ namespace AppHelpers.App_Code
                 {
                     using (var db = new DBConnection())
                     {
-                        switch (return_data)
+                        if(db.Products.Any(s=> s.ProductID == product_id))
                         {
-                            case "ProductName":
-                                return db.Products.Where(s=> s.ProductID == product_id).FirstOrDefault().ProductName;
-                            case "ProductDescription":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductDescription;
-                            case "UniqueProductName":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UniqueProductName;
-                            case "ProductType":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductType.ToString();
-                            case "WholeSaleQuantity":
-                                if(db.Products.Where(s => s.ProductID == product_id).Any())
-                                {
-                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().WholeSaleQuantity.ToString();
-                                }
-                                return null;
-                            case "StoreID":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().StoreID.ToString();
-                            case "CategoryID":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID.ToString();
-                            case "Currency":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().Currency;
-                            case "ProductPrice":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPrice;
-                            case "ProductPreviousPrice":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPreviousPrice;
-                            case "ProductTags":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductTags;
-                            case "ApproveStatus":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ApproveStatus.ToString();
-                            case "UpdatedBy":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UpdatedBy;
-                            case "UpdateDate":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UpdateDate.ToString();
-                            case "DateAdded":
-                                return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().DateAdded.ToString();
-                            case "ImageLink":
-                                var account_id = db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().AccountID;
-                                return GetProductImageLink(account_id, product_id);
-                            case "ProductCategory":
-                                var category_id = db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID;
-                                return db.Categories.Where(s => s.ID == category_id).FirstOrDefault().CategoryName;
-                            default:
-                                return "NA";
+                            switch (return_data)
+                            {
+                                case "ProductName":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductName;
+                                case "ProductDescription":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductDescription;
+                                case "UniqueProductName":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UniqueProductName;
+                                case "ProductType":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductType.ToString();
+                                case "WholeSaleQuantity":
+                                    if (db.Products.Where(s => s.ProductID == product_id).Any())
+                                    {
+                                        return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().WholeSaleQuantity.ToString();
+                                    }
+                                    return null;
+                                case "StoreID":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().StoreID.ToString();
+                                case "CategoryID":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID.ToString();
+                                case "Currency":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().Currency;
+                                case "ProductPrice":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPrice;
+                                case "ProductPreviousPrice":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductPreviousPrice;
+                                case "ProductTags":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ProductTags;
+                                case "ApproveStatus":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().ApproveStatus.ToString();
+                                case "UpdatedBy":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UpdatedBy;
+                                case "UpdateDate":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().UpdateDate.ToString();
+                                case "DateAdded":
+                                    return db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().DateAdded.ToString();
+                                case "ImageLink":
+                                    var account_id = db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().AccountID;
+                                    return GetProductImageLink(account_id, product_id);
+                                case "ProductCategory":
+                                    var category_id = db.Products.Where(s => s.ProductID == product_id).FirstOrDefault().CategoryID;
+                                    return db.Categories.Where(s => s.ID == category_id).FirstOrDefault().CategoryName;
+                                default:
+                                    return "NA";
+                            }
                         }
+                        return "NA";
                     }
                 }
             }
@@ -460,8 +467,111 @@ namespace AppHelpers.App_Code
                 default:
                     return "NA";
             }
-
         }
+
+
+        //gets the current colors for the product
+        public static HtmlString GetCurrentProductColors(string product_id)
+        {
+            string result = "";
+            using(var db = new DBConnection())
+            {
+                var DBQuery = db.ProductColors.Where(s => s.ProductID == product_id);
+                if (DBQuery.Any())
+                {
+                    foreach (var item in DBQuery)
+                    {
+                        result += $"<span class='border rounded text-center p-1 mr-2 text-bordered' style='height:1.5em; min-width:5em; background-color: {item.ColorCode};'>{item.ColorName}</span>";
+                    }
+                }
+            }
+            return new HtmlString(result);
+        }
+
+        //gets the current sizes for the product
+        public static HtmlString GetCurrentProductSizes(string product_id)
+        {
+            string result = "";
+            using (var db = new DBConnection())
+            {
+                var DBQuery = db.ProductSizes.Where(s => s.ProductID == product_id);
+                if (DBQuery.Any())
+                {
+                    foreach (var item in DBQuery)
+                    {
+                        result += $"<p class='text-dark font-weight-bold col-sm-4'>{FormatSizeString(item.Size)}</p>";
+                    }
+                }
+            }
+            return new HtmlString(result);
+        }
+
+        //gets the current stock for the product
+        public static int GetCurrentProductStock(string product_id)
+        {
+            using (var db = new DBConnection())
+            {
+                var DBQuery = db.ProductStock.Where(s => s.ProductID == product_id);
+                if (DBQuery.Any())
+                {
+                    return DBQuery.FirstOrDefault().NumberInStock;
+                }
+            }
+            return 0;
+        }
+
+
+        //gets the current sizes for the product
+        public static HtmlString FormatSizeString(string product_size)
+        {
+            string result = "";
+            if (!string.IsNullOrEmpty(product_size) && product_size.Split(",").Length > 2)
+            {
+                string CountrySize = "Country Size: " + product_size.Split(",")[0];
+
+                string gender = product_size.Split(",")[1].Split("#")[0];
+                string category = product_size.Split(",")[1].Split("#")[1];
+                string SizeType = "Size Type: " + GetSizeMappings(gender) + " - " + GetSizeMappings(category);
+                string Size = "Size: " + product_size.Split(",")[2];
+
+                result += $@"{CountrySize} | {SizeType} | {Size}"; 
+            }
+            return new HtmlString(result);
+        }
+
+
+        //get product size name
+        public static string GetSizeMappings(string size_acronym)
+        {
+            switch (size_acronym)
+            {
+                case "WM":
+                    return "Women";
+                case "MN":
+                    return "Men";
+                case "CLT":
+                    return "Clothing";
+                case "SCH":
+                    return "Shoe";
+                case "BAG":
+                    return "Bag";
+                case "ACC":
+                    return "Accessories";
+                case "UND":
+                    return "Undewear";
+                case "TSH":
+                    return "T-shirt";
+                case "DRS":
+                    return "Dress";
+                case "JNS":
+                    return "Jeans";
+                case "HSC":
+                    return "Headscarf";
+                default:
+                    return "NA";
+            }
+        }
+
     }
 
 }

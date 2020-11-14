@@ -15,7 +15,13 @@ namespace net_shop_core.Models
         public int defaultProductApproveStatus { get; set; }
         public int uploadImageDefaultHeight { get; set; }
         public int uploadImageDefaultWidth { get; set; }
+        public int defaultProductStock { get; set; }
         public string textWaterMark { get; set; }
-        public string imageWaterMark { get; set; }
+        public string imageWatermark { get; set; }
+        public string connectionString { get; set; }
+        public bool logSearches { get; set; }
+        public bool logTagClicks { get; set; }
+        public bool logCategoryClicks { get; set; }
+        public bool logActivity { get; set; }
     }
 }

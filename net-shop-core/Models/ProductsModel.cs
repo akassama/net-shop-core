@@ -24,12 +24,10 @@ namespace net_shop_core.Models
         public string AccountID { get; set; }
 
         [Required]
-        [RegularExpression(@"^[A-Za-z 0-9]{2,150}$", ErrorMessage = "Minimum 2 characters required, and maximum of 150 characters.")]
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
 
         [Required]
-        //[RegularExpression(@"^[A-Za-z 0-9]{20,500}$", ErrorMessage = "Minimum 20 characters required, and maximum of 500 characters.")]
         [Display(Name = "Product Description")]
         public string ProductDescription { get; set; }
 
@@ -46,12 +44,12 @@ namespace net_shop_core.Models
 
         [Required]
         [RegularExpression(@"^\d+$", ErrorMessage = "Only store id (integer) allowed.")]
-        [Display(Name = "Store ID")]
+        [Display(Name = "Store")]
         public int StoreID { get; set; }
 
         [Required]
         [RegularExpression(@"^\d+$", ErrorMessage = "Only category id (integer) allowed.")]
-        [Display(Name = "Category ID")]
+        [Display(Name = "Category")]
         public int CategoryID { get; set; }
 
         [Display(Name = "Currency")]
@@ -65,6 +63,10 @@ namespace net_shop_core.Models
         [RegularExpression(@"[+-]?([0-9]*[.])?[0-9]+", ErrorMessage = "Only numbers allowed.")]
         [Display(Name = "Product Previous Price")]
         public string ProductPreviousPrice { get; set; }
+
+        [Display(Name = "Is Featured?")]
+        [RegularExpression(@"^[0-1]", ErrorMessage = "Only 0 or 1 allowed.")]
+        public int? FeaturedPost { get; set; }
 
         [Required]
         [RegularExpression(@"^.{2,250}$", ErrorMessage = "Minimum 2 characters required, and maximum of 250 characters.")]

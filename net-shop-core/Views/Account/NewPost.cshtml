@@ -6,67 +6,12 @@
     ViewData["Title"] = "New Post";
 }
 
-<!-- Account Style CSS -->
-@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
-
-
 <script>
-    $(function () {
-        $('#newProductForm').on('keydown', '#ProductPrice, #ProductPreviousPrice, #WholeSaleQuantity', function (e) { -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) || /65|67|86|88/.test(e.keyCode) && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode) && e.preventDefault() });
-    })
-
-    //description counter
-    const max = 500;
-    function countCharDescription(val) {
-        const len = val.value.length;
-        if (len >= max) {
-            val.value = val.value.substring(0, max);
-        } else {
-            $('#charNumDescription').text((max - len) + " Remaining");
-        }
-    };
-
-    //Limit file upload buttons to n number
-    function checkUpLimit() {
-        const totalNum = $('.uploadFile').length;
-        if (totalNum > 3) {
-            $('.imgAdd').css({ pointerEvents: "none" });
-
-            $('#add-image').removeClass('fa fa-plus');
-            $('#add-image').addClass('fas fa-location-slash text-danger');
-        }
-        else {
-            $('#add-image').removeClass('fas fa-location-slash text-danger');
-            $('#add-image').addClass('fa fa-plus');
-        }
-    }
-
-    //check if whole sale, enable whole sale quantity
-    $(document).ready(function () {
-        //set readonly on load
-        $("#WholeSaleQuantity").prop('disabled', true);
-
-        //Enable or disable whole sale input
-        $('#ProductType').on('change', function (e) {
-            //Get selected
-            var selectedOption = $(this).children("option:selected").val();
-
-            //Disable Whole Sale Quantity
-            if (selectedOption == "0") {
-                $("#WholeSaleQuantity").prop('disabled', true);
-                $("#WholeSaleQuantity").val('');
-                $("#WholeSaleQuantity").prop('required', false);
-            }
-            //Enable Whole Sale Quantity
-            else if (selectedOption == "1") {
-                $("#WholeSaleQuantity").prop('disabled', false);
-                $("#WholeSaleQuantity").prop('required', true);
-            }
-        });
-
-    });
 
 </script>
+
+<!-- Account Style CSS -->
+@await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
 
 
 
@@ -96,22 +41,18 @@
             <!--row-->
             <div class="row justify-content-center mb-4">
                 <div class="col-12">
-                    <form asp-controller="Account" asp-action="NewPost" id="newProductForm" method="post" enctype="multipart/form-data">
+                    <form asp-controller="Account" asp-action="NewPost" id="ValidateForm" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="row jumbotron border border-dark m-2">
-                            <div class="col-sm-6 form-group">
+                            <div class="col-sm-12 form-group">
                                 <label asp-for="ProductName" class="font-weight-bold h5"></label>
-                                <input asp-for="ProductName" class="form-control" required>
+                                <input asp-for="ProductName" class="form-control count-chars" data-chars-max="250" data-msg-color="danger" maxlength="250" required>
                                 <span asp-validation-for="ProductName" class="text-danger"></span>
                             </div>
-                            <div class="col-sm-6 form-group">
-                                <label asp-for="ProductDescription" class="font-weight-bold h5"></label>
-                                <textarea asp-for="ProductDescription" class="form-control" rows="1" required></textarea>
-                                <span asp-validation-for="ProductDescription" class="text-danger"></span>
-                            </div>
+
                             <div class="col-sm-3 form-group">
                                 <label asp-for="ProductType" class="font-weight-bold h5"></label>
-                                <select class="form-control custom-select" asp-for="ProductType" required>
+                                <select class="form-control custom-select" id="ProductType" name="ProductType" required>
                                     <option value="" class="text-white bg-dark">
                                         Slect Product Type
                                     </option>
@@ -122,32 +63,35 @@
                                         Whole Sale
                                     </option>
                                 </select>
-                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                                <span asp-validation-for="ProductType" class="text-danger"></span>
                             </div>
+
                             <div class="col-sm-3 form-group">
                                 <label asp-for="WholeSaleQuantity" class="font-weight-bold h5"></label>
-                                <input asp-for="WholeSaleQuantity" class="form-control" required>
+                                <input asp-for="WholeSaleQuantity" class="form-control integer-plus-only" readonly>
                                 <span asp-validation-for="WholeSaleQuantity" class="text-danger"></span>
                             </div>
+
                             <div class="col-sm-2 form-group">
                                 <label asp-for="Currency" class="font-weight-bold h5"></label>
                                 <select asp-for="Currency" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CurrencyList,"Code","Code"))" required>
                                     <option value="" class="text-white bg-dark">
-                                        Selecto Currency
+                                        Select Currency
                                     </option>
                                 </select>
                                 <span asp-validation-for="Currency" class="text-danger"></span>
                             </div>
                             <div class="col-sm-2 form-group">
                                 <label asp-for="ProductPrice" class="font-weight-bold h5"></label>
-                                <input asp-for="ProductPrice" class="form-control" required>
+                                <input asp-for="ProductPrice" class="form-control currency-number" required>
                                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
                             </div>
                             <div class="col-sm-2 form-group">
                                 <label asp-for="ProductPreviousPrice" class="font-weight-bold h6"></label>
-                                <input asp-for="ProductPreviousPrice" class="form-control">
+                                <input asp-for="ProductPreviousPrice" class="form-control currency-number">
                                 <span asp-validation-for="ProductPreviousPrice" class="text-danger"></span>
                             </div>
+
                             <div class="col-sm-6 form-group">
                                 <label asp-for="CategoryID" class="font-weight-bold h5"></label>
                                 <select asp-for="CategoryID" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.CategoryList,"ID","CategoryName"))" required>
@@ -157,6 +101,7 @@
                                 </select>
                                 <span asp-validation-for="CategoryID" class="text-danger"></span>
                             </div>
+
                             <div class="col-sm-6 form-group">
                                 <label asp-for="StoreID" class="font-weight-bold h5"></label>
                                 <select asp-for="StoreID" class="form-control custom-select" asp-items="@( new SelectList(@ViewBag.StoresList,"ID","StoreName"))" required>
@@ -166,63 +111,63 @@
                                 </select>
                                 <span asp-validation-for="StoreID" class="text-danger"></span>
                             </div>
+
+
+                            <div class="col-sm-12 form-group mb-2">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="FeaturedPost" id="FeaturedPost" class="form-check-input" value="1">Is Featured?
+                                    </label>
+                                </div>
+                            </div>
+
                             <div class="col-sm-12 form-group">
-                                <label asp-for="ProductTags" class="font-weight-bold h5"></label>
-                                <input asp-for="ProductTags" class="form-control" required>
+                                <label for="ProductTags" class="font-weight-bold h5">Product Tags (separate by commas)</label>
+                                <input asp-for="ProductTags" class="form-control count-chars" data-chars-max="150" data-msg-color="danger" maxlength="150" required>
                                 <span asp-validation-for="ProductTags" class="text-danger"></span>
                             </div>
-                            <div class="col-sm-6 form-group">
-                                <label for="ProductColors" class="font-weight-bold h5">
-                                    Avialable colors
-                                    <small>(hold ctrl/shift to select more than one)</small>
-                                </label>
-                                <select multiple class="form-control" id="ProductColors" name="ProductColors" required>
-                                    <option value="black" class="text-white bg-dark">Black</option>
-                                    <option value="white" class="text-dark bg-white">White</option>
-                                    <option value="red" class="text-white bg-danger">Red</option>
-                                    <option value="blue" class="text-blue bg-info">Blue</option>
-                                    <option value="green" class="text-white bg-success">Green</option>
-                                    <option value="cream" class="text-dark bg-cream">Cream</option>
-                                    <option value="gray" class="text-dark bg-light">Gray</option>
-                                    <option value="pink" class="text-dark bg-pink">Pink</option>
-                                    <option value="brown" class="text-white bg-brown">Brown</option>
-                                    <option value="purple" class="text-white bg-purple">Purple</option>
-                                    <option value="orange" class="text-white bg-orange">Orange</option>
-                                    <option value="yellow" class="text-dark bg-yellow">Yellow</option>
-                                    <option value="gold" class="text-dark bg-gold">Gold</option>
-                                    <option value="mix" class="text-danger">Mix</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <div class="form-group">
-                                    <label for="ProductSizes" class="font-weight-bold h5">
-                                        Product sizes
-                                        <small>(hold ctrl/shift to select more than one)</small>
-                                    </label>
-                                    <select multiple class="form-control" id="ProductSizes" name="ProductSizes" required>
-                                        <option value="NA" class="text-white bg-dark">Not applicable</option>
-                                        <option value="sm" class="text-white bg-dark">Small (sm)</option>
-                                        <option value="md" class="text-white bg-dark">Medium (md)</option>
-                                        <option value="lg" class="text-white bg-dark">Large (lg)</option>
-                                        <option value="xl" class="text-white bg-dark">Extra Large (xl)</option>
-                                    </select>
+
+                            <div class="col-sm-12 form-group">
+                                <label asp-for="ProductDescription" class="font-weight-bold h5"></label>
+                                <div class="bg-white">
+                                    <textarea asp-for="ProductDescription" class="form-control" required></textarea>
                                 </div>
+                                <span asp-validation-for="ProductDescription" class="text-danger"></span>
                             </div>
                             <br>
                             <!-- container -->
                             <div class="container">
-                                <label class="font-weight-bold h5">Product Images</label>
                                 <div class="row">
-                                    <div class="col-sm-2 imgUp">
-                                        <div class="imagePreview"></div>
-                                        <label class="btn btn-primary upload-btn-primary">
-                                            Upload<input type="file" class="uploadFile img" name="ProductImages" id="ProductImages" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <label class="font-weight-bold h5 col-12">Product Images</label>
+                                            <div class="col-sm-2 imgUp">
+                                                <div class="imagePreview"></div>
+                                                <label class="btn btn-primary upload-btn-primary">
+                                                    Upload<input type="file" class="uploadFile img" name="ProductImages" id="ProductImages" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                                </label>
+                                            </div><!-- col-2 -->
+                                            <i class="fa fa-plus imgAdd" id="addImage"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="font-weight-bold h5 col-12">
+                                            Product Video
+                                            <small>(max 10 mb)</small>
                                         </label>
-                                    </div><!-- col-2 -->
-                                    <i class="fa fa-plus imgAdd" onclick="checkUpLimit()" id="add-image"></i>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="ProductVideo" name="ProductVideo">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                    </div>
                                 </div><!-- row -->
                             </div>
                             <!-- //container -->
+
+                            <div class="col-sm-12 form-group d-none">
+                                <input type="text" class="form-control" id="EditPost" name="EditPost" value="False">
+                            </div>
+                            <br>
 
                             <div class="col-sm-12 form-group">
                                 <div class="row">
@@ -246,12 +191,16 @@
 
     </div>
 
-    <script>
-        $("#newProductForm").validate();
-    </script>
-
 </div>
 
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 
 
 <!-- Account Modals -->
