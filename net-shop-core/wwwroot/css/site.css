@@ -548,6 +548,38 @@ button.bg-grey:focus {
 }
 
 
+/* disable div content class */
+.disabled-elements {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+
+
+/* style for profile image overlay icon */
+.image-wrapper {
+    position: relative;
+    width: 6.5em;
+    height: 6.5em;
+}
+
+.primary-pfofile-image {
+    position: absolute;
+    border: 1px solid #000000;
+    z-index: 1;
+    width: 6em;
+    height: 6em;
+}
+
+.secondary-pfofile-image {
+    position: absolute;
+    top: 1.6em;
+    left: 1.5em;
+    z-index: 2;
+    width: 3em;
+    height: 3em;
+}
+
 
 
 

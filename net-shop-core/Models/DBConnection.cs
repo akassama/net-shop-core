@@ -38,8 +38,8 @@ namespace net_shop_core.Models
         public DbSet<PopularThisWeekModel> PopularThisWeek { get; set; }
         public DbSet<CurrencyModel> Currency { get; set; }
         public DbSet<ProductStockModel> ProductStock { get; set; }
-
         public DbSet<StoresModel> Stores { get; set; }
+        public DbSet<CountryModel> Countries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

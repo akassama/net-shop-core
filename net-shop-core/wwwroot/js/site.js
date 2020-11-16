@@ -2,14 +2,14 @@
 // Write your JavaScript code.
 $(document).ready(function () {
 
-//    _____   _____    ____   _____   _    _   _____  _______     _____  __  __            _____  ______ 
-//   |  __ \ |  __ \  / __ \ |  __ \ | |  | | / ____||__   __|   |_   _||  \/  |    /\    / ____||  ____|
-//   | |__) || |__) || |  | || |  | || |  | || |        | |        | |  | \  / |   /  \  | |  __ | |__   
-//   |  ___/ |  _  / | |  | || |  | || |  | || |        | |        | |  | |\/| |  / /\ \ | | |_ ||  __|  
-//   | |     | | \ \ | |__| || |__| || |__| || |____    | |       _| |_ | |  | | / ____ \| |__| || |____ 
-//   |_|     |_|  \_\ \____/ |_____/  \____/  \_____|   |_|      |_____||_|  |_|/_/    \_\\_____||______|
-//                                                                                                       
-//
+    //    _____   _____    ____   _____   _    _   _____  _______     _____  __  __            _____  ______ 
+    //   |  __ \ |  __ \  / __ \ |  __ \ | |  | | / ____||__   __|   |_   _||  \/  |    /\    / ____||  ____|
+    //   | |__) || |__) || |  | || |  | || |  | || |        | |        | |  | \  / |   /  \  | |  __ | |__   
+    //   |  ___/ |  _  / | |  | || |  | || |  | || |        | |        | |  | |\/| |  / /\ \ | | |_ ||  __|  
+    //   | |     | | \ \ | |__| || |__| || |__| || |____    | |       _| |_ | |  | | / ____ \| |__| || |____ 
+    //   |_|     |_|  \_\ \____/ |_____/  \____/  \_____|   |_|      |_____||_|  |_|/_/    \_\\_____||______|
+    //                                                                                                       
+    //
 
     /**
     * Sets modal image for product
@@ -19,6 +19,7 @@ $(document).ready(function () {
         const img_link = $(this).attr('src');
         $("#modalImage").attr("src", img_link);
         $("#modalImageLink").attr("href", img_link);
+        jQuery.noConflict();
         $('#imageModal').modal('show');
     });
 
@@ -35,14 +36,14 @@ $(document).ready(function () {
 
 
 
-//     _____  _    _   ____   _____   _____  _____  _   _   _____      _____            _____  _______ 
-//    / ____|| |  | | / __ \ |  __ \ |  __ \|_   _|| \ | | / ____|    / ____|    /\    |  __ \|__   __|
-//   | (___  | |__| || |  | || |__) || |__) | | |  |  \| || |  __    | |        /  \   | |__) |  | |   
-//    \___ \ |  __  || |  | ||  ___/ |  ___/  | |  | . ` || | |_ |   | |       / /\ \  |  _  /   | |   
-//    ____) || |  | || |__| || |     | |     _| |_ | |\  || |__| |   | |____  / ____ \ | | \ \   | |   
-//   |_____/ |_|  |_| \____/ |_|     |_|    |_____||_| \_| \_____|    \_____|/_/    \_\|_|  \_\  |_|   
-//                                                                                                     
-//
+    //     _____  _    _   ____   _____   _____  _____  _   _   _____      _____            _____  _______ 
+    //    / ____|| |  | | / __ \ |  __ \ |  __ \|_   _|| \ | | / ____|    / ____|    /\    |  __ \|__   __|
+    //   | (___  | |__| || |  | || |__) || |__) | | |  |  \| || |  __    | |        /  \   | |__) |  | |   
+    //    \___ \ |  __  || |  | ||  ___/ |  ___/  | |  | . ` || | |_ |   | |       / /\ \  |  _  /   | |   
+    //    ____) || |  | || |__| || |     | |     _| |_ | |\  || |__| |   | |____  / ____ \ | | \ \   | |   
+    //   |_____/ |_|  |_| \____/ |_|     |_|    |_____||_| \_| \_____|    \_____|/_/    \_\|_|  \_\  |_|   
+    //                                                                                                     
+    //
     /**
     * Adds product data to shopping cart session data
     *
@@ -62,6 +63,10 @@ $(document).ready(function () {
         const session_data = product_id + "," + product_name + "," + product_price + "," + product_quantity + "," + product_image + "," + product_link + "[#]";
         const cart_data = $.session.get('ShoppingCart');
         $.session.set('ShoppingCart', cart_data + session_data);
+
+        //set cart total price
+        $.session.set('SubtotalPrice', 0);
+        $.session.set('TotalPrice', 0);
 
         setCartNumber();//update total number in cart 
 
@@ -104,6 +109,45 @@ $(document).ready(function () {
 
 
     /**
+    * Set total price cart on document ready
+    *
+    */
+    $(document).ready(function () {
+        //set price input
+        var sub_total_price_data = $.session.get('SubtotalPrice');
+        var total_price_data = $.session.get('TotalPrice');
+
+        $("#SubtotalPrice").text("D" + sub_total_price_data);
+        $("#TotalPrice").text("D" + total_price_data);
+
+        //set hidden inputs
+        $("#SubtotalPriceInput").val(sub_total_price_data);
+        $("#TotalPriceInput").val(total_price_data);
+        $("#CheckoutTotal").val(text2Binary(total_price_data));
+    });
+
+
+    /**
+    * Convert string to binary
+    *
+    */
+    function text2Binary(string) {
+        return string.split('').map(function (char) {
+            return char.charCodeAt(0).toString(2);
+        }).join(' ');
+    }
+
+
+    /**
+    * Reloads page
+    *
+    */
+    function reloadPage() {
+        location.reload();
+    }
+
+
+    /**
     * Clears shopping cart, then closes confirmation modal
     *
     */
@@ -111,7 +155,7 @@ $(document).ready(function () {
         setTimeout(
             function () {
                 $.session.set('ShoppingCart', "");
-                location.reload();// reload page
+                reloadPage();// reload page
             }, 150);
     });
 
@@ -145,7 +189,7 @@ $(document).ready(function () {
 
                 setCartNumber();//update total number in cart 
 
-                location.reload();// reload page
+                reloadPage();// reload page
             }, 100);
     });
 
@@ -180,6 +224,8 @@ $(document).ready(function () {
     */
     $("#UpdateCart").click(function () {
         const host = window.location.origin;//get site host url
+
+        //iterate through table and set shopping cart data
         var session_data = "";
         $('.table > tbody  > tr').each(function () { 
             $this = $(this);
@@ -205,8 +251,45 @@ $(document).ready(function () {
 
         $.session.set('ShoppingCart', session_data); //update cart data
         setCartNumber();//update total number in cart 
-        location.reload();// reload page
+        updateCartTotal();
+        reloadPage();// reload page
     });
+
+
+    /**
+    * Updates cart total price
+    *
+    */
+    function updateCartTotal() {
+        //iterate through table and set shopping cart data
+        var price_data = "";
+        $('.table > tbody  > tr').each(function () {
+            $this = $(this);
+
+            const product_price = $this.find("span.pr-price").html();
+            const product_quantity = $this.find("input.pr-quantity").val();
+
+            price_data += (product_price * product_quantity) +",";
+        });
+
+        //remove last comma
+        var lastChar = price_data.slice(-1);
+        if (lastChar == ',') {
+            price_data = price_data.slice(0, -1);
+        }
+
+        var total_price_data = 0;
+        var priceArray = price_data.split(",");
+        $.each(priceArray, function (i) {
+            total_price_data += parseFloat(priceArray[i]);
+        });
+
+
+        //set price input
+        $.session.set('SubtotalPrice', total_price_data);
+        $.session.set('TotalPrice', total_price_data);
+    }
+
 
 
     /**

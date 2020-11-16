@@ -100,7 +100,7 @@ namespace AppHelpers.App_Code
         }
 
         //get account profile picture
-        public static string GetAccountProfilePicture(string account_id) 
+        public static string GetAccountProfilePicture(string account_id)
         {
             try
             {
@@ -177,7 +177,7 @@ namespace AppHelpers.App_Code
                     return db.Products.Count(s => s.CategoryID == category_id);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //TODO log error
                 Console.WriteLine(ex);
@@ -197,10 +197,10 @@ namespace AppHelpers.App_Code
 
             using (var db = new DBConnection())
             {
-                var query = db.ProductImages.Where(s => s.ProductID == product_id).OrderBy(s=> s.ID).Take(1);
+                var query = db.ProductImages.Where(s => s.ProductID == product_id).OrderBy(s => s.ID).Take(1);
                 if (query.Any())
                 {
-                    return  directory_name + "/products/" + query.FirstOrDefault().ImageLink;
+                    return directory_name + "/products/" + query.FirstOrDefault().ImageLink;
                 }
             }
 
@@ -285,7 +285,7 @@ namespace AppHelpers.App_Code
                     string result = "";
                     foreach (var item in query)
                     {
-                        result += "<li class='mb-1'><a href='/Collections/Category/" + item.CategoryName + "' class='d-flex'> <span>" + item.CategoryName + "</span> <span class='text-black ml-auto'>("+GetProductCategoryCount(item.ID)+")</span> </a></li>";
+                        result += "<li class='mb-1'><a href='/Collections/Category/" + item.CategoryName + "' class='d-flex'> <span>" + item.CategoryName + "</span> <span class='text-black ml-auto'>(" + GetProductCategoryCount(item.ID) + ")</span> </a></li>";
                     }
                     return new HtmlString(result);
                 }
@@ -387,11 +387,11 @@ namespace AppHelpers.App_Code
         {
             try
             {
-                if(!string.IsNullOrEmpty(product_id))
+                if (!string.IsNullOrEmpty(product_id))
                 {
                     using (var db = new DBConnection())
                     {
-                        if(db.Products.Any(s=> s.ProductID == product_id))
+                        if (db.Products.Any(s => s.ProductID == product_id))
                         {
                             switch (return_data)
                             {
@@ -443,7 +443,7 @@ namespace AppHelpers.App_Code
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //TODO log error
                 Console.WriteLine(ex);
@@ -474,7 +474,7 @@ namespace AppHelpers.App_Code
         public static HtmlString GetCurrentProductColors(string product_id)
         {
             string result = "";
-            using(var db = new DBConnection())
+            using (var db = new DBConnection())
             {
                 var DBQuery = db.ProductColors.Where(s => s.ProductID == product_id);
                 if (DBQuery.Any())
@@ -534,7 +534,7 @@ namespace AppHelpers.App_Code
                 string SizeType = "Size Type: " + GetSizeMappings(gender) + " - " + GetSizeMappings(category);
                 string Size = "Size: " + product_size.Split(",")[2];
 
-                result += $@"{CountrySize} | {SizeType} | {Size}"; 
+                result += $@"{CountrySize} | {SizeType} | {Size}";
             }
             return new HtmlString(result);
         }

@@ -1,6 +1,22 @@
-﻿@{
+﻿@model net_shop_core.Models.AccountsModel
+@using AppHelpers.App_Code
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
     ViewData["Title"] = "Profile";
+
+    string AccountID = HttpContextAccessor.HttpContext.Session.GetString("_AccountId");
+    string ConnectionString = ViewBag.ConnectionString;
+
+    if (ViewBag.EditProfile == "true")
+    {
+        <script>
+            $("#ProfileForm").addClass("disabled-elements");
+        </script>
+    }
 }
+
 
 <!-- Account Style CSS -->
 @await Html.PartialAsync("~/Views/Shared/AccountLayout/_AccountStyle.cshtml")
@@ -19,11 +35,79 @@
 
         <div class="container-fluid">
             <h1 class="mt-4">
-                Bootstrap 4 Admin Dashboard
+                Profile
             </h1>
-            <div class="row">
+            <div class="row mb-3 p-2">
+                <p>
+                    @{
+                        if (ViewBag.EditProfile == "true")
+                        {
+                            <div class="co-12 mb-1">
+                                <div class="image-wrapper mt-2" id="ProfilePicDiv">
+                                    <img class="primary-pfofile-image rounded" src="@AccountHelper.GetAccountProfilePicture(AccountID)" />
+                                    <img class="secondary-pfofile-image" src="~/files/defaults/account/camera-icon.png" />
+                                </div>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <span class="text-danger text-left" id="ImageFileName"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <img src="@HttpContextAccessor.HttpContext.Session.GetString("_LoginProfilePicture")" class="rounded" alt="Cinque Terre" width="120" height="120">
+                        }
 
+                    }
+
+                </p>
+                <form id="NewPost" asp-controller="Admin" asp-action="Profile" method="post" enctype="multipart/form-data">
+                    <div class="row ProfileForm">
+                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-6 mb-2">
+                            <label for="FirstName">First Name:</label>
+                            <input type="text" class="form-control" maxlength="100" asp-for="FirstName" required>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-6 mb-2">
+                            <label for="LastName">Last Name:</label>
+                            <input type="text" class="form-control" maxlength="100" asp-for="LastName" required>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-6 mb-2">
+                            <label for="Email">Email:</label>
+                            <input type="email" class="form-control" maxlength="100" asp-for="Email" required>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-6 mb-2">
+                            <label for="Num">Mobile Number:</label>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="text" class="form-control integer-only" maxlength="5" asp-for="CountryCode" required>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control integer-only" maxlength="20" asp-for="PhoneNumber" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+                            <label for="Country">
+                                Nationality:
+                            </label>
+                            <select name="Country" id="Country" class="form-control" asp-items="@( new SelectList(@ViewBag.CountriesList,"ID","Name"))" required>
+                            </select>
+                        </div>
+
+                        <!-- hidden selected profile picture -->
+                        <div class="form-group d-none">
+                            <input type="file" class="form-control-file border" id="ProfileSelect" name="file" accept="image/*">
+                            <input type="hidden" class="form-control" maxlength="20" id="AccountID" name="AccountID" value="@Model.AccountID" required>
+                        </div>
+
+                    </div>
+                    @if (ViewBag.EditProfile == "true")
+                    {
+                        <button type="submit" id="UpdateSettingProfile" class="btn btn-primary mt-3 disable-on-click">Update</button>
+                    }
+                </form>
             </div>
+            <!--/row-->
         </div>
 
     </div>

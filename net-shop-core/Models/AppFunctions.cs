@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static AppHelpers.App_Code.AccountHelper;
 
 namespace net_shop_core.Models
 {
@@ -805,6 +806,25 @@ namespace net_shop_core.Models
                 }
             }
             return false;
+        }
+
+
+        //Get List Of Countries
+        /// <summary>
+        /// Get the list of all countries
+        /// </summary>
+        /// <returns>list of countries</returns>
+        public List<CountryModel> GetCountryList()
+        {
+            using (var db = new DBConnection())
+            {
+                List<CountryModel> country_list = new List<CountryModel>();
+
+                //-- Get data from db --//
+                country_list = db.Countries.OrderBy(s => s.Name).ToList();
+
+                return country_list;
+            }
         }
 
 

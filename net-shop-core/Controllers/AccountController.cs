@@ -654,9 +654,128 @@ namespace ModestLiving.Controllers
             return View(storesModel);
         }
 
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile([FromQuery(Name = "edit")] string edit)
         {
-            return View();
+            string AccountID = _sessionManager.LoginAccountId;
+
+            //get connection string from app settings
+            ViewBag.ConnectionString = _systemConfiguration.connectionString;
+            //Get countries list
+            ViewBag.CountriesList = functions.GetCountryList();
+
+            int id = _context.Accounts.Where(s => s.AccountID == AccountID).FirstOrDefault().ID;
+
+            var accountModel = await _context.Accounts.FindAsync(id);
+            if (accountModel == null)
+            {
+                return NotFound();
+            }
+
+            //checks if edit. Enable/Disable inputs and Update button
+            ViewBag.EditProfile = edit;
+
+            if (!string.IsNullOrEmpty(edit) && edit == "true")
+            {
+                ViewBag.EditProfile = "true";
+            }
+
+            return View(accountModel);
+        }
+
+        // POST: Account/Profile/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(AccountsModel accountsModel)
+        {
+            //get connection string from app settings
+            ViewBag.ConnectionString = _systemConfiguration.connectionString;
+            //Get countries list
+            ViewBag.CountriesList = functions.GetCountryList();
+
+            try
+            {
+                int id = _context.Accounts.Where(s => s.AccountID == accountsModel.AccountID).FirstOrDefault().ID;
+                if (id != accountsModel.ID)
+                {
+                    return NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        //Set post image to empty. Assigned upon upload
+                        string ProfileImage = null;
+                        //Upload profile image if uploaded
+                        //Image dimention
+                        int ImageHeight = 150;
+                        int ImageWidth = 150;
+
+                        //check if PostImage in model
+                        if (Request.Form.Files.Count > 0)
+                        {
+                            //Saving file with resize, text and image watermark
+                            var DirectoryName = _sessionManager.LoginDirectoryName;
+                            var SavePath = @"wwwroot\\files\\" + DirectoryName + "\\";
+
+                            //create directory if not exist
+                            Directory.CreateDirectory(SavePath);
+
+                            foreach (var file in Request.Form.Files)
+                            {
+                                if (file.Length > 0)
+                                {
+                                    using (var stream = file.OpenReadStream())
+                                    {
+                                        using (var img = Image.FromStream(stream))
+                                        {
+                                            string NewFileName = functions.RandomString(8) + "-" + file.FileName;
+
+                                            img.ScaleAndCrop(ImageWidth, ImageHeight)
+                                                .SaveAs(SavePath + "\\" + NewFileName);
+
+                                            //Set profile image
+                                            ProfileImage = NewFileName;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        accountsModel.ProfilePicture = ProfileImage;
+
+                        _context.Update(accountsModel);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!AccountsModelExists(accountsModel.ID))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    TempData["SuccessMessage"] = "Profile updated.";
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(accountsModel);
+            }
+            catch (Exception ex)
+            {
+                //Log Error
+                _logger.LogInformation("Edit Profile Error: " + ex.ToString());
+
+                TempData["ErrorMessage"] = "An error occured while processing your request.";
+                return View(accountsModel);
+            }
+        }
+
+        private bool AccountsModelExists(int id)
+        {
+            return _context.Accounts.Any(e => e.ID == id);
         }
 
         public IActionResult Settings()
